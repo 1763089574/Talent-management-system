@@ -13,8 +13,5 @@ public class IndexEnterController {
     public String EnterToWorker(){
         return "WorkerIndex";
     }
-    /*@RequestMapping("/EnterToWorker")
-    public String EnterToWorker(){
-        return "CompanyIndex";
-    }*/
+
 }
