@@ -10,9 +10,9 @@
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/hos?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://localhost:3306/managment?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
                         userId="root"
-                        password="admin">
+                        password="root">
             <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
@@ -33,7 +33,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table schema="managment" tableName="Company" domainObjectName="Company">
+        <table schema="managment" tableName="company" domainObjectName="Company">
             <property name="constructorBased" value="true"/>
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>

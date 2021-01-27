@@ -6,6 +6,8 @@
     <title>公司登陆页</title>
     <link rel="stylesheet" href="/assets/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/dmaku.css">
+    <script src="/assets/js/vue.js"></script>
+
 
 </head>
 
@@ -14,14 +16,31 @@
         <div class="form-container sign-up-container">
             <form action="#">
                 <h1>注册</h1>
-                <div class="social-container">
+                <!--<div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
+                </div>-->
                 <span>或使用邮箱注册</span>
-                <input type="text" placeholder="姓名">
+                <input type="text" placeholder="请输入账号">
                 <input type="email" placeholder="电子邮箱">
+
+                <input type="text" placeholder="请输入手机号" style="width:60% ">
+                <button style="border-radius: 20px;
+                width: 30%;
+                     border: 1px solid #ff4b2b;
+                      background: #ff4b2b;
+    color: #fff;
+    font-size: 12px;
+    /*font-weight: bold;*/
+    padding: 1px 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+   ">获取验证码</button>
+
+                <input type="password" placeholder="请输入验证码">
+                <input type="password" placeholder="密码">
                 <input type="password" placeholder="密码">
                 <button>注册</button>
             </form>
@@ -57,7 +76,21 @@
         </div>
     </div>
     <!--<script src="static/js/dmaku.js"></script>-->
+    <script>
+        var app=new Vue({
+            el:"dowebok",
+            data:{
+
+
+            },
+
+        });
+    </script>
     <script src="/assets/js/dmaku.js"></script>
+    <style>
+
+    </style>
+
 </body>
 
 </html>
