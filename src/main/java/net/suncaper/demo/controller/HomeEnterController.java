@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeEnterController {
     @RequestMapping("/EnterToCompany")
     public String EnterToCompany(){
-        return "CompanyIndex";
+        return "company_login";
     }
     @RequestMapping("/EnterToWorker")
     public String EnterToWorker(){
-        return "WorkerIndex";
+        return "employee_login";
     }
 
 }
