@@ -3,15 +3,11 @@
 
 <head>
 
-
-    <script src="/static_employee/jquery.min.js"></script>
-    <script  src="/static_employee/js/yanz.js"></script>
-    <script src="/assets/js/vue.js"></script>
-    <script src="/assets/js/axios.min.js"></script>
+    <script src="../static/assets/js/axios.min.js"></script>
 
 
-    <link rel="stylesheet" href="/assets/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/dmaku.css">
+    <link rel="stylesheet" href="../static/static_company/css/all.min.css">
+    <link rel="stylesheet" href="../static/static_company/css/dmaku.css">
 
 
     <meta charset="utf-8">
@@ -30,6 +26,16 @@
             padding:5px;
             box-sizing:border-box;
             cursor:pointer;
+            height:50%;
+
+        }
+        .code-btn_1 {
+            color: #999;
+            font-size:12px;
+            border:1px solid #999;
+            border-radius:5px;
+            padding:5px;
+            box-sizing:border-box;
             height:50%;
 
         }
@@ -55,7 +61,8 @@
                 <div class="get-code"  style=" display: flex;justify-content: space-between;align-items:center">
                     <input type="email" style="width:70%;" placeholder="验证码">
                     
-                    <span class="code-btn" >获取验证码</span>
+                    <span class="code-btn" @click="check_code" v-if="show" >获取验证码</span>
+                    <span class="code-btn_1" v-else >{{code_time}}s重新获取</span>
                 </div>
               
                 
@@ -113,8 +120,10 @@
         });
     </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/assets/js/dmaku.js"></script>
+    <script src="../static/static_company/js/dmaku.js"></script>
 
 </body>
+<script src="../static/assets/js/vue.js"></script>
+<script  src="../static/static_company/js/yanz.js"></script>
 
 </html>
