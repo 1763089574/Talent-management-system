@@ -1,6 +1,6 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.Company;
+import net.suncaper.demo.common.domain.Company;
 import net.suncaper.demo.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @CrossOrigin
@@ -31,10 +33,15 @@ public class CompanyController {
         System.out.println("name"+name);
 
         Company company=new Company(ID,name,phone,password,0,100);
-
         companyService.Register(company);
+
+
+
+
         return "注册成功";
 
     }
+
+
 
 }

@@ -51,7 +51,8 @@
 
     <div class="dowebok" id="dowebok">
         <div class="form-container sign-up-container">
-            <form action="#">
+            <!--<form >-->
+            <div class="formTable">
                 <h1 style="letter-spacing:10px">注册</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -62,7 +63,7 @@
                 <input type="text"  placeholder="公司名称" v-model="name">
                 <input type="text"  placeholder="手机号" id="tel_num" oninput="value=value.replace(/[^\d]/g,'')" v-model="phone">
                 <div class="get-code"  style=" display: flex;justify-content: space-between;align-items:center">
-                    <input type="email" style="width:70%;" placeholder="验证码">
+                    <input type="text" style="width:70%;" placeholder="验证码">
                     
                     <span class="code-btn" @click="check_code" v-if="show" >获取验证码</span>
                     <span class="code-btn_1" v-else >{{code_time}}s重新获取</span>
@@ -70,9 +71,11 @@
               
                 
                 <input type="password" placeholder="密码" v-model="password">
-                <input type="password" placeholder="再次输入密码" >
+                <input type="password" placeholder="再次输入密码" v-model="repeatpassword" @blur="checkPassword">
+                <label v-if="flag" style="margin-bottom: 10px;color: green">密码不一致，请检查之后重新输入</label>
                 <button class="button1" @click="register" >注册</button>
-            </form>
+            </div>
+            <!--</form>-->
         </div>
         <div class="form-container sign-in-container">
             <form action="#">
@@ -108,7 +111,6 @@
 
     <script src="/assets/js/vue.js"></script>
     <script src="/assets/js/axios.min.js"></script>
-    <script src="/static_company/js/dmaku.js"></script>
     <script  src="/static_company/js/yanz.js"></script>
 
     <script>
@@ -118,30 +120,59 @@
             data:{
                 name:"",//公司名称
                 phone:"",//手机号
-                password:"",
+                password:"",//密码
+                repeatpassword:"",//校验密码
+                flag:false,
+
 
             },
             methods:
                 {
+                    checkPassword:function(){//检查两次密码是否一致
+                        if(this.password!=this.repeatpassword)
+                        {
+                            this.flag=true;
+                        }
+                        else
+                        {
+                            this.flag=false;
+                        }
+
+                    },
                     register:function () {
                         var that=this
+                        that.checkPassword();
+                        console.log("调用前")
                         //axios.get()
-                        axios.get("http://localhost:8280/company/register",{
-                            params:{
-                                name:that.name,
-                                phone:that.phone,
-                                password:that.password
-                            }
-                        }).then(
-                            function (response) {
-                                console.log("成功"+response.data)
-                            },
-                            function (err) {
-                                console.log("失败"+err)
-                            }
-                        )
+                        if(that.name=="")
+                        {
+                            alert("请输入公司名称")
+                        }
+                        else if(that.phone==""){
+                            alert("请输入手机号")
+                        }
+                        else if(that.name==""){
+                            alert("请输入公司手机号")
+                        }
+                        else {
+                                    axios.get("http://localhost:8280/company/register", {
+                                        params: {
+                                            name: that.name,
+                                            phone: that.phone,
+                                            password: that.password,
 
-                        console.log("注册")
+                                        }
+                                    }).then(
+                                        function (response) {
+                                            console.log("成功" + response.data)
+                                        },
+                                        function (err) {
+                                            console.log("失败" + err)
+                                        }
+                                    )
+                        }
+
+
                     }
 
                 }
@@ -155,7 +186,7 @@
 
         signUpButton.addEventListener('click', function () {
             container.classList.add('right-panel-active')
-            console.log("111")
+            console.log("222")
         })
 
         signInButton.addEventListener('click', function () {

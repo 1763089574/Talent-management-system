@@ -1,9 +1,10 @@
 package net.suncaper.demo.service;
 
-import net.suncaper.demo.domain.Company;
+import net.suncaper.demo.common.domain.Company;
+
 
 public interface CompanyService {
 
-    void Register(Company company);
+    void Register(Company company);//员工注册
 
 }
