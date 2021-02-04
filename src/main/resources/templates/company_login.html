@@ -52,7 +52,7 @@
     <div class="dowebok" id="dowebok">
         <div class="form-container sign-up-container">
             <!--<form >-->
-            <div class="formTable">
+            <div id="dowebok2" class="formTable">
                 <h1 style="letter-spacing:10px">注册</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -60,8 +60,10 @@
 <!--                    <a href="#" class="social"><i class="fa fa-user-plus" ></i></a>-->
                 </div>
                 <span>使用公司手机号注册</span>
-                <input type="text"  placeholder="公司名称" v-model="name">
-                <input type="text"  placeholder="手机号" id="tel_num" oninput="value=value.replace(/[^\d]/g,'')" v-model="phone">
+                <input type="text"  placeholder="公司名称" v-model="name" @input="checkName">
+                <label v-if="flagName" style="margin-bottom: 3px;color: green">该公司名称已被注册，请重新输入</label>
+                <input type="text"  placeholder="手机号" id="tel_num" oninput="value=value.replace(/[^\d]/g,'')" v-model="phone" @input="checkPhone">
+                <label v-if="flagPhone" style="margin-bottom: 3px;color: green">该手机号已被注册，请直接登陆</label>
                 <div class="get-code"  style=" display: flex;justify-content: space-between;align-items:center">
                     <input type="text" style="width:70%;" placeholder="验证码">
                     
@@ -72,25 +74,34 @@
                 
                 <input type="password" placeholder="密码" v-model="password">
                 <input type="password" placeholder="再次输入密码" v-model="repeatpassword" @blur="checkPassword">
-                <label v-if="flag" style="margin-bottom: 10px;color: green">密码不一致，请检查之后重新输入</label>
+                <label v-if="flagPassword" style="margin-bottom: 10px;color: green">密码不一致，请检查之后重新输入</label>
                 <button class="button1" @click="register" >注册</button>
             </div>
             <!--</form>-->
         </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
+        <div id="myLogin" class="form-container sign-in-container">
+            <!--<form>-->
+            <div class="my">
                 <h1 style="letter-spacing:10px">公司登录</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a> -->
                     <a href="#" class="social"><i class="fa fa-user"></i></a>
                 </div>
-                <span>使用公司手机号</span>
-                <input type="email" placeholder="手机号">
-                <input type="password" placeholder="密码">
-                <a href="#">忘记密码？</a>
-                <button class="button1" >登录</button>
-            </form>
+
+                <div >
+                    <span>使用公司手机号</span>
+                    <input type="text" placeholder="手机号" v-model="loginPhone">
+                    <input type="password" placeholder="密码" v-model="loginPassword">
+                    <a href="#">忘记密码？</a>
+                    <!--<button class="button1" @click="login">登录</button>-->
+                    <button type="button"  @click="myLogin">登录</button>
+                </div>
+
+            </div>
+
+
+            <!--</form>-->
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -113,31 +124,119 @@
     <script src="/assets/js/axios.min.js"></script>
     <script  src="/static_company/js/yanz.js"></script>
 
-    <script>
 
+    <script>
+        var one=new Vue({
+            el:"#myLogin",
+            data:{
+                loginPhone:"",
+                loginPassword:""
+            },
+            methods:
+                {
+                    myLogin:function(){
+                        var that=this;
+                        console.log("登陆前")
+                        axios.get("http://localhost:8280/company/login", {
+                            params: {
+                                loginPhone: that.loginPhone,
+                                loginPassword: that.loginPassword,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("登陆成功" + response.data)
+                                console.log( response)
+                                console.log( response.data)
+
+                            },
+                            function (err) {
+                                console.log("失败" + err)
+                            }
+                        )
+                    },
+                }
+
+        });
         var app=new Vue({
-            el:"#dowebok",
+            el:"#dowebok2",
             data:{
                 name:"",//公司名称
                 phone:"",//手机号
                 password:"",//密码
                 repeatpassword:"",//校验密码
-                flag:false,
+                flagName:false,
+                flagPhone:false,
+                flagPassword:false,
+                /*loginPhone:"",//登陆账号
+                loginPasswrd:"",//登陆密码*/
 
 
             },
             methods:
                 {
+                    checkName:function(){//检查公司名称是否已被注册
+                        var that=this
+                        axios.get("http://localhost:8280/company/checkName", {
+                            params: {
+                                name: that.name,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("检查name成功" + response.data)
+                                that.flagName=response.data;
+                            },
+                            function (err) {
+                                console.log("检查name失败" + err)
+                            }
+                        )
+
+
+                    },
+                    checkPhone:function(){//检查手机号是否已被注册
+                        var that=this
+                        axios.get("http://localhost:8280/company/checkPhone", {
+                            params: {
+                                phone: that.phone,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("检查phone成功" + response.data)
+                                that.flagPhone=response.data;
+                            },
+                            function (err) {
+                                console.log("检查phone失败" + err)
+                            }
+                        )
+
+                    },
+
                     checkPassword:function(){//检查两次密码是否一致
                         if(this.password!=this.repeatpassword)
                         {
-                            this.flag=true;
+                            this.flagPassword=true;
                         }
                         else
                         {
-                            this.flag=false;
+                            this.flagPassword=false;
                         }
 
+                    },
+                    login:function(){
+                        var that=this;
+                        axios.get("http://localhost:8280/company/login", {
+                            params: {
+                                loginPhone: that.loginPhone,
+                                loginPassword: that.loginPassword,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("登陆成功" + response.data)
+
+                            },
+                            function (err) {
+                                console.log("失败" + err)
+                            }
+                        )
                     },
                     register:function () {
                         var that=this
@@ -165,6 +264,7 @@
                                     }).then(
                                         function (response) {
                                             console.log("成功" + response.data)
+                                            alert("注册成功")
                                         },
                                         function (err) {
                                             console.log("失败" + err)
