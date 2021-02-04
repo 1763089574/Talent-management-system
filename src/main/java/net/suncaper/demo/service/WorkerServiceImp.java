@@ -28,4 +28,16 @@ public class WorkerServiceImp implements WorkerService{
     public void register_(Worker worker){
         workerMapper.insert(worker);
     }
+
+    public boolean login(Worker worker){
+        WorkerExample example = new WorkerExample();
+        example.createCriteria().andPhonenumberEqualTo(worker.getPhonenumber()).andPasswordEqualTo(worker.getPassword());
+        List<Worker> workers = workerMapper.selectByExample(example);
+        if(workers.size()!=0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

@@ -65,7 +65,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form id="loginForm_" action="#">
                 <h1 style="letter-spacing:10px">员工登录</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -73,10 +73,10 @@
                     <a href="#" class="social"><i class="fa fa-user"></i></a>
                 </div>
                 <span>使用您的手机号</span>
-                <input type="email" placeholder="手机号">
-                <input type="password" placeholder="密码">
+                <input type="text" placeholder="手机号" v-model="phonenumber">
+                <input type="password" placeholder="密码" v-model="password">
                 <a href="#">忘记密码？</a>
-                <button class="button1" id="1">登录</button>
+                <button class="button1" id="1" v-on:click="login">登录</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -100,6 +100,6 @@
     <script src="/assets/js/vue.js"></script>
     <script src="/assets/js/axios.min.js"></script>
     <script  src="/static_worker/js/yanz.js"></script>
-<!--
+
 
 </html>

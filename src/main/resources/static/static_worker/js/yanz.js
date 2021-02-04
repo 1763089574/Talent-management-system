@@ -1,4 +1,26 @@
-
+var login_ = new Vue({
+    el:'#loginForm_',
+    data:{
+        phonenumber:"",
+        password:""
+    },
+    methods: {
+        login:function (){
+            axios.get('/login', {
+                params: {
+                    phonenumber:this.phonenumber,
+                    password:this.password
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
+})
 
 var login = new Vue({
     el:"#loginForm",

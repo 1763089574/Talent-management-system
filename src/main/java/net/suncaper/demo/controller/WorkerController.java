@@ -58,5 +58,22 @@ public class WorkerController {
         workerService.register_(man);
     }
 
+    @GetMapping("/login")
+
+    @ResponseBody
+    public String login_(HttpServletRequest request) throws ClientException, NoSuchAlgorithmException {
+        String phonenumber = request.getParameter("phonenumber");
+
+        String password = GetHashCode(request.getParameter("password"));
+        Worker man = new Worker();
+
+        man.setPhonenumber(phonenumber);
+        man.setPassword(password);
+        if(workerService.login(man)){
+            return "workerPageHome";
+        }else{
+            return "登陆失败";
+        }
+    }
 
 }
