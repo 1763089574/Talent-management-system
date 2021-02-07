@@ -1,6 +1,8 @@
 
 new Vue({
-    el:".get-code",
+    //el:".get-code",
+    //el:"#dowebok2",
+    el:"",
     data:{
         show:true,
         code_time:5

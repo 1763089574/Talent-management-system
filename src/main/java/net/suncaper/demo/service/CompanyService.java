@@ -11,7 +11,8 @@ public interface CompanyService {
 
     public long checkName(String name);//检查公司名称是否已注册
 
-    public long checkPhone(String phone);//检查公司名称是否已注册
+    public long checkPhone(String phone);//检查公司号码是否已注册
 
-    public List<Company> companyLogin(String phone,String password);//公司登陆并返回公司信息
+    //public List<Company> companyLogin(String phone,String password);//公司登陆并返回公司信息
+    public int companyLogin(String phone,String password);//公司登陆并返回公司信息
 }

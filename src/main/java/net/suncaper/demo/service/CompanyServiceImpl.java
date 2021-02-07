@@ -41,13 +41,30 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Company> companyLogin(String phone, String password) {
+    //public List<Company> companyLogin(String phone, String password) {
+    public int companyLogin(String phone, String password) {
+        Integer id=null;
+        String realPassword=null;
         CompanyExample example = new CompanyExample();
         CompanyExample.Criteria criteria = example.createCriteria();
         criteria.andPhonenumberEqualTo(phone);
-        criteria.andPasswordEqualTo(password);
+        //criteria.andPasswordEqualTo(password);
 
         List<Company> company=companyMapper.selectByExample(example);
-        return company;
+        if(!company.isEmpty()){
+            id=company.get(0).getId();
+            realPassword=company.get(0).getPassword();
+            System.out.println("真正的密码:"+realPassword);
+            System.out.println("公司的id:"+id);
+            if(password.equals(realPassword))
+            {
+                return id;
+            }
+            else
+            return -1;//-1代表账号密码错误
+        }
+        else
+            return 0;//0代表没有查询到这个公司
+
     }
 }

@@ -59,7 +59,7 @@ var login = new Vue({
                 this.show=!this.show;
             }
         },
-        check_code(){
+        check_code:function(){
 
             if(this.phonenumber.length!=11){
                 alert("请输入正确的电话号码！");

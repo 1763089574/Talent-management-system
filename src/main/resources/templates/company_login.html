@@ -50,9 +50,9 @@
 <body>
 
     <div class="dowebok" id="dowebok">
-        <div class="form-container sign-up-container">
+        <div  class="form-container sign-up-container">
             <!--<form >-->
-            <div id="dowebok2" class="formTable">
+            <div id="myRegister" class="formTable">
                 <h1 style="letter-spacing:10px">注册</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -60,22 +60,26 @@
 <!--                    <a href="#" class="social"><i class="fa fa-user-plus" ></i></a>-->
                 </div>
                 <span>使用公司手机号注册</span>
-                <input type="text"  placeholder="公司名称" v-model="name" @input="checkName">
-                <label v-if="flagName" style="margin-bottom: 3px;color: green">该公司名称已被注册，请重新输入</label>
-                <input type="text"  placeholder="手机号" id="tel_num" oninput="value=value.replace(/[^\d]/g,'')" v-model="phone" @input="checkPhone">
-                <label v-if="flagPhone" style="margin-bottom: 3px;color: green">该手机号已被注册，请直接登陆</label>
-                <div class="get-code"  style=" display: flex;justify-content: space-between;align-items:center">
-                    <input type="text" style="width:70%;" placeholder="验证码">
-                    
-                    <span class="code-btn" @click="check_code" v-if="show" >获取验证码</span>
-                    <span class="code-btn_1" v-else >{{code_time}}s重新获取</span>
-                </div>
-              
-                
-                <input type="password" placeholder="密码" v-model="password">
-                <input type="password" placeholder="再次输入密码" v-model="repeatpassword" @blur="checkPassword">
-                <label v-if="flagPassword" style="margin-bottom: 10px;color: green">密码不一致，请检查之后重新输入</label>
-                <button class="button1" @click="register" >注册</button>
+
+
+                    <input type="text"  placeholder="公司名称" v-model="name" @input="checkName">
+                    <label v-if="flagName" style="margin-bottom: 3px;color: green">该公司名称已被注册，请重新输入</label>
+                    <input type="text"  placeholder="手机号" id="tel_num" oninput="value=value.replace(/[^\d]/g,'')" v-model="phone" @input="checkPhone">
+                    <label v-if="flagPhone" style="margin-bottom: 3px;color: green">该手机号已被注册，请直接登陆</label>
+
+                    <div  class="get-code"  style=" display: flex;justify-content: space-between;align-items:center">
+                        <input type="text" style="width:70%;" placeholder="验证码" v-model="user_code">
+
+                        <span class="code-btn" @click="check_code"  v-if="show" >获取验证码</span>
+                        <span class="code-btn_1" v-else >{{code_time}}s重新获取</span>
+                    </div>
+
+
+                    <input type="password" placeholder="密码" v-model="password">
+                    <input type="password" placeholder="再次输入密码" v-model="repeatpassword" @input="checkPassword">
+                    <label v-if="flagPassword" style="margin-bottom: 10px;color: green">密码不一致，请检查之后重新输入</label>
+                    <button class="button1" @click="register" >注册</button>
+
             </div>
             <!--</form>-->
         </div>
@@ -122,11 +126,12 @@
 
     <script src="/assets/js/vue.js"></script>
     <script src="/assets/js/axios.min.js"></script>
-    <script  src="/static_company/js/yanz.js"></script>
+    <!--<script  src="/static_company/js/yanz.js"></script>-->
 
 
     <script>
-        var one=new Vue({
+
+        var one=new Vue({//登陆页面
             el:"#myLogin",
             data:{
                 loginPhone:"",
@@ -137,7 +142,7 @@
                     myLogin:function(){
                         var that=this;
                         console.log("登陆前")
-                        axios.get("http://localhost:8280/company/login", {
+                        axios.get("http://localhost:8280/company/checkCompany", {
                             params: {
                                 loginPhone: that.loginPhone,
                                 loginPassword: that.loginPassword,
@@ -147,6 +152,18 @@
                                 console.log("登陆成功" + response.data)
                                 console.log( response)
                                 console.log( response.data)
+                                if(response.data==0){//0代表没有这个公司
+                                    alert("未查询到该账号，请注册之后再登陆")
+                                }
+                                else if(response.data==-1)//-1代表有这个公司，但是密码输入错误
+                                {
+
+                                    alert("密码错误，请检查之后重新输入")
+                                }
+                                else//跳转到公司首页
+                                {
+
+                                }
 
                             },
                             function (err) {
@@ -157,23 +174,64 @@
                 }
 
         });
-        var app=new Vue({
-            el:"#dowebok2",
+        var app=new Vue({//注册页面
+            el:"#myRegister",
             data:{
                 name:"",//公司名称
                 phone:"",//手机号
                 password:"",//密码
                 repeatpassword:"",//校验密码
-                flagName:false,
-                flagPhone:false,
-                flagPassword:false,
-                /*loginPhone:"",//登陆账号
-                loginPasswrd:"",//登陆密码*/
-
+                flagName:false,//公司名称是否已存在
+                flagPhone:false,//电话号码是否已存在
+                flagPassword:false,//两次密码是否一致
+                show:true,//是否发送验证码
+                code_time:5,//验证码倒计时
+                code:"",//后台生成的验证码
+                user_code:"",//用户输入的验证码
 
             },
             methods:
                 {
+                    time1:function (){//时间函数
+                        this.code_time=this.code_time-1;
+                        console.log(this.code_time);
+                        if(this.code_time==0){
+                            clearInterval(this.time_count);
+                            this.time_count = null;
+                            this.code_time=5;
+                            this.show=!this.show;
+                        }
+                    },
+                    check_code:function (){//发送验证码
+                        var that=this
+                        this.show=!this.show;
+                        this.time_count = setInterval(this.time1,1000);
+                        var code = Math.floor(Math.random()*(9999-1000))+1000;
+                        that.code=code;
+                        console.log("code"+that.code);
+                        if(that.phone=="")
+                        {
+                            alert("请输入手机号后再发送验证码")
+                        }
+                        else
+                        {
+                                axios.get("http://localhost:8280/company/check_code", {
+                                    params: {
+                                        phone:that.phone,
+                                        code:that.code,
+                                    }
+                                }).then(
+                                    function (response) {
+                                        console.log("发送code成功" + response.data)
+                                    },
+                                    function (err) {
+                                        console.log("发送code失败" + err)
+                                    }
+                                )
+
+                        }
+
+                    },
                     checkName:function(){//检查公司名称是否已被注册
                         var that=this
                         axios.get("http://localhost:8280/company/checkName", {
@@ -250,8 +308,27 @@
                         else if(that.phone==""){
                             alert("请输入手机号")
                         }
-                        else if(that.name==""){
-                            alert("请输入公司手机号")
+                        else if(that.password==""){
+                            alert("请输入密码")
+                        }
+                        else if(that.repeatpassword=="")
+                        {
+                            alert("请再次输入密码")
+                        }
+                        else if(that.flagName==true)
+                        {
+                            alert("公司名称已经存在，请重新输入")
+                        }
+                        else if(that.flagPhone==true)
+                        {
+                            alert("该手机号已被注册，请重新输入")
+                        }
+                        else if(that.flagPassword==true)
+                        {
+                            alert("两次密码不一致，请检查之后重新输入")
+                        }
+                        else if(that.code!=that.user_code){
+                            alert("验证码错误，请重新输入")
                         }
                         else {
                                     axios.get("http://localhost:8280/company/register", {
