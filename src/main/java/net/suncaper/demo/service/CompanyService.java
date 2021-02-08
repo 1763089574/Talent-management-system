@@ -15,4 +15,6 @@ public interface CompanyService {
 
     //public List<Company> companyLogin(String phone,String password);//公司登陆并返回公司信息
     public int companyLogin(String phone,String password);//公司登陆并返回公司信息
+
+    public Company selectByPrimaryKey(Integer id);//根据id查询公司信息
 }

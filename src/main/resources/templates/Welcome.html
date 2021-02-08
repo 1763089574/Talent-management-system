@@ -7,18 +7,18 @@
     <title>Target Material Design Bootstrap Admin Template</title>
 	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="../static/assets/materialize/css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" href="/assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
-    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link href="../static/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- Morris Chart Styles-->
-    <link href="../static/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link href="../static/assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="../static/assets/js/Lightweight-Chart/cssCharts.css"> 
+    <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
 </head>
 <body>
     <div id="wrapper">
@@ -31,23 +31,25 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">track_changes</i> <strong>target</strong></a>
-				
-		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+
+		      <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+
             </div>
 
-            <ul class="nav navbar-top-links navbar-right"> 
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>				
+            <ul class="nav navbar-top-links navbar-right">
+				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
+    </div>
 		<!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
 <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
 </li>
 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-</li> 
+</li>
 <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 </li>
 </ul>
@@ -170,7 +172,7 @@
 	</li>
 	<li class="divider"></li>
 	<li>
-</ul>   
+</ul>
 <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
   <li>
                                 <div>
@@ -212,7 +214,7 @@
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
-</ul>  
+</ul>
 	   <!--/. NAV TOP  -->
        <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
@@ -264,32 +266,71 @@
     </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-		  <div class="header"> 
+		  <div class="header">
                         <h1 class="page-header">
                             欢迎登录伯乐人才系统 <small></small>
                         </h1>
-                        <h1 class="page-header" style="margin:30%;">
-                            欢迎，邓拳 <small></small>
+                        <h1 class="page-header" style="margin:30%;" v-text="message">
+                             <small></small>
                         </h1>
-									
+
 		</div>
+        </div>
 
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="../static/assets/js/jquery-1.10.2.js"></script>
-	
+    <script src="/assets/js/jquery-1.10.2.js"></script>
+
 	<!-- Bootstrap Js -->
-    <script src="../static/assets/js/bootstrap.min.js"></script>
-	
-	<script src="../static/assets/materialize/js/materialize.min.js"></script>
-	
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+	<script src="/assets/materialize/js/materialize.min.js"></script>
+
     <!-- Metis Menu Js -->
-		<script src="../static/assets/js/jquery.metisMenu.js"></script> 
+            <script src="/assets/js/jquery.metisMenu.js"></script>
     <!-- Custom Js -->
-    <script src="../static/assets/js/custom-scripts.js"></script> 
-	
- 
+    <script src="/assets/js/custom-scripts.js"></script>
+            <script src="/assets/js/vue.js"></script>
+            <script src="/assets/js/axios.min.js"></script>
+            <script>
+                var one=new Vue({
+                    el:"#page-wrapper",
+                    data:{
+                        message:"",
+                    },
+                    methods:{
+
+                    },
+                    created:function () {
+                        var that=this
+                        console.log("这里是Welcome.html")
+                        axios.get("/GlobalVariable/GetCompanyId").then(
+                            function (response) {
+                                console.log("读取全局变量的id:"+response.data)
+                            },
+                            function (err) {
+                                console.log(err)
+
+                            }
+                        )
+                        axios.get("/GlobalVariable/GetCompanyName").then(
+                            function (response) {
+                                console.log("读取全局变量的id:"+response.data)
+                                that.message=response.data
+                            },
+                            function (err) {
+                                console.log(err)
+
+                            }
+                        )
+
+                    }
+                })
+            </script>
+
+
+
 
 </body>
 

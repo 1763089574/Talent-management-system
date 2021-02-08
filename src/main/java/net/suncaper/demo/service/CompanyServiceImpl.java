@@ -67,4 +67,10 @@ public class CompanyServiceImpl implements CompanyService {
             return 0;//0代表没有查询到这个公司
 
     }
+
+    @Override
+    public Company selectByPrimaryKey(Integer id) {
+        Company company=companyMapper.selectByPrimaryKey(id);
+        return company;
+    }
 }

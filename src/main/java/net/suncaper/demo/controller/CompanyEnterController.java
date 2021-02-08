@@ -90,9 +90,7 @@ public class CompanyEnterController {
         String tmpPassword=request.getParameter("loginPassword");
         System.out.println("tmpPassword"+tmpPassword);
         String password= null;
-
         password = Integer.toString(HashCode.GetHashCode(tmpPassword));
-
         System.out.println("真正的password:"+password);
         Integer id=companyService.companyLogin(phone,password);
         //List<Company> company=companyService.companyLogin(phone,password);
