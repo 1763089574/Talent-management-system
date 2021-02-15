@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -82,10 +84,10 @@ public class CompanyEnterController {
 
 
     }
-    @GetMapping("checkCompany")
+    @GetMapping("checkCompany")//登陆校验，只是校验，不登陆,返回公司id
 
     //public List<Company> checkCompany(HttpServletRequest request){//查询公司信息是否存在，并返回公司信息
-    public int checkCompany(HttpServletRequest request){//查询公司信息是否存在，并返回公司信息
+    public int checkCompany(HttpServletRequest request)  {//查询公司信息是否存在，并返回公司信息，需要校验账号和密码
         String phone=request.getParameter("loginPhone");
         String tmpPassword=request.getParameter("loginPassword");
         System.out.println("tmpPassword"+tmpPassword);
@@ -96,6 +98,8 @@ public class CompanyEnterController {
         //List<Company> company=companyService.companyLogin(phone,password);
         System.out.println("company"+id);
         System.out.println(id);
+
+
 
         return id;
     }

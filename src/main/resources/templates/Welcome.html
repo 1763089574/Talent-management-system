@@ -227,10 +227,10 @@
                     <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level ">
                         <li>
-                            <a href="TalentQuery.html">人才查询</a>
+                            <a href="/EnterToTalentQuery">人才查询</a>
                         </li>
                         <li>
-                            <a href="TalentCompare.html">人才比较</a>
+                            <a href="/EnterToTalentCompare">人才比较</a>
                         </li>
                     </ul>
                 </li>
@@ -238,7 +238,7 @@
                     <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="QueryStaff.html">查询员工</a>
+                            <a href="/EnterToQueryStaff">查询员工</a>
                         </li>
                         <li>
                             <a href="AuditStaff.html">审核员工</a>
@@ -307,7 +307,7 @@
                         console.log("这里是Welcome.html")
                         axios.get("/GlobalVariable/GetCompanyId").then(
                             function (response) {
-                                console.log("读取全局变量的id:"+response.data)
+                                console.log("读取cookie中的id:"+response.data)
                             },
                             function (err) {
                                 console.log(err)
@@ -316,7 +316,7 @@
                         )
                         axios.get("/GlobalVariable/GetCompanyName").then(
                             function (response) {
-                                console.log("读取全局变量的id:"+response.data)
+                                console.log("读取cookie中的name:"+response.data)
                                 that.message=response.data
                             },
                             function (err) {

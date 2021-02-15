@@ -40,4 +40,25 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+
+    @Override
+    public List<Worker> GetAllWorkersByCompanyId(String CompanyId) {
+
+        System.out.println("WorkerServiceImpl");
+        WorkerExample example=new WorkerExample();
+        WorkerExample.Criteria criteria=example.createCriteria();
+        criteria.andBelongEqualTo(CompanyId);
+        List<Worker> workers=workerMapper.selectByExample(example);
+
+        if(!workers.isEmpty()){
+
+
+                String idcard = workers.get(0).getIdcard();
+                System.out.println(idcard);
+
+
+
+        }
+        return workers;
+    }
 }

@@ -42,7 +42,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     //public List<Company> companyLogin(String phone, String password) {
-    public int companyLogin(String phone, String password) {
+    public int companyLogin(String phone, String password) {//公司登陆校验，只是校验，-1代表账号密码错误,0代表没有查询到这个公司，大于等于1代表查询到了这个公司
         Integer id=null;
         String realPassword=null;
         CompanyExample example = new CompanyExample();
