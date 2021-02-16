@@ -2,9 +2,14 @@ package net.suncaper.demo.service;
 
 import net.suncaper.demo.common.domain.Company;
 import net.suncaper.demo.common.domain.CompanyExample;
+import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.common.domain.WorkerExample;
 import net.suncaper.demo.mapper.CompanyMapper;
+import net.suncaper.demo.mapper.WorkerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +17,8 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private WorkerMapper workerMapper;
 
     @Override
     public void Register(Company company) {
@@ -72,5 +79,20 @@ public class CompanyServiceImpl implements CompanyService {
     public Company selectByPrimaryKey(Integer id) {
         Company company=companyMapper.selectByPrimaryKey(id);
         return company;
+    }
+
+    @Override
+    public List<Worker> findAll() {
+        WorkerExample example = new WorkerExample();
+        WorkerExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIsNotNull();
+        List<Worker> workers = workerMapper.selectByExample(example);
+        return workers;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Worker> findLike(String name, String major, int minAge, int maxAge, String education, String sex) {
+        return workerMapper.findLike(name, major, minAge, maxAge, education, sex);
     }
 }
