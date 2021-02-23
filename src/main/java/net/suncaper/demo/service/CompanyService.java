@@ -19,6 +19,8 @@ public interface CompanyService {
 
     public Company selectByPrimaryKey(Integer id);//根据id查询公司信息
 
+    public List<Worker> GetAllWorkersByCompanyId(String CompanyId);//根据CompanyId查询隶属于这个公司的所有员工
+
     List<Worker> findAll();
     List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);
 }

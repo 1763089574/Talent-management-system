@@ -84,8 +84,10 @@
             <!--</form>-->
         </div>
         <div id="myLogin" class="form-container sign-in-container">
-            <!--<form>-->
+
             <div class="my">
+
+
                 <h1 style="letter-spacing:10px">公司登录</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -97,15 +99,21 @@
                     <span>使用公司手机号</span>
                     <input type="text" placeholder="手机号" v-model="loginPhone">
                     <input type="password" placeholder="密码" v-model="loginPassword">
-                    <a href="#">忘记密码？</a>
+
+
+                    <input style="width:5%;" type="checkbox" id="checkbox" checked="checked" ><label>记住登陆</label>
+
+
                     <!--<button class="button1" @click="login">登录</button>-->
-                    <button type="button"  @click="myLogin">登录</button>
+                    <button style="width: 100%;margin-top: 10px" @click="myLogin">登录</button>
+                    <a href="#">忘记密码？</a>
+
                 </div>
 
             </div>
 
 
-            <!--</form>-->
+
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -142,6 +150,7 @@
                     myLogin:function(){
                         var that=this;
                         console.log("登陆前")
+                        console.log(document.getElementById("checkbox").checked)
                         axios.get("http://localhost:8280/company/checkCompany", {
                             params: {
                                 loginPhone: that.loginPhone,
@@ -181,6 +190,11 @@
                             }
                         )
                     },
+                },
+                created:function () {
+
+
+
                 }
 
         });

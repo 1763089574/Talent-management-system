@@ -79,6 +79,20 @@ public class CompanyServiceImpl implements CompanyService {
     public Company selectByPrimaryKey(Integer id) {
         Company company=companyMapper.selectByPrimaryKey(id);
         return company;
+
+
+    }
+
+    @Override
+    public List<Worker> GetAllWorkersByCompanyId(String CompanyId) {
+
+        System.out.println("CompanyServiceImpl.GetAllWorkersByCompanyId");
+        WorkerExample example=new WorkerExample();
+        WorkerExample.Criteria criteria=example.createCriteria();
+        criteria.andBelongEqualTo(CompanyId);
+        List<Worker> workers=workerMapper.selectByExample(example);
+
+        return workers;
     }
 
     @Override
