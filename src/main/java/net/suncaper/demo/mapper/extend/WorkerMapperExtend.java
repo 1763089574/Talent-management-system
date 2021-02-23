@@ -1,6 +1,7 @@
 package net.suncaper.demo.mapper.extend;
 
 import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.mapper.WorkerMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

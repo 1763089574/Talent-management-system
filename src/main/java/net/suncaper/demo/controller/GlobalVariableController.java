@@ -16,6 +16,7 @@ public class GlobalVariableController {//全局变量控制器，需要什么就
 
     public static int id;//公司id
     public static String name;//公司名称
+    public static int workerID;//员工ID
     @GetMapping("GetCompanyId")
     public int GetCompanyID(HttpServletRequest request, HttpServletResponse response) throws IOException {//公司Id被存在全局变量中，需要的时候就从里面取
         Cookie[] cookies=request.getCookies();
@@ -50,5 +51,22 @@ public class GlobalVariableController {//全局变量控制器，需要什么就
         }
 
         return name;
+    }
+    @GetMapping("GetWorkerId")
+    public int GetWorkerId(HttpServletRequest request, HttpServletResponse response) throws IOException {//公司Id被存在全局变量中，需要的时候就从里面取
+        Cookie[] cookies=request.getCookies();
+        for(Cookie cookie:cookies){
+            System.out.println("getWorkerID");
+            System.out.println("value:" + cookie.getValue());
+            System.out.println("name:" + cookie.getName());
+            if (cookie.getName().equals("workerid")) {
+                workerID=Integer.parseInt(cookie.getValue());
+            }
+            /*else {
+                response.sendRedirect("/EnterToCompany");
+            }*/
+        }
+
+        return workerID;
     }
 }

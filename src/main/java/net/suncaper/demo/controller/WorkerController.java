@@ -4,21 +4,20 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import net.suncaper.demo.common.domain.Worker;
 import net.suncaper.demo.common.util.HashCode;
-import net.suncaper.demo.mapper.WorkerMapper;
 import net.suncaper.demo.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.security.NoSuchAlgorithmException;
 
 import static net.suncaper.demo.common.util.AliyunSms.sendSms;
-import static net.suncaper.demo.common.util.HashCode.GetHashCode;
 
 @Controller
 public class WorkerController {
@@ -63,7 +62,7 @@ public class WorkerController {
     @GetMapping("/login")
 
     @ResponseBody
-    public String login_(HttpServletRequest request) throws ClientException, NoSuchAlgorithmException {
+    public int login_(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
         String phonenumber = request.getParameter("phonenumber");
 
         //String password = GetHashCode(request.getParameter("password"));//邓拳写的
@@ -73,10 +72,48 @@ public class WorkerController {
         man.setPhonenumber(phonenumber);
         man.setPassword(password);
         if(workerService.login(man)){
-            return "workerPageHome";
+            //登陆成功的用户，其员工ID被存入cookie中去
+            int id = workerService.getWorkerID(man);
+            //cookie似乎只能存放String，所以吧workerid转一下类型
+            String Sid = String.valueOf(id);
+            Cookie cookie = new Cookie("workerid",Sid);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+            return 1;//登陆成功
         }else{
-            return "登陆失败";
+            return 0;//登陆失败
         }
+    }
+
+    @GetMapping("/getWorkerNameByID")
+
+    @ResponseBody
+    public String getWorkerNameByID(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerid");
+        int workerid = Integer.valueOf(Str_id);
+        Worker worker = workerService.getWorkerByID(workerid);
+        return worker.getName();
+    }
+
+    @GetMapping("/getWorkerAllInformationByID")
+
+    @ResponseBody
+    public Worker getWorkerAllInformationByID(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerid");
+        int workerid = Integer.valueOf(Str_id);
+        Worker worker = workerService.getWorkerByID(workerid);
+        if(worker.getIdcard()!=null){
+            worker.setIdcard(worker.getIdcard().substring(0,4)+"**********"+worker.getIdcard().substring(14,18));
+        }
+        return worker;
+    }
+
+    @RequestMapping(value = "/login1")
+    public String login1(HttpServletRequest request) throws ClientException, NoSuchAlgorithmException {
+        String phonenumber = request.getParameter("phonenumber");
+
+        return "WorkerPages/WorkerHome";
     }
 
 }

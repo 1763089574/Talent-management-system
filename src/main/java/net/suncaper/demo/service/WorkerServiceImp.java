@@ -40,6 +40,19 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+    public int getWorkerID(Worker worker){
+        WorkerExample example = new WorkerExample();
+        example.createCriteria().andPhonenumberEqualTo(worker.getPhonenumber()).andPasswordEqualTo(worker.getPassword());
+        List<Worker> workers = workerMapper.selectByExample(example);
+
+        return workers.get(0).getId();
+
+    }
+
+    public Worker getWorkerByID(int workerid){
+        Worker worker = workerMapper.selectByPrimaryKey(workerid);
+        return worker;
+    }
 
     @Override
     public List<Worker> GetAllWorkersByCompanyId(String CompanyId) {

@@ -6,6 +6,7 @@ var login_ = new Vue({
     },
     methods: {
         login:function (){
+            var that = this;
             axios.get('/login', {
                 params: {
                     phonenumber:this.phonenumber,
@@ -13,7 +14,12 @@ var login_ = new Vue({
                 }
             })
                 .then(function (response) {
-                    console.log(response);
+
+                    if(response.data==1){
+                        window.location.href="/login1?phonenumber="//+that.phonenumber
+                    }else{
+                        alert("手机号码或密码错误！");
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
