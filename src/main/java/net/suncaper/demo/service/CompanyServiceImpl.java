@@ -104,9 +104,9 @@ public class CompanyServiceImpl implements CompanyService {
         return workers;
     }
 
-    @Override
+    /*@Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Worker> findLike(String name, String major, int minAge, int maxAge, String education, String sex) {
         return workerMapper.findLike(name, major, minAge, maxAge, education, sex);
-    }
+    }*/
 }

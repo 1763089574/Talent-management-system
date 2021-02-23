@@ -22,5 +22,5 @@ public interface CompanyService {
     public List<Worker> GetAllWorkersByCompanyId(String CompanyId);//根据CompanyId查询隶属于这个公司的所有员工
 
     List<Worker> findAll();
-    List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);
+    /*List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);*/
 }

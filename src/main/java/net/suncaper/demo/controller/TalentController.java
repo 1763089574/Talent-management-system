@@ -23,9 +23,9 @@ public class TalentController {
         return companyService.findAll();
     }
 
-    @GetMapping("/findLike")
+    /*@GetMapping("/findLike")
     public List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex){
         System.out.println(name+major+minAge+maxAge+education+sex);
         return companyService.findLike(name, major, minAge, maxAge, education, sex);
-    }
+    }*/
 }
