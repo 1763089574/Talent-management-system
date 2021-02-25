@@ -104,6 +104,14 @@ public class CompanyServiceImpl implements CompanyService {
         return workers;
     }
 
+    @Override
+    public List<Company> findAllCompany() {
+        CompanyExample companyExample = new CompanyExample();
+        companyExample.createCriteria().andFlagEqualTo(1);
+        List<Company> companies = companyMapper.selectByExample(companyExample);
+        return companies;
+    }
+
     /*@Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Worker> findLike(String name, String major, int minAge, int maxAge, String education, String sex) {

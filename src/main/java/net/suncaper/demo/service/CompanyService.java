@@ -22,5 +22,6 @@ public interface CompanyService {
     public List<Worker> GetAllWorkersByCompanyId(String CompanyId);//根据CompanyId查询隶属于这个公司的所有员工
 
     List<Worker> findAll();
+    List<Company> findAllCompany();//返回所有认证成功的公司列表
     /*List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);*/
 }

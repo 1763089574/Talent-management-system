@@ -38,6 +38,11 @@
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>
 
+        <table schema="managment" tableName="company" domainObjectName="Company">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+
 
     </context>
 </generatorConfiguration>

@@ -3,21 +3,32 @@ var companyList = new Vue({
     data:{
         companyList:[]
     },
-    mounted:function (){
-        this.getCompanyList();//获取当前登录者的姓名
-    },
-    methods:{
-        getCompanyList(){
-            var that = this;
-            axios.get("/GlobalVariable/GetWorkerId")
-                .then(function (response) {
+    created:function (){
+        this.getCompanyList();
 
+    },
+    methods: {
+        getCompanyList() {
+            var that = this;
+            axios.get('/getAllHasIdentifyCompanies')
+                .then(function (response) {
+                    console.log(response);
+                    that.companyList = response.data;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+        }
+
+    },
+    watch:{
+        companyList:function(){
+            this.$nextTick(function(){
+                /*现在数据已经渲染完毕*/
+                $('#dataTables-example').dataTable();
+            })
 
         }
-    }
 
+    }
 })
