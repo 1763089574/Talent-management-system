@@ -30,7 +30,7 @@
     </style> -->
 </head>
 
-<body onload="dele()">
+<body onload>
     <div id="app">
         //modal
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -61,42 +61,17 @@
 
                                                 <thead>
                                                     <tr>
-                                                        <th>评价</th>
-                                                        <th>缺勤次数</th>
-                                                        <th>room_type</th>
-                                                        <th>check_in_time</th>
-                                                        <th>check_out_time</th>
+                                                        <th class="center">任职公司</th>
+                                                        <th class="center">缺勤次数</th>
+                                                        <th class="center">评价</th>
                                                         <!--<th>CSS grade</th>-->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="odd gradeX">
-                                                        <td>非常不错</td>
-                                                        <td>4</td>
-                                                        <td>Win 95+</td>
-                                                        <td class="center">4</td>
-                                                        <td class="center">X</td>
-                                                    </tr>
-                                                    <tr class="odd gradeX">
-                                                        <td>非常不错</td>
-                                                        <td>4</td>
-                                                        <td>Win 95+</td>
-                                                        <td class="center">4</td>
-                                                        <td class="center">X</td>
-                                                    </tr>
-                                                    <tr class="odd gradeX">
-                                                        <td>非常不错</td>
-                                                        <td>4</td>
-                                                        <td>Win 95+</td>
-                                                        <td class="center">4</td>
-                                                        <td class="center">X</td>
-                                                    </tr>
-                                                    <tr class="odd gradeX">
-                                                        <td>非常不错</td>
-                                                        <td>4</td>
-                                                        <td>Win 95+</td>
-                                                        <td class="center">4</td>
-                                                        <td class="center">X</td>
+                                                    <tr class="odd gradeX" v-for="detailData,index in detailDatas" :key="detailData.id">
+                                                        <td class="center">{{detailData.companyName}}</td>
+                                                        <td class="center">{{detailData.lateCount}}</td>
+                                                        <td class="center">{{detailData.evaluate}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -490,9 +465,9 @@
                                                     <td class="center">{{worker.phonenumber}}</td>
                                                     <td class="center">{{worker.education}}</td>
                                                     <td class="center">{{worker.major}}</td>
-                                                    <td class="center"><button class="btn btn-primary"
+                                                    <td class="center"><button class="btn btn-primary" @click="detail(worker.id,worker.name)"
                                                             data-toggle="modal" data-target="#myModal"
-                                                            @click="detail(worker.id,worker.name)">详情</button></td>
+                                                            >详情</button></td>
                                                 </tr>
 
                                             </tbody>
@@ -557,7 +532,7 @@
             el: "#app",
             data: {
                 workers: [],
-                user: {},//用来完成数据的双向绑定
+                detailDatas:[],
                 education: "不限",
                 sex: "不限",
                 name: "",
@@ -565,7 +540,9 @@
                 minAge: 0,
                 maxAge: 100,
                 initializationcount: 0,
+                initializationcountDetail: 0,
                 selectName:"",
+
             },
             methods: {
                 findAll() {
@@ -596,6 +573,7 @@
                     })
                 },
                 detail(id,name){
+                    let that = this;
                     this.selectName = name;
                     axios.get("http://127.0.0.1:8280/worker/details", {
                         params: {
@@ -603,7 +581,7 @@
                         }
                     }).then(function (response) {
                         console.log(response.data);
-                        // that.workers = response.data;
+                        that.detailDatas = response.data;
                     })
                 }
                 // })
@@ -649,10 +627,49 @@
                                     }
                                 },
                             });
+
                         })
                     }
-                }
+                },
+                detailDatas: function () {
+                    if (this.initializationcountDetail == 0) {
+                        this.initializationcountDetail = this.initializationcountDetail + 1;
+                        this.$nextTick(function () {
+                            /*现在数据已经渲染完毕*/
+                            $('#dataTables-example').DataTable({
+                                "paging": true,// 开启分页
+                                "pageLength": 1,//每页显示数量
+                                "lengthChange": true,//是否允许用户改变表格每页显示的记录数
+                                "lengthMenu": [1, 2, 5, 7, 10],
+                                "searching": true,//搜索
+                                "ordering": true,//排序
+                                "info": true,//左下角 从 1 到 5 /共 23 条数据
+                                "autoWidth": true,
+                                // "scrollX": "100%",//表格的宽度
+                                // "scrollY": "200px",//表格的高度
+                                "scrollXInner": "100%",//表格的内容宽度
+                                // "bScrollCollapse":true,//当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
+                                // "aaSorting": [
+                                //     [3, 'asc']
+                                // ],
+                                "language": {
+                                    "sInfoEmpty": "没有数据",
+                                    "sZeroRecords": "没有查找到满足条件的数据",
+                                    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                                    "oPaginate": {
+                                        "sFirst": "首页",
+                                        "sPrevious": "前一页",
+                                        "sNext": "后一页",
+                                        "sLast": "尾页"
+                                    }
+                                },
+                            });
 
+                        })
+                    }
+                },
             }
 
         })
