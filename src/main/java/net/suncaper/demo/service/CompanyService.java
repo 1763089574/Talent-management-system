@@ -23,5 +23,5 @@ public interface CompanyService {
 
     List<Worker> findAll();
     List<Company> findAllCompany();//返回所有认证成功的公司列表
-    /*List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);*/
+    List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);
 }
