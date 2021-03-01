@@ -18,7 +18,28 @@
     <link href="/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
+    <style>
+        .myinfo table tr td{font-size:1.8rem;padding:15px 15px 15px 30px;text-align:left}.myinfo table tr td img{border-radius:50%}.myinfo table tr td span{width:30px;height:30px;display:block}.myinfo table tr td a{color:#666}.myinfo table tr:last-child td p{padding:10px 0 0 0}
+    </style>
+    <style>
+        .b ul { list-style-type: none; height: 500px;
+        }
+        .b ul li { border-bottom: 1px solid #000000; border-left: 1px solid #000000; height: 25px; width: 260px; float: left;
+        }
+        .b ul li div{
+            width:230px;
+            overflow:hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow:ellipsis;
+        }
+        .s { border-top: 1px solid #000000;}
+        .r { border-right: 1px solid #000000;}
+
+    </style>
+
+
 </head>
 <body>
     <div id="wrapper">
@@ -30,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">track_changes</i> <strong>target</strong></a>
+                <a class="navbar-brand waves-effect waves-dark" href="template.html"><i class="large material-icons">track_changes</i> <strong>target</strong></a>
 				
 		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
@@ -220,7 +241,7 @@
                 <ul class="nav" id="main-menu">
     
                     <li>
-                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i> 欢迎</a>
+                        <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i> 欢迎</a>
                     </li>
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span class="fa arrow"></span></a>
@@ -292,30 +313,34 @@
                                     <thead>
                                         <tr>
                                             <th>姓名</th>
-                                            <th>身份证号</th>
-                                            <th>性别</th>
+
+                                            <th class="center">性别</th>
                                             <th>出生日期</th>
+                                            <th>学历</th>
+                                            <th>专业</th>
                                             <th>手机号</th>
                                             <th>操作</th>
 
                                             <!--<th>CSS grade</th>-->
                                         </tr>
                                     </thead>
-                                    <!--<tbody>
+                                    <tbody>
 
                                         <tr class="odd gradeX" v-for="(item,index) in workers">
 
-                                            <td>{{item.name}}</td>
-                                            <td>{{item.idcard}}</td>
-                                            <td>{{item.sex}}</td>
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
                                             <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
                                             <td class="center">{{item.phonenumber}}</td>
-                                            <td class="center"><button class="btn btn-danger">删除</button>&nbsp;&nbsp; <button class="btn btn-primary">修改</button></td>
+                                            <td class="center"><button @click="detailInfo(item.id)" class="btn btn-danger" data-toggle="modal" data-target="#myModal" >查看</button></td>
                                         </tr>
 
                                         </tr>
                                        
-                                    </tbody>-->
+                                    </tbody>
 
                                 </table>
                             </div>
@@ -358,457 +383,77 @@
                 <!-- /. ROW  -->
             <div class="row">
                 <div class="col-md-6">
-                  <!--   Kitchen Sink -->
-                    <div class="card">
-                        <div class="card-action">
-                            Kitchen Sink
-                        </div>
-                        <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- End  Kitchen Sink -->
+
                 </div>
                 <div class="col-md-6">
-                     <!--   Basic Table  -->
-                    <div class="card">
-                        <div class="card-action">
-                            Basic Table
-                        </div>
-                        <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                      <!-- End  Basic Table  -->
+
                 </div>
             </div>
                 <!-- /. ROW  -->
             <div class="row">
-                <div class="col-md-6">
-                      <!--    Striped Rows Table  -->
-                    <div class="card">
-                        <div class="card-action">
-                            Striped Rows Table
-                        </div>
-                        <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  End  Striped Rows Table  -->
-                </div>
-                <div class="col-md-6">
-                    <!--    Bordered Table  -->
-                    <div class="card">
-                        <div class="card-action">
-                            Bordered Table
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="card-content">
-                            <div class="table-responsive table-bordered">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                     <!--  End  Bordered Table  -->
-                </div>
+
+
+
             </div>
                 <!-- /. ROW  -->
             <div class="row">
-                <div class="col-md-6">
-                     <!--    Hover Rows  -->
-                    <div class="card">
-                        <div class="card-action">
-                            Hover Rows
-                        </div>
-                        <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End  Hover Rows  -->
+
+
+
                 </div>
                 <div class="col-md-6">
-                     <!--    Context Classes  -->
-                    <div class="card">
-                       
-                        <div class="card-action">
-                            Context Classes
-                        </div>
-                        
-                        <div class="card-content">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="success">
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr class="info">
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr class="warning">
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                        <tr class="danger">
-                                            <td>4</td>
-                                            <td>John</td>
-                                            <td>Smith</td>
-                                            <td>@jsmith</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
 
                <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer>
     </div>
-            </div>
-
-    </div>
-
-    <!--以下是模态框-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
             <div class="modal-content" >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        员工详情
+                    <h4 class="modal-title" id="myModalLabel" v-text="'员工详细信息:'+worker.name">
                     </h4>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Advanced Tables -->
-                            <div class="card">
-                                <div class="card-action">
-                                    Advanced Tables
-                                </div>
-                                <div class="card-content">
-                                    <div class="table-responsive">
-                                        <div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length"><label><select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="1">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records per page</label></div></div>
-                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <div class="modal-body" >
 
-                                            <thead>
-                                            <tr>
-                                                <th>hotel_name</th>
-                                                <th>custom_id</th>
-                                                <th>room_type</th>
-                                                <th>check_in_time</th>
-                                                <th>check_out_time</th>
-                                                <!--<th>CSS grade</th>-->
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 4.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">4</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.0</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 5.5</td>
-                                                <td>Win 95+</td>
-                                                <td class="center">5.5</td>
-                                                <td class="center">A</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--End Advanced Tables -->
-                        </div>
+                    <div class="myinfo">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>姓名|{{worker.name}}</td>
+                                <td>手机|{{worker.phonenumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>性别|{{worker.sex}}</td>
+                                <td>身份证号|{{worker.idcard}}</td>
+                            </tr>
+                            <tr>
+                                <td>出生|{{worker.birth}}</td>
+                                <td>专业|{{worker.major}}</td>
+                            </tr>
+                            <tr>
+                                <td>学历|{{worker.education}}</td>
+                                <td>毕业学校 | 四川大学</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <div >
+                        <label>任职经历：</label>
+                        <ul v-for="(item,index) in dossier">
+                            <li>公司名称:{{item.companyName}}</li>
+                            <li>公司对员工评价:{{item.evaluate}}</li>
+                        </ul>
+
+                    </div>
+
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
@@ -817,9 +462,24 @@
                         提交更改
                     </button>
                 </div>
-            </div><!-- /.modal-content -->
-        <!-- /.modal -->
+            </div>
+
+            </div>
+        </div>
+
     </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
  
 
     <script src="/assets/js/jquery-1.10.2.js"></script>
@@ -833,16 +493,12 @@
 	 <script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
     <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
-    <!--<script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>-->
     <script src="/assets/js/custom-scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/main2.js"></script><!--模板的js-->
     <script src="/assets/js/vue.js"></script>
     <script src="/assets/js/axios.min.js"></script>
     <script>
-        $("#myModal").on("show.bs.modal",function(e){//模态框弹出事件
+        /*$("#myModal").on("show.bs.modal",function(e){//模态框弹出事件
             //获得点击打开的按钮
             var button=$(e.relatedTarget);
             //根据标签获得按钮传入的参数
@@ -850,20 +506,7 @@
             //console.log(recipient);
             console.log("recipient:"+recipient)
 
-
-            var two=new Vue({//模态框绑定的vue
-                el:"myModal",
-                data:{
-                    worker_id:"",
-
-                },
-                methods:{
-
-                },
-
-            })
-
-        });
+        });*/
     </script>
 
     <script>
@@ -871,12 +514,71 @@
         var one=new Vue({
             el:"#wrapper",
             data:{
-                workers:[]
+                workers:[],//公司所属的所有员工
+                //worker:"",//datatable所使用的数据
+                //以下为模态框所使用的数据
+                worker:{
+                    id:"",
+                    name:"",
+                    idcard:"",
+                    phonenumber:"",
+                    sex:"",
+                    birth:"",
+                    belong:"",
+                    education:"",
+                    major:""
+                    //dossier:[],//一个员工有多个dossier
+                },
+                /*id:"",
+                name:"",
+                idCard:"",
+                phoneNumber:"",
+                sex:"",
+                birth:"",
+                belong:"",*/
+                dossier:[],//一个员工有多个dossier
 
             },
             methods: {
+                GetWorkerDetailById:function(id,belong){//得到员工的所有信息
+                    var that=this
+                    /*axios.get("/Querystaff/getEmployById",{
+                        params:{
+                            workerId:id,
+                            belong:belong,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看Employ")
+                            console.log(response.data)
+                        },
+                        function (err) {
+                            console.log(err)
 
-                Initial:function()
+                        }
+                    )*/
+                    axios.get("/Querystaff/getWorkerDetailById",{
+                        params:{
+                            workerId:id,
+                            belong:belong,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看WorkerDetail")
+                            console.log(response.data)
+                            that.dossier=response.data;
+                            console.log("查看that.dossier");
+                            console.log(that.dossier)
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+
+                },
+
+                /*Initial:function()
                 {
                     //$(document).ready(function () {
                         $('#dataTables-example').DataTable({
@@ -932,7 +634,32 @@
                    // })
 
 
-                    },
+                    },*/
+                detailInfo:function (event) {//event就是点击的那个员工id
+                    var that=this
+                    console.log("查看员工id："+event);
+                    axios.get("/Querystaff/GetWorkerById",{
+                        params:{
+                            worker_id:event,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看一个worker:"+response)
+                            console.log(response.data)
+                            that.worker=response.data
+                            that.GetWorkerDetailById(response.data.id,response.data.belong);
+
+
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+
+
+                }
 
                 },
 
@@ -959,7 +686,7 @@
                                 console.log("读取Workers:"+response)
                                 console.log(response.data)
                                 that.workers=response.data;
-                                that.Initial();//读取了数据以后调用方法
+                                //that.Initial();//读取了数据以后调用方法
 
                             },
                             function (err) {
@@ -973,11 +700,37 @@
 
                     }
                 )
+            },
 
+            watch:{
+                workers:function(){
+                    this.$nextTick(function(){
+                        /*现在数据已经渲染完毕*/
+                        $('#dataTables-example').dataTable({
+                            "pageLength": 5,//每页显示数量
+                            "lengthChange": true,//是否允许用户改变表格每页显示的记录数
+                            "lengthMenu": [5,10, 25, 50, 75, 100],
+                            "autoWidth": true,
+                            "language": {
+                                "sInfoEmpty": "没有数据",
+                                "sZeroRecords": "没有查找到满足条件的数据",
+                                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                                "oPaginate": {
+                                    "sFirst": "首页",
+                                    "sPrevious": "前一页",
+                                    "sNext": "后一页",
+                                    "sLast": "尾页"
+                                }
+                            },
+                        });
+                    })
 
-
+                }
 
             }
+
         })
 
     </script>
