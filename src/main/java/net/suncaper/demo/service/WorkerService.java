@@ -1,5 +1,6 @@
 package net.suncaper.demo.service;
 
+import net.suncaper.demo.common.domain.Apply;
 import net.suncaper.demo.common.domain.Worker;
 
 import java.util.List;
@@ -11,5 +12,6 @@ public interface WorkerService {
     int getWorkerID(Worker worker);
     Worker getWorkerByID(int workid);
     public List<Worker> GetAllWorkersByCompanyId(String CompanyId);//根据CompanyId查询隶属于这个公司的所有员工
-
+    void sendWorkerApply(int companyid,int workerid);//员工发送加入公司的申请
+    boolean ifApplying(int workerid);
 }
