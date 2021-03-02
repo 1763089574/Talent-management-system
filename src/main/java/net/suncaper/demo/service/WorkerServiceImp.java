@@ -1,12 +1,9 @@
 package net.suncaper.demo.service;
 
-import net.suncaper.demo.common.domain.Apply;
-import net.suncaper.demo.common.domain.ApplyExample;
-import net.suncaper.demo.common.domain.Worker;
-import net.suncaper.demo.common.domain.WorkerExample;
-import net.suncaper.demo.mapper.ApplyMapper;
-import net.suncaper.demo.mapper.WorkerMapper;
+import net.suncaper.demo.common.domain.*;
+import net.suncaper.demo.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +17,18 @@ public class WorkerServiceImp implements WorkerService{
 
     @Autowired
     ApplyMapper applyMapper;
+
+    @Autowired
+    EmployMapper employMapper;
+
+    @Autowired
+    GradeMapper gradeMapper;
+
+    @Autowired
+    MistakeMapper mistakeMapper;
+
+    @Autowired
+    AchievementMapper achievementMapper;
     public boolean phonenumber_exist(String numbers){
         WorkerExample example = new WorkerExample();
         example.createCriteria().andPhonenumberEqualTo(numbers);
@@ -79,6 +88,55 @@ public class WorkerServiceImp implements WorkerService{
     public Worker getWorkerByID(int workerid){
         Worker worker = workerMapper.selectByPrimaryKey(workerid);
         return worker;
+    }
+
+    public  List<Grade> getNowCompanyGradeByEmployID(int employid){
+        GradeExample gradeExample = new GradeExample();
+        gradeExample.createCriteria().andEmployIdEqualTo(employid);
+        List<Grade> grades = gradeMapper.selectByExample(gradeExample);
+        if(grades.size()>0){
+            return grades;
+        }else{
+            return null;
+        }
+
+    }
+
+    public List<Achievement> getNowCompanyAchievementByEmployID(int employid){
+        AchievementExample achievementExample = new AchievementExample();
+        achievementExample.createCriteria().andEmployIdEqualTo(employid);
+        List<Achievement> achievements = achievementMapper.selectByExample(achievementExample);
+        if(achievements.size()>0){
+            return achievements;
+        }else{
+            return null;
+        }
+
+    }
+
+    public List<Mistake> getNowCompanyMistakeByEmployID(int employid){
+        MistakeExample mistakeExample = new MistakeExample();
+        mistakeExample.createCriteria().andEmployIdEqualTo(employid);
+        List<Mistake> mistakes = mistakeMapper.selectByExample(mistakeExample);
+        if(mistakes.size()>0){
+            return mistakes;
+        }else{
+            return null;
+        }
+
+    }
+
+    public Employ getNowEmploy(int workerid){
+        EmployExample employExample = new EmployExample();
+        employExample.createCriteria().andWorkerIdEqualTo(workerid).andEndDateIsNull();
+        List<Employ> employs = employMapper.selectByExample(employExample);
+        System.out.println(employs.get(0).getId());
+        if(employs.size()>0){
+            return employs.get(0);
+        }else{
+            return null;
+        }
+
     }
 
     @Override

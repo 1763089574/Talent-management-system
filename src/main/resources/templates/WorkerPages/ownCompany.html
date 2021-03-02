@@ -213,13 +213,13 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a class="active-menu waves-effect waves-dark" href="WorkerHome.html"><i class="fa fa-home"></i>首页</a>
+                    <a class="waves-effect waves-dark" href="WorkerHome.html"><i class="fa fa-home"></i>首页</a>
                 </li>
                 <li>
                     <a href="/WorkerPages/CompanySearch" class="waves-effect waves-dark"><i class="fa fa-building-o"></i>公司查询</a>
                 </li>
                 <li>
-                    <a href="/WorkerPages/ownCompany" class="waves-effect waves-dark"><i class="fa fa-external-link-square"></i>所属公司</a>
+                    <a href="/WorkerPages/ownCompany" class="active-menu waves-effect waves-dark"><i class="fa fa-external-link-square"></i>现属公司</a>
                 </li>
                 <li>
                     <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-list-alt"></i>待评价列表</a>
@@ -279,17 +279,103 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                欢迎
+                所属公司
             </h1>
-<!--            <ol class="breadcrumb">-->
-<!--                <li><a href="#">Home</a></li>-->
-<!--                <li><a href="#">Dashboard</a></li>-->
-<!--                <li class="active">Data</li>-->
-<!--            </ol>-->
+            <ol class="breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li class="active">所属公司</li>
+            </ol>
 
         </div>
+        <div id="page-inner">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="card">
+                    <div class="card-action">
+                        现属公司
+                    </div>
+                    <div class="card-content">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">filter_drama</i>公司名称</div>
+                                <div class="collapsible-body"><p>{{nowCompanyName}}</p></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">place</i>入职时间</div>
+                                <div class="collapsible-body"><p>{{nowCompanyStartTime}}</p></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>重大成就</div>
+                                <div class="collapsible-body">
 
-        <!-- /. PAGE INNER  -->
+                                            <div class="card-content">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>序号</th>
+                                                            <th>时间</th>
+                                                            <th>内容</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr v-for="(item,index) in nowCompanyAchievement">
+                                                            <td>{{index+1}}</td>
+                                                            <td>{{item.date|ellipsis}}</td>
+                                                            <td>{{item.achieveContent}}</td>
+
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        <!-- End  Kitchen Sink -->
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>重大差错</div>
+                                <div class="collapsible-body">
+                                    <div class="card-content">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>序号</th>
+                                                    <th>时间</th>
+                                                    <th>内容</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(item,index) in nowCompanyMistake">
+                                                    <td>{{index+1}}</td>
+                                                    <td>{{item.date|ellipsis}}</td>
+                                                    <td>{{item.mistakeContent}}</td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>平均绩效</div>
+                                <div class="collapsible-body"><p>{{nowCompanyAverageGrade}}</p></div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+            <!-- /. PAGE INNER  -->
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
@@ -313,7 +399,7 @@
 <script src="/assets/js/custom-scripts.js"></script>
 
 <script src="/assets/js/workHome.js"></script>
-
+<script src="/assets/js/ownCompany.js"></script>
 
 </body>
 

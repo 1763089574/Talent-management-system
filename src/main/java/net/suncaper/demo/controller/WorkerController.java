@@ -1,9 +1,11 @@
 package net.suncaper.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.common.domain.*;
 import net.suncaper.demo.common.util.HashCode;
+import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
 
 import static net.suncaper.demo.common.util.AliyunSms.sendSms;
 
@@ -23,6 +28,10 @@ import static net.suncaper.demo.common.util.AliyunSms.sendSms;
 public class WorkerController {
     @Autowired
     public WorkerService workerService;
+
+    @Autowired
+    public CompanyService companyService;
+
 
     @GetMapping("/check_number")
 
@@ -107,6 +116,41 @@ public class WorkerController {
             worker.setIdcard(worker.getIdcard().substring(0,4)+"**********"+worker.getIdcard().substring(14,18));
         }
         return worker;
+    }
+
+    @GetMapping("/getNowCompanyInformation")
+
+    @ResponseBody
+    public HashMap getNowCompanyInformation(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerid");
+        int workerid = Integer.valueOf(Str_id);
+        Employ employ = workerService.getNowEmploy(workerid);
+        Company company = companyService.selectByPrimaryKey(employ.getCompanyId());
+        List<Achievement> nowCompanyAchievementByEmployID = workerService.getNowCompanyAchievementByEmployID(employ.getId());
+        List<Mistake> nowCompanyMistakeByEmployID = workerService.getNowCompanyMistakeByEmployID(employ.getId());
+
+        //算绩效平均
+        List<Grade> nowCompanyGradeByEmployID = workerService.getNowCompanyGradeByEmployID(employ.getId());
+        double sum=0;
+        int counter=0;
+        for(Grade item:nowCompanyGradeByEmployID){
+            sum+=item.getContent();
+            counter++;
+        }
+
+
+        String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
+        HashMap Info=new HashMap();
+        Info.put("companyName",company.getName());
+        Info.put("startDate", Integer.parseInt(strNow1[0])+"-"+
+                              Integer.parseInt(strNow1[1])+"-"+
+                              Integer.parseInt(strNow1[2]));
+        Info.put("nowCompanyAchievements",nowCompanyAchievementByEmployID);
+        Info.put("nowCompanyMistakes",nowCompanyMistakeByEmployID);
+        Info.put("averageGrade",sum/counter);
+
+        return Info;
+
     }
 
     @RequestMapping(value = "/login1")
