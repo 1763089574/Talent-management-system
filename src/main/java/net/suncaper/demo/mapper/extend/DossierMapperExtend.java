@@ -1,9 +1,9 @@
-package net.suncaper.demo.service;
+package net.suncaper.demo.mapper.extend;
 
 import net.suncaper.demo.common.domain.Dossier;
 
 import java.util.List;
 
-public interface DossierService {
+public interface DossierMapperExtend {
     List<Dossier> findDetail(int id);
 }
