@@ -54,5 +54,9 @@ public class RouterController {
         }*/
         return "QueryStaff";
     }
+    @RequestMapping("/EnterToAuditStaff")
+    public String EnterToAuditStaff(){
+        return  "AuditStaff";
+    }
 
 }

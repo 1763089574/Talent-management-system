@@ -1,5 +1,6 @@
 package net.suncaper.demo.controller;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import net.suncaper.demo.common.domain.Dossier;
 import net.suncaper.demo.common.domain.Employ;
 import net.suncaper.demo.common.domain.Worker;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("Querystaff")
+@RequestMapping("/staff")
 public class QueryStaffController {
     @Autowired
     public CompanyService companyService;
@@ -72,6 +73,12 @@ public class QueryStaffController {
         return workerDetails;
     }
 
+    @RequestMapping("getApplyList")
+    public List<Worker> getApplyList(HttpServletRequest request)//返回待入职列表，其中返回每个对象都是worker
+    {
+        String companyId=request.getParameter("companyId");
+        return null;
+    }
 
 
 }

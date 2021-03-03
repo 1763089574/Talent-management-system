@@ -16,11 +16,13 @@ public class EmployServiceImpl implements EmployService {
     @Autowired
     CompanyMapper companyMapper;
     @Override
-    public List<Employ> getEmployByWorker(String workerId, String belong) {//找出员工曾经任职过的employ，注意，不包含当前任职的公司
+    public List<Employ> getEmployByWorker(String workerId,String belong) {//找出员工曾经任职过的employ，注意，不包含当前任职的公司
         EmployExample employExample=new EmployExample();
         EmployExample.Criteria criteria=employExample.createCriteria();
-        criteria.andWorkerIdEqualTo(workerId);
-        criteria.andCompanyIdNotEqualTo(belong);
+        Integer workerId2=Integer.valueOf(workerId);
+        Integer belong2=Integer.valueOf(belong);
+        criteria.andWorkerIdEqualTo(workerId2);
+        criteria.andCompanyIdNotEqualTo(belong2);
         List<Employ> employs=employMapper.selectByExample(employExample);
         return employs;
     }

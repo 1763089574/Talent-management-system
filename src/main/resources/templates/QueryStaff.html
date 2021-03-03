@@ -258,10 +258,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="QueryStaff.html" class="active-menu">查询员工</a>
-                            </li>
+                            <a href="/EnterToQueryStaff" class="active-menu">查询员工</a>
+                        </li>
                             <li>
-                                <a href="AuditStaff.html">审核员工</a>
+                                <a href="/EnterToAuditStaff">审核员工</a>
                             </li>
                             <li>
                                 <a href="AddEvaluation.html">添加评价</a>
@@ -288,7 +288,7 @@
         <div id="page-wrapper" >
 		  <div class="header"> 
                         <h1 class="page-header">
-                            人才查询
+                            公司内员工查询
                         </h1>
 						<!-- <ol class="breadcrumb">
 					  <li><a href="#">Home</a></li>
@@ -526,7 +526,7 @@
                     birth:"",
                     belong:"",
                     education:"",
-                    major:""//
+                    major:""//希望覆盖的内容
                     //dossier:[],//一个员工有多个dossier
                 },
                 /*id:"",
@@ -557,7 +557,7 @@
 
                         }
                     )*/
-                    axios.get("/Querystaff/getWorkerDetailById",{
+                    axios.get("/staff/getWorkerDetailById",{
                         params:{
                             workerId:id,
                             belong:belong,
@@ -638,7 +638,7 @@
                 detailInfo:function (event) {//event就是点击的那个员工id
                     var that=this
                     console.log("查看员工id："+event);
-                    axios.get("/Querystaff/GetWorkerById",{
+                    axios.get("/staff/GetWorkerById",{
                         params:{
                             worker_id:event,
                         }
@@ -677,7 +677,7 @@
 
                         console.log("QueryStaff.html页面读取cookie中的id:"+response.data)
 
-                        axios.get("/Querystaff/GetAllWorkers",{
+                        axios.get("/staff/GetAllWorkers",{
                             params:{
                                 CompanyId:response.data,
                             }
