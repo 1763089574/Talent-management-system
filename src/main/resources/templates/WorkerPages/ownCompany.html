@@ -373,6 +373,38 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+            <!--    Striped Rows Table  -->
+            <div class="card">
+                <div class="card-action">
+                    历任公司
+                </div>
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>公司名字</th>
+                                <th>入职日期</th>
+                                <th>离职日期</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item,index) in passCompanyList">
+                                <td>{{index+1}}</td>
+                                <td>{{item.companyName}}</td>
+                                <td>{{item.startDate|ellipsis}}</td>
+                                <td>{{item.endDate|ellipsis}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--  End  Striped Rows Table  -->
+        </div>
         </div>
         </div>
             <!-- /. PAGE INNER  -->
@@ -401,6 +433,7 @@
 <script src="/assets/js/workHome.js"></script>
 <script src="/assets/js/ownCompany.js"></script>
 
+<!-- Custom
 </body>
 
 </html>

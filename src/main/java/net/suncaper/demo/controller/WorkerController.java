@@ -118,6 +118,17 @@ public class WorkerController {
         return worker;
     }
 
+    @GetMapping("/getPassCompanyEmployList")
+
+    @ResponseBody
+    public List<Employ> getPassCompanyEmployList(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerid");
+        int workerid = Integer.valueOf(Str_id);
+        List<Employ> passCompanyEmployList = workerService.getPassCompanyEmployList(workerid);
+
+        return passCompanyEmployList;
+    }
+
     @GetMapping("/getNowCompanyInformation")
 
     @ResponseBody

@@ -138,6 +138,19 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+    public List<Employ> getPassCompanyEmployList(int workerid){
+//        EmployExample employExample = new EmployExample();
+//        employExample.createCriteria().andWorkerIdEqualTo(workerid).andEndDateIsNotNull();
+//        List<Employ> employs = employMapper.selectByExample(employExample);
+
+        List<Employ> passCompanyList = employMapper.getPassCompanyList(workerid);
+        if(passCompanyList.size()>0){
+            return passCompanyList;
+        }else{
+            return null;
+        }
+
+    }
 
     @Override
     public List<Worker> GetAllWorkersByCompanyId(String CompanyId) {

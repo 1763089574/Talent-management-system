@@ -5,7 +5,8 @@ var ownCompany = new Vue({
         nowCompanyStartTime:"",
         nowCompanyAchievement:"",
         nowCompanyMistake:"",
-        nowCompanyAverageGrade:""
+        nowCompanyAverageGrade:"",
+        passCompanyList:""
     },
     filters: {
         ellipsis(value) {
@@ -18,8 +19,33 @@ var ownCompany = new Vue({
     },
     created:function (){
         this.getNowCompanyInformation();
+        this.getPassCompanyEmployList();
     },
     methods:{
+        getPassCompanyEmployList(){
+            var that = this;
+            axios.get("/GlobalVariable/GetWorkerId") .then()
+                .then(function (response) {
+
+                    var workerid = response.data;
+                    axios.get('/getPassCompanyEmployList', {
+                        params: {
+                            workerid:workerid
+                        }
+                    })
+                        .then(function (response) {
+                           that.passCompanyList = response.data;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         getNowCompanyInformation(){
             var that = this;
             axios.get("/GlobalVariable/GetWorkerId") .then()
@@ -32,7 +58,6 @@ var ownCompany = new Vue({
                         }
                     })
                         .then(function (response) {
-                            console.log(response);
                             that.nowCompanyName = response.data.companyName;
                             that.nowCompanyStartTime=response.data.startDate;
                             that.nowCompanyAchievement=response.data.nowCompanyAchievements;
