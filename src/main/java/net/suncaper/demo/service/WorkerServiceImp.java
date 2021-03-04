@@ -28,6 +28,9 @@ public class WorkerServiceImp implements WorkerService{
     MistakeMapper mistakeMapper;
 
     @Autowired
+    ResignMapper resignMapper;
+
+    @Autowired
     AchievementMapper achievementMapper;
     public boolean phonenumber_exist(String numbers){
         WorkerExample example = new WorkerExample();
@@ -113,7 +116,22 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+    public List<Resign> getResignList(int workerId){
 
+        List<Resign> resigns = resignMapper.getResignListByWorkerid(workerId);
+        if(resigns.size()>0){
+            return resigns;
+        }else{
+            return null;
+        }
+
+    }
+    public void confirmResignApply(int resignId){
+        Resign resign = resignMapper.selectByPrimaryKey(resignId);
+        resign.setIsconsent("1");
+        resignMapper.updateByPrimaryKey(resign);
+
+    }
     public List<Mistake> getNowCompanyMistakeByEmployID(int employid){
         MistakeExample mistakeExample = new MistakeExample();
         mistakeExample.createCriteria().andEmployIdEqualTo(employid);
