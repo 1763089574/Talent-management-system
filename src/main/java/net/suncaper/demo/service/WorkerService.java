@@ -18,4 +18,6 @@ public interface WorkerService {
     List<Achievement> getNowCompanyAchievementByEmployID(int employid);//通过employ_id 得到对应的Achievement类实例 ，没有就返回null ——DQ
     List<Mistake> getNowCompanyMistakeByEmployID(int employid);//通过employ_id 得到对应的Mistake类实例 ，没有就返回null ——DQ
     List<Employ> getPassCompanyEmployList(int workerid);
+    List<Resign> getResignList(int workerId);//通过workerId 得到对应的resign表列表 ，没有就返回null ——DQ
+    void confirmResignApply(int resignId);//通过resignId，将resign字符有0改为1（表示员工已经确认离职通知）成功返回true ，失败就返回false ——DQ
 }

@@ -129,6 +129,25 @@ public class WorkerController {
         return passCompanyEmployList;
     }
 
+    @GetMapping("/getResignList")
+
+    @ResponseBody
+    public List<Resign> getResignList(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerId");
+        int workerId = Integer.valueOf(Str_id);
+        List<Resign> resignList = workerService.getResignList(workerId);
+        return resignList;
+    }
+
+    @GetMapping("/confirmResignApply")
+
+    @ResponseBody
+    public void confirmResignApply(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String str_resignId = request.getParameter("resignId") ;
+        int resignId = Integer.valueOf(str_resignId);
+        workerService.confirmResignApply(resignId);
+    }
+
     @GetMapping("/getNowCompanyInformation")
 
     @ResponseBody
