@@ -38,7 +38,7 @@
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>
 
-        <table schema="managment" tableName="dossier" domainObjectName="Dossier">
+        <table schema="dossier" tableName="dossier" domainObjectName="Dossier">
             <property name="constructorBased" value="true"/>
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>

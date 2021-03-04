@@ -130,7 +130,7 @@ public class WorkerServiceImp implements WorkerService{
         EmployExample employExample = new EmployExample();
         employExample.createCriteria().andWorkerIdEqualTo(workerid).andEndDateIsNull();
         List<Employ> employs = employMapper.selectByExample(employExample);
-        System.out.println(employs.get(0).getId());
+        //System.out.println(employs.get(0).getId());
         if(employs.size()>0){
             return employs.get(0);
         }else{

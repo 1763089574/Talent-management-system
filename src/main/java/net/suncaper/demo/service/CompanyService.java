@@ -24,4 +24,16 @@ public interface CompanyService {
     List<Worker> findAll();
     List<Company> findAllCompany();//返回所有认证成功的公司列表
     List<Worker> findLike(String name,String major,int minAge,int maxAge,String education,String sex);
+
+    public List<Worker> getApplyList(String companyId);//根据公司id,返回当前公司的待入职列表
+
+    public List<Worker> getResignList(String companyId);//根据公司id，返回当前公司的待离职列表
+
+    public boolean applyAgree(String workerId,String companyId);//根据workerId，来同意员工的入职申请
+
+    public boolean applyRefuse(String workerId,String companyId);//根据workerId和companyId，来拒绝员工的入职申请
+
+    public boolean resignAgree(int workerId,int companyId);//根据workerId，来同意员工的离职申请
+
+    public boolean resignRefuse(int workerId,int companyId);//根据workerId和companyId，来拒绝员工的离职申请
 }

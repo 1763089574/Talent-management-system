@@ -77,8 +77,50 @@ public class QueryStaffController {
     public List<Worker> getApplyList(HttpServletRequest request)//返回待入职列表，其中返回每个对象都是worker
     {
         String companyId=request.getParameter("companyId");
-        return null;
+        List<Worker> workers=companyService.getApplyList(companyId);
+        return workers;
+    }
+    @RequestMapping("getResignList")
+    public List<Worker> getResignList(HttpServletRequest request){
+        String companyId=request.getParameter("companyId");
+        List<Worker> workers=companyService.getResignList(companyId);
+        return workers;
     }
 
+    @RequestMapping("applyAgree")
+    public boolean applyAgree(HttpServletRequest request){//同意员工申请入职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为当前公司的id
+        String workerId=request.getParameter("workerId");
+        String companyId=request.getParameter("companyId");
+        Boolean flag=companyService.applyAgree(workerId,companyId);
+        //将worker的belong由0改为当前需要加入的公司
+
+        return flag;
+    }
+
+    @RequestMapping("applyRefuse")
+    public boolean applyRefuse(HttpServletRequest request){//拒绝员工申请入职,根据公司id和员工id去apply表中将此条记录的isconsent置为2
+        String workerId=request.getParameter("workerId");
+        String companyId=request.getParameter("companyId");
+
+        Boolean flag=companyService.applyRefuse(workerId,companyId);
+
+        return flag;
+    }
+
+    @RequestMapping("resignAgree")
+    public boolean resignAgree(HttpServletRequest request){//同意员工申请离职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为0
+        Integer workerId=Integer.valueOf(request.getParameter("workerId"));
+        Integer companyId=Integer.valueOf(request.getParameter("companyId"));
+        Boolean flag=companyService.resignAgree(workerId,companyId);
+        return flag;
+    }
+
+    @RequestMapping("resignRefuse")
+    public boolean resignRefuse(HttpServletRequest request){//拒绝员工申请离职，根据公司id和员工id去resign表中将isconsent置为2
+        Integer workerId=Integer.valueOf(request.getParameter("workerId"));
+        Integer companyId=Integer.valueOf(request.getParameter("companyId"));
+        Boolean flag=companyService.resignRefuse(workerId,companyId);
+        return flag;
+    }
 
 }

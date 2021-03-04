@@ -11,4 +11,8 @@ public interface WorkerMapperExtend {
     //模糊搜索
     List<Worker> findLike(@Param("name") String name, @Param("major")String major, @Param("minAge")int minAge,
                           @Param("maxAge")int maxAge, @Param("education")String education, @Param("sex")String sex);
+
+    List<Worker> getApplyList(String companyId);//根据公司Id，返回当前公司的待入职列表
+
+    List<Worker> getResignList(String companyId);//根据公司Id，返回当前公司的待离职列表
 }

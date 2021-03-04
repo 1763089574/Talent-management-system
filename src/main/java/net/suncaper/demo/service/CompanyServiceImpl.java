@@ -1,10 +1,9 @@
 package net.suncaper.demo.service;
 
-import net.suncaper.demo.common.domain.Company;
-import net.suncaper.demo.common.domain.CompanyExample;
-import net.suncaper.demo.common.domain.Worker;
-import net.suncaper.demo.common.domain.WorkerExample;
+import net.suncaper.demo.common.domain.*;
+import net.suncaper.demo.mapper.ApplyMapper;
 import net.suncaper.demo.mapper.CompanyMapper;
+import net.suncaper.demo.mapper.ResignMapper;
 import net.suncaper.demo.mapper.WorkerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,10 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyMapper companyMapper;
     @Autowired
     private WorkerMapper workerMapper;
+    @Autowired
+    private ApplyMapper applyMapper;
+    @Autowired
+    private ResignMapper resignMapper;
 
     @Override
     public void Register(Company company) {
@@ -116,5 +119,104 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Worker> findLike(String name, String major, int minAge, int maxAge, String education, String sex) {
         return workerMapper.findLike(name, major, minAge, maxAge, education, sex);
+    }
+
+    @Override
+    public List<Worker> getApplyList(String companyId) {
+        List<Worker> workers=workerMapper.getApplyList(companyId);
+
+        return workers;
+    }
+
+    @Override
+    public List<Worker> getResignList(String companyId) {
+        List<Worker> workers=workerMapper.getResignList(companyId);
+        return workers;
+    }
+
+    @Override
+    public boolean applyAgree(String workerId,String companyId) {//根据员工id和公司id，同意员工的申请
+        Integer companyId2=Integer.valueOf(companyId);
+        Integer workerId2=Integer.valueOf(workerId);
+        ApplyExample applyExample=new ApplyExample();
+        ApplyExample.Criteria criteria=applyExample.createCriteria();
+        criteria.andCompanyidEqualTo(companyId2);
+        criteria.andWorkeridEqualTo(workerId2);
+        Apply record=new Apply();
+        record.setIsconsent(1);
+        int count=applyMapper.updateByExampleSelective(record,applyExample);//以上是对apply表中的Isconsent字段进行改动
+
+        /*WorkerExample workerExample=new WorkerExample();
+        WorkerExample.Criteria criteria1=workerExample.createCriteria();*/
+
+        Worker record2=new Worker();//以下是对worker表中的belong字段进行改动
+        record2.setId(workerId2);
+        record2.setBelong(companyId);
+        int count2=workerMapper.updateByPrimaryKeySelective(record2);
+        if(count==0)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
+    @Override
+    public boolean applyRefuse(String workerId, String companyId) {
+        Integer companyId2=Integer.valueOf(companyId);
+        Integer workerId2=Integer.valueOf(workerId);
+        ApplyExample applyExample=new ApplyExample();
+        ApplyExample.Criteria criteria=applyExample.createCriteria();
+        criteria.andCompanyidEqualTo(companyId2);
+        criteria.andWorkeridEqualTo(workerId2);
+        Apply record=new Apply();
+        record.setIsconsent(2);
+        int count=applyMapper.updateByExampleSelective(record,applyExample);
+        if(count==0)
+        {
+            return false;
+        }
+        else
+            return true;
+
+    }
+
+    @Override
+    public boolean resignAgree(int workerId, int companyId) {
+        ResignExample resignExample=new ResignExample();
+        ResignExample.Criteria criteria=resignExample.createCriteria();
+        criteria.andCompanyIdEqualTo(companyId);
+        criteria.andWorkerIdEqualTo(workerId);
+        Resign resign=new Resign();
+        resign.setIsconsent("1");
+        int count=resignMapper.updateByExampleSelective(resign,resignExample);//以上是对resign表中的isConsent字段进行改动
+
+
+        Worker worker=new Worker();//以下是对worker表中的belong字段进行改动
+        worker.setBelong("0");
+        worker.setId(workerId);
+
+        if(count==0)
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean resignRefuse(int workerId, int companyId) {
+        ResignExample example=new ResignExample();
+        ResignExample.Criteria criteria=example.createCriteria();
+        criteria.andCompanyIdEqualTo(companyId);
+        criteria.andIdEqualTo(workerId);
+        Resign record=new Resign();
+        record.setIsconsent("2");
+        int count=resignMapper.updateByExampleSelective(record,example);
+        if(count==0)
+           return false;
+        else
+            return true;
     }
 }

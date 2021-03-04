@@ -452,6 +452,93 @@
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6">
+                            <div class="card">
+                                <div class="card-action">
+                                    现属公司
+                                </div>
+                                <div class="card-content">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header active"><i class="material-icons">filter_drama</i>公司名称</div>
+                                            <div class="collapsible-body"><p></p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">place</i>入职时间</div>
+                                            <div class="collapsible-body"><p></p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>重大成就</div>
+                                            <div class="collapsible-body">
+
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>时间</th>
+                                                                <th>内容</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in nowCompanyAchievement">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.date|ellipsis}}</td>
+                                                                <td>{{item.achieveContent}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <!-- End  Kitchen Sink -->
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>重大差错</div>
+                                            <div class="collapsible-body">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>时间</th>
+                                                                <th>内容</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in nowCompanyMistake">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.date|ellipsis}}</td>
+                                                                <td>{{item.mistakeContent}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>平均绩效</div>
+                                            <div class="collapsible-body"><p>{{nowCompanyAverageGrade}}</p></div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                 </div>

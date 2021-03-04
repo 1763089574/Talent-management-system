@@ -22,4 +22,23 @@
             </if>
         </where>
     </select>
+
+
+
+
+    <select id="getApplyList" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select worker.Id,worker.Name,worker.IdCard,worker.Password,worker.Sex,worker.Birth,worker.Belong,worker.IdentifyFlag,worker.isEvaluate,worker.Education,worker.Major,worker.PhoneNumber
+        from worker,apply
+        where worker.Id=apply.workerid
+        and apply.companyid=#{companyId}
+        and apply.isConsent="0"
+    </select>
+
+    <select id="getResignList" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select worker.Id,worker.Name,worker.IdCard,worker.Password,worker.Sex,worker.Birth,worker.Belong,worker.IdentifyFlag,worker.isEvaluate,worker.Education,worker.Major,worker.PhoneNumber
+        from worker,resign
+        where worker.Id=resign.worker_id
+        and resign.company_id=#{companyId}
+        and resign.isConsent="0"
+    </select>
 </mapper>

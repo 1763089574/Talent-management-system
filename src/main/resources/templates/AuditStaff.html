@@ -288,26 +288,29 @@
                         </div>
                         <div class="card-content">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" >
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th class="center">hotel_name</th>
-                                            <th class="center">custom_id</th>
-                                            <th class="center">room_type</th>
-                                            <th class="center">check_in_time</th>
-                                            <th class="center">check_out_time</th>
-                                            <th class="center">操作</th>
+                                            <th class="center">姓名</th>
+                                            <th class="center">性别</th>
+                                            <th class="center">联系电话</th>
+                                            <th class="center">出生日期</th>
+                                            <th class="center">学历</th>
+                                            <th class="center">专业</th>
+                                            <th class="center">是否通过申请</th>
                                             <!--<th>CSS grade</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="warning">
-                                            <td>Trident</td>
-                                            <td>Internet Explorer 4.0</td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
-                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;<button class="btn btn-primary">通过</button>&nbsp; <button class="btn btn-danger">拒绝</button></td>
+                                        <tr class="warning" v-for="(item,index) in applyList">
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
+                                            <td class="center">{{item.phonenumber}}</td>
+                                            <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
+                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;&nbsp;<button class="btn btn-primary" @click="applyAgree(item.id)">通过</button>&nbsp;&nbsp; <button class="btn btn-danger" @click="applyRefuse(item.id)">拒绝</button></td>
                                         </tr>
                                        
                                     </tbody>
@@ -329,26 +332,29 @@
                             </div>
                             <div class="card-content">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" >
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example2">
                                         <thead>
                                         <tr>
-                                            <th class="center">hotel_name</th>
-                                            <th class="center">custom_id</th>
-                                            <th class="center">room_type</th>
-                                            <th class="center">check_in_time</th>
-                                            <th class="center">check_out_time</th>
-                                            <th class="center">操作</th>
+                                            <th class="center">姓名</th>
+                                            <th class="center">性别</th>
+                                            <th class="center">联系电话</th>
+                                            <th class="center">出生日期</th>
+                                            <th class="center">学历</th>
+                                            <th class="center">专业</th>
+                                            <th class="center">是否通过申请</th>
                                             <!--<th>CSS grade</th>-->
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="success">
-                                            <td>Trident</td>
-                                            <td>Internet Explorer 4.0</td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
-                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;&nbsp;<button class="btn btn-primary">通过</button>&nbsp;&nbsp; <button class="btn btn-danger">拒绝</button></td>
+                                        <tr class="success" v-for="(item,index) in resignList">
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
+                                            <td class="center">{{item.phonenumber}}</td>
+                                            <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
+                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;&nbsp;<button class="btn btn-primary" @click="resignAgree(item.id)">通过</button>&nbsp;&nbsp; <button class="btn btn-danger" @click="resignRefuse(item.id)">拒绝</button></td>
                                         </tr>
 
                                         </tbody>
@@ -363,6 +369,7 @@
                 <!-- /. ROW  -->
 
                 <!-- /. ROW  -->
+
 
 
                     <!--  end  Context Classes  -->
@@ -419,12 +426,14 @@
                 
             },
             methods:{
-                getCompanyId:function () {
+                getCompanyId:function () {//从cookie中读取公司Id
                     var that=this
                     axios.get("/GlobalVariable/GetCompanyId").then(
                         function (response) {
                             console.log("读取cookie中的id:"+response.data)
                             that.companyId=response.data;
+                            that.getApplyList(response.data)
+                            that.getResignList(response.data)
                         },
                         function (err) {
                             console.log(err)
@@ -432,32 +441,226 @@
                         }
                     )
                 },
-                getApplyList:function () {
-                    var that=this;
+                getApplyList:function (companyId) {//根据公司id获取待入职列表
+                    var that=this
+
                     axios.get("/staff/getApplyList",{
-                        paramas:{
-                            companyId:that.companyId,
+                        params:{
+                            companyId:companyId
                         }
                     }).then(
                         function (response) {
                             console.log("获取待入职列表")
+                            console.log(response)
+                            console.log(response.data)
                             that.applyList=response.data
                         },
                         function (err) {
                             console.log(err)
                         }
                     )
+                },
+                getResignList:function(companyId){//根据公司id获取待离职列表
+                    var that=this
+                    axios.get("/staff/getResignList",{
+                        params:{
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("获取待离职列表")
+                            console.log(response)
+                            console.log(response.data)
+                            that.resignList=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+                        }
+                    )
+                },
+                applyAgree:function (workerId) {//同意员工申请入职,根据公司id和员工id去apply表中将此条记录的isconsent置为1
+                    var that=this
+                    console.log("同意员工入职:"+workerId)
+                    var x=confirm("是否确定同意该员工入职");
+                    if(x==true){
+                        console.log("确认通过申请")
+                        axios.get("/staff/applyAgree",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:workerId,
+                            }
+                        }).then(
+                            function (response) {
+                               console.log("hr同意员工入职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getApplyList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("出现未知错误")
+                            }
+                        )
+                    }
+                    else
+                    {
+                        console.log("取消通过申请")
+                    }
+                },
+                applyRefuse:function(workerId){//拒绝员工申请入职,根据公司id和员工id去apply表中将此条记录的isconsent置为2,0代表申请中，1代表申请成功，2代表申请被拒绝
+                    var that=this
+                    console.log("同意员工入职:"+workerId)
+                    var x=confirm("是否确定拒绝该员工入职");
+                    if(x==true){
+                        console.log("确认拒绝申请")
+                        axios.get("/staff/applyRefuse",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:workerId,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("hr拒绝员工入职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getApplyList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("出现未知错误")
+                            }
+                        )
+                    }
+                    else
+                    {
+                        console.log("取消通过申请")
+                    }
+                },
+                resignAgree:function (workerId) {
+                    var that=this
+                    console.log("同意员工离职:"+workerId)
+                    var x=confirm("是否确定拒绝员工离职");
+                    if(x==true){
+                        console.log("确认拒绝申请")
+                        axios.get("/staff/resignAgree",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:workerId,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("hr同意员工离职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getResignList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("出现未知错误")
+                            }
+                        )
+                    }
+                    else
+                    {
+                        console.log("取消通过申请")
+                    }
+                },
+                resignRefuse:function (workerId) {
+                    var that=this
+                    console.log("拒绝员工离职:"+workerId)
+                    var x=confirm("是否确定拒绝员工离职");
+                    if(x==true){
+                        console.log("确认拒绝申请")
+                        axios.get("/staff/resignRefuse",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:workerId,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("hr拒绝员工离职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getResignList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("处理成功")
+                            }
+                        )
+                    }
+                    else
+                    {
+                        console.log("取消通过申请")
+                    }
                 }
 
                 
             },
-            created:function () {//html渲染完成之前进行，用于初始化数据
+            created:function () {//html渲染完成之前进行，
+                console.log("created"+this.companyId)
+
                 this.getCompanyId();
+
             },
             mounted:function () {//html渲染完成之后，对DOM进行操作，用于向后端拿数据
+                console.log("mounted"+this.companyId)
 
+            },
+            watch: {
+                /*applyList: function () {
+                    this.$nextTick(function () {
+                        /*现在数据已经渲染完毕
 
-            }
+                        $('#dataTables-example').dataTable({
+                            "pageLength": 5,//每页显示数量
+                            "lengthChange": true,//是否允许用户改变表格每页显示的记录数
+                            "lengthMenu": [5, 10, 25, 50, 75, 100],
+                            "autoWidth": true,
+                            "language": {
+                                "sInfoEmpty": "没有数据",
+                                "sZeroRecords": "没有查找到满足条件的数据",
+                                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                                "oPaginate": {
+                                    "sFirst": "首页",
+                                    "sPrevious": "前一页",
+                                    "sNext": "后一页",
+                                    "sLast": "尾页"
+                                }
+                            },
+                        });
+                    })
+
+                },
+                resignList: function () {
+                    this.$nextTick(function () {
+                        /*现在数据已经渲染完毕
+                        $('#dataTables-example2').dataTable({
+                            "pageLength": 5,//每页显示数量
+                            "lengthChange": true,//是否允许用户改变表格每页显示的记录数
+                            "lengthMenu": [5, 10, 25, 50, 75, 100],
+                            "autoWidth": true,
+                            "language": {
+                                "sInfoEmpty": "没有数据",
+                                "sZeroRecords": "没有查找到满足条件的数据",
+                                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                                "oPaginate": {
+                                    "sFirst": "首页",
+                                    "sPrevious": "前一页",
+                                    "sNext": "后一页",
+                                    "sLast": "尾页"
+                                }
+                            },
+                        });
+                    })
+
+                }*/
+            },
         })
     </script>
 
