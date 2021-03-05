@@ -59,4 +59,8 @@ public class RouterController {
         return  "AuditStaff";
     }
 
+    @RequestMapping("/EnterToAddEvaluation")
+    public String EnterToAddEvaluation(){
+        return "AddEvaluation";
+    }
 }

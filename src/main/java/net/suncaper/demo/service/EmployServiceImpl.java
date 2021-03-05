@@ -6,6 +6,7 @@ import net.suncaper.demo.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class EmployServiceImpl implements EmployService {
@@ -70,11 +71,21 @@ public class EmployServiceImpl implements EmployService {
     }
 
     @Override
-    public int insertEmploy(String companyId, String workerId) {
+    public int insertEmploy(String companyId, String workerId, Date date) {
         Employ employ=new Employ();
         employ.setCompanyId(Integer.valueOf(companyId));
         employ.setWorkerId(Integer.valueOf(workerId));
+        employ.setStartDate(date);
         int count=employMapper.insertSelective(employ);
+        return count;
+    }
+
+    @Override
+    public int employEndDate(String employID, Date endDate) {
+        Employ record=new Employ();
+        record.setId(Integer.valueOf(employID));
+        record.setEndDate(endDate);
+        int count=employMapper.updateByPrimaryKeySelective(record);
         return count;
     }
 }

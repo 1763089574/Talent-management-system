@@ -21,14 +21,16 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public int DossierEvaluate(String employId,String evaluate) {//将employId匹配的数据的Evaluate进行更改
+    public int dossierCreate(String employId,String evaluate) {//为员工创建dossier
         DossierExample dossierExample=new DossierExample();
         DossierExample.Criteria criteria=dossierExample.createCriteria();
         criteria.andEmployIdEqualTo(Integer.valueOf(employId));
         Dossier record=new Dossier();
         record.setEvaluate(evaluate);
+        record.setEmployId(Integer.valueOf(employId));
         //dossierMapper.updateByExampleSelective():
-        int count=dossierMapper.updateByExampleSelective(record,dossierExample);
+
+        int count=dossierMapper.insertSelective(record);
         return count;
     }
 

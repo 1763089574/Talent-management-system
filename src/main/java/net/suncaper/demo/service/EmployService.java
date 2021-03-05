@@ -6,6 +6,7 @@ import net.suncaper.demo.common.domain.Grade;
 import net.suncaper.demo.common.domain.Mistake;
 import net.suncaper.demo.common.domain.extend.WorkerDetail;
 
+import java.util.Date;
 import java.util.List;
 
 public interface EmployService {
@@ -22,5 +23,7 @@ public interface EmployService {
 
     public List<Mistake> getMistake(String companyId,String workerId);
 
-    public int insertEmploy(String companyId,String workerId);
+    public int insertEmploy(String companyId, String workerId, Date date);
+
+    public int employEndDate(String employID,Date endDate);//用户离职时更新用户的离职时间，原来为NUll
 }
