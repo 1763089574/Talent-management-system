@@ -7,18 +7,18 @@
     <title>Target Material Design Bootstrap Admin Template</title>
 	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="../static/assets/materialize/css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" href="/assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
-    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link href="../static/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- Morris Chart Styles-->
-    <link href="../static/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link href="../static/assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="../static/assets/js/Lightweight-Chart/cssCharts.css"> 
+    <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
 </head>
 <body>
     <div id="wrapper">
@@ -220,7 +220,7 @@
                 <ul class="nav" id="main-menu">
     
                     <li>
-                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i> 欢迎</a>
+                        <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i> 欢迎</a>
                     </li>
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span class="fa arrow"></span></a>
@@ -237,13 +237,13 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="QueryStaff.html">查询员工</a>
+                                <a href="/EnterToQueryStaff">查询员工</a>
                             </li>
                             <li>
-                                <a href="AuditStaff.html">审核员工</a>
+                                <a href="/EnterToAuditStaff">审核员工</a>
                             </li>
                             <li>
-                                <a href="AddEvaluation.html" class="active-menu">添加评价</a>
+                                <a href="/EnterToAddEvaluation" class="active-menu">添加评价</a>
                             </li>
                         </ul>
                     </li>
@@ -267,7 +267,7 @@
         <div id="page-wrapper" >
 			  <div class="header"> 
                         <h1 class="page-header">
-                            Tabs & Panels
+                            添加评价
                         </h1>
 						<ol class="breadcrumb">
 					  <li><a href="#">Home</a></li>
@@ -275,7 +275,7 @@
 					  <li class="active">Data</li>
 					</ol> 
 									
-		</div>
+		    </div>
 		
             <div id="page-inner"> 
                                  
@@ -283,144 +283,265 @@
                 <div class="col-md-4 col-sm-4">
                    <div class="card teal">
 						<div class="card-content white-text">
-						  <span class="card-title">Card Title</span>
-						  <p>I am a very simple card. I am good at containing small bits of information.
-						  I am convenient because I require little markup to use effectively.</p>
+						  <span class="card-title">每月例行考核</span>
+						  <p>我们希望Hr每个月能对所有员工的工作情况进行一个评分,评分分为5个等级,如果您希望开始评价,可以点击下方卡片的链接进入评价页面.</p>
 						</div>
 						<div class="card-action">
-						  <a href="#">This is a link</a>
-						  <a href="#">This is a link</a>
+						  <!--<a href="#">点我登记员工的考核情况</a>-->
+                            <button class="btn-info" @click="changeGradeFlag">点我登记员工的考核情况</button>
 						</div>
 					  </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                    <div class="card">
 						<div class="card-content">
-						  <span class="card-title">Card Title</span>
-						  <p>I am a very simple card. I am good at containing small bits of information.
-						  I am convenient because I require little markup to use effectively.</p>
+						  <span class="card-title">员工获奖情况</span>
+						  <p>我们希望员工为公司做出的重大贡献能被登记在册,因此员工取得了成就的时候,Hr可以点击下方的链接对员工的贡献进行登记</p>
 						</div>
 						<div class="card-action">
-						  <a href="#">This is a link</a>
-						  <a href="#">This is a link</a>
+
+                            <button class="btn-default" @click="changeAchievementFlag">点我登记员工的获奖情况</button>
 						</div>
 					  </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                         <div class="card blue-grey darken-1">
 						<div class="card-content white-text">
-						  <span class="card-title">Card Title</span>
-						  <p>I am a very simple card. I am good at containing small bits of information.
-						  I am convenient because I require little markup to use effectively.</p>
+						  <span class="card-title">员工违纪情况</span>
+						  <p>不只是贡献,任何人都可能犯下一些错误,当员工犯了错误时我们同样希望Hr能对员工的违纪情况进行登记,可以点击下方链接进行违纪情况登记</p>
 						</div>
 						<div class="card-action">
-						  <a href="#">This is a link</a>
-						  <a href="#">This is a link</a>
+
+                            <button class="btn-danger" @click="changeMistakeFlag">点我登记员工的获奖情况</button>
 						</div>
 					  </div>
                 </div>
             </div>
-                   <!-- /. ROW  -->
-            <div class="row">
-                <div class="col-md-4 col-sm-4">
-                    <div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-						  <img class="activator" src="http://materializecss.com/images/office.jpg">
-						</div>
-						<div class="card-content">
-						  <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-						  <p><a href="#">This is a link</a></p>
-						</div>
-						<div class="card-reveal">
-						  <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-						  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-						</div>
-					  </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                     <div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-						  <img class="activator" src="http://materializecss.com/images/office.jpg">
-						</div>
-						<div class="card-content">
-						  <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-						  <p><a href="#">This is a link</a></p>
-						</div>
-						<div class="card-reveal">
-						  <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-						  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-						</div>
-					  </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
+
+                <div class="row" v-show="flagGrade">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
                         <div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-						  <img class="activator" src="http://materializecss.com/images/office.jpg">
-						</div>
-						<div class="card-content">
-						  <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-						  <p><a href="#">This is a link</a></p>
-						</div>
-						<div class="card-reveal">
-						  <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-						  <p>Here is some more information about this product that is only revealed once clicked on.</p>
-						</div>
-					  </div>
-                </div>
-            </div>
-                    <!-- /. ROW  --> 
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="card">
-                        <div class="card-action">
-                            Basic Tabs
-                        </div>
-                        <div class="card-content"> 
-							 <ul class="collapsible" data-collapsible="accordion">
-								<li>
-								  <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-								  <div class="collapsible-body"><p>Tt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur..</p></div>
-								</li>
-								<li>
-								  <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-								  <div class="collapsible-body"><p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-								</li>
-								<li>
-								  <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-								  <div class="collapsible-body"><p>Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-								</li>
-							  </ul> 
-                            
+                            <div class="card-action">
+                                员工考核情况登记
+                            </div>
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" >
+                                        <thead>
+                                        <tr>
+                                            <th class="center">姓名</th>
+
+                                            <th class="center">性别</th>
+                                            <th class="center">出生日期</th>
+                                            <th class="center">学历</th>
+                                            <th class="center">专业</th>
+                                            <th class="center">手机号</th>
+                                            <th class="center">本月是否已考核</th>
+                                            <th class="center">登记考核情况</th>
+
+                                            <!--<th>CSS grade</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="active" v-for="(item,index) in workers">
+
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
+                                            <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
+                                            <td class="center">{{item.phonenumber}}</td>
+                                            <td class="center">{{item.isevaluate=='0'?'否':'是'}}</td>
+
+                                            <td class="center" >
+                                                <button v-if="item.isevaluate==1"  @click="detailInfo(item.id)" class="btn btn-info disabled" data-toggle="modal" data-target="#myModal" >已登记</button>
+                                                <button  v-else  @click="getWorkerId(item.id)" class="btn btn-info" data-toggle="modal" data-target="#myModal" >开始登记</button>
+
+                                            </td>
+                                        </tr>
+
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
-                    </div> 
-                <div class="col-md-6 col-sm-6">
-                    <div class="card">
-                        <div class="card-action">
-                            Tabs
+
+
+                    </div>
+                </div>
+
+                <div class="row" v-show="flagAchievement">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action">
+                                员工获奖情况登记
+                            </div>
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                        <thead>
+                                        <tr class="success">
+                                            <th>姓名</th>
+
+                                            <th class="center">性别</th>
+                                            <th class="center">出生日期</th>
+                                            <th class="center">学历</th>
+                                            <th class="center">专业</th>
+                                            <th class="center">手机号</th>
+                                            <th class="center">登记获奖情况</th>
+
+                                            <!--<th>CSS grade</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="warning" v-for="(item,index) in workers">
+
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
+                                            <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
+                                            <td class="center">{{item.phonenumber}}</td>
+                                            <td class="center"><button  @click="detailInfo(item.id)" class="btn btn-circle" data-toggle="modal" data-target="#myModal" >开始登记</button></td>
+                                        </tr>
+
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="card-content">
-                           <div class="col">
-							  <ul class="tabs">
-								<li class="tab col s3"><a href="#test1">Test 1</a></li>
-								<li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-								<li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
-								<li class="tab col s3"><a href="#test4">Test 4</a></li>
-							  </ul>
-							</div>
-							<div class="clearBoth"><br/></div>
-							<div id="test1" class="col s12"><p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-							<div id="test2" class="col s12"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-							<div id="test3" class="col s12"><p>Bpsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-							<div id="test4" class="col s12"><p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
-                           <div class="clearBoth"><br/></div>
+
+
+                    </div>
+                </div>
+
+                <div class="row" v-show="flagMistake">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action">
+                                员工违纪情况登记
+                            </div>
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                        <thead>
+                                        <tr class="warning">
+                                            <th>姓名</th>
+
+                                            <th class="center">性别</th>
+                                            <th class="center">出生日期</th>
+                                            <th class="center">学历</th>
+                                            <th class="center">专业</th>
+                                            <th class="center">手机号</th>
+                                            <th class="center">登记违纪情况</th>
+
+                                            <!--<th>CSS grade</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="success" v-for="(item,index) in workers">
+
+                                            <td class="center">{{item.name}}</td>
+
+                                            <td class="center">{{item.sex}}</td>
+                                            <td class="center">{{item.birth}}</td>
+                                            <td class="center">{{item.education}}</td>
+                                            <td class="center">{{item.major}}</td>
+                                            <td class="center">{{item.phonenumber}}</td>
+                                            <td class="center"><button @click="detailInfo(item.id)" class="btn btn-danger" data-toggle="modal" data-target="#myModal" >开始登记</button></td>
+                                        </tr>
+
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- 模态的对话框 -->
+                    <div class="modal-dialog model-sm" >
+                        <!-- 内容部分 -->
+                        <div class="modal-content">
+                            <!-- 头部 -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">绩效评定</h4>
+                            </div>
+                            <!-- 身体 -->
+                            <div class="modal-body">请选择该员工本月的绩效等级
+
+                                <p>
+                                    <input type="radio" id="male1" name="sex" value="1" v-model="content">
+                                    <label for="male1">
+                                        1
+                                    </label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="male2" name="sex" value="2" v-model="content">
+                                    <label for="male2">
+                                        2
+                                    </label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="male3" name="sex" value="3" v-model="content">
+                                    <label for="male3">
+                                        3
+                                    </label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="male4" name="sex" value="4" v-model="content">
+                                    <label for="male4">
+                                        4
+                                    </label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="male5" name="sex" value="5" v-model="content">
+                                    <label for="male5">
+                                        5
+                                    </label>
+                                </p>
+
+
+                                <h5>您选择的绩效等级是：{{content}}</h5>
+
+                            </div>
+                            <!-- 尾部 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" @click="addGrade">确认</button>
                             </div>
                         </div>
                     </div>
-                </div> 
-                    <!-- /. ROW  --> 
-				<footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer>
-					</div>
+                </div>
+
+
+        </div>
 			 <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -428,28 +549,30 @@
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="../static/assets/js/jquery-1.10.2.js"></script>
+    <script src="/assets/js/jquery-1.10.2.js"></script>
 	
 	<!-- Bootstrap Js -->
-    <script src="../static/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
 	
-	<script src="../static/assets/materialize/js/materialize.min.js"></script>
+	<script src="/assets/materialize/js/materialize.min.js"></script>
 	
     <!-- Metis Menu Js -->
-    <script src="../static/assets/js/jquery.metisMenu.js"></script>
+    <script src="/assets/js/jquery.metisMenu.js"></script>
     <!-- Morris Chart Js -->
-    <script src="../static/assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="../static/assets/js/morris/morris.js"></script>
+    <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/assets/js/morris/morris.js"></script>
 	
 	
-	<script src="../static/assets/js/easypiechart.js"></script>
-	<script src="../static/assets/js/easypiechart-data.js"></script>
+	<script src="/assets/js/easypiechart.js"></script>
+	<script src="/assets/js/easypiechart-data.js"></script>
 	
-	 <script src="../static/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+	 <script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
 	
     <!-- Custom Js -->
-    <script src="../static/assets/js/custom-scripts.js"></script> 
-	<script>
+    <script src="/assets/js/custom-scripts.js"></script>
+    <script src="/assets/js/vue.js"></script>
+    <script src="/assets/js/axios.min.js"></script>
+	<!--<script>
 	$(document).ready(function(){
 	 $('ul.tabs').tabs();
 		$('.collapsible').collapsible({
@@ -459,7 +582,108 @@
 		}
 	  );
 	});
-	</script>
+	</script>-->
+   <script>
+       var app=new Vue({
+           el:"#wrapper",
+           data:{
+               workers:[],//
+               companyId:"",//公司id
+               workerId:"",//按钮选中的员工的id
+               flagGrade:false,
+               flagAchievement:false,
+               flagMistake:false,
+               content: '',
+
+           },
+
+           methods:{
+               changeGradeFlag:function () {
+                   var that=this
+                   that.flagGrade=true
+                   that.flagAchievement=false
+                   that.flagMistake=false
+               },
+               changeAchievementFlag:function () {
+                   var that=this
+                   that.flagGrade=false
+                   that.flagAchievement=true
+                   that.flagMistake=false
+               },
+               changeMistakeFlag:function () {
+                   var that=this
+                   that.flagGrade=false
+                   that.flagAchievement=false
+                   that.flagMistake=true
+               },
+               getWorkerId:function(workerId){
+                   this.workerId=workerId;
+                   console.log("选中的员工id为:"+this.workerId)
+               },
+               addGrade:function(){
+                   var that=this
+                   axios.get("/staff/addGrade",{
+                       params:{
+                           workerId:that.workerId,
+                           companyId:that.companyId
+                       }
+                   }).then(
+                       function (response) {
+                           console.log("添加考核成功")
+                           alert("添加考核成功")
+                           that.getWorkers();
+                       },
+                       function (err) {
+                           console.log(err)
+
+                       }
+                   )
+               },
+               getWorkers:function () {//从cookie中读取公司id,并且获取该公司的员工
+                   var that=this
+
+                   //that.Initial();
+                   axios.get("/GlobalVariable/GetCompanyId").then(
+                       function (response) {
+
+                           console.log("QueryStaff.html页面读取cookie中的id:"+response.data)
+                           that.companyId=response.data
+                           axios.get("/staff/GetAllWorkers",{
+                               params:{
+                                   CompanyId:response.data,
+                               }
+                           }).then(
+                               function (response) {
+                                   console.log("读取Workers:"+response)
+                                   console.log(response.data)
+                                   that.workers=response.data;
+                                   //that.Initial();//读取了数据以后调用方法
+
+                               },
+                               function (err) {
+                                   console.log(err)
+
+                               }
+                           )
+                       },
+                       function (err) {
+                           console.log(err)
+
+                       }
+                   )
+               },
+
+
+
+           },
+           created:function () {
+              this.getWorkers();
+           },
+           mounted:function () {
+
+           }
+       })
+   </script>
  
 
 </body>

@@ -3,6 +3,7 @@ package net.suncaper.demo.controller;
 import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import net.suncaper.demo.common.domain.*;
 import net.suncaper.demo.common.domain.extend.WorkerDetail;
+import net.suncaper.demo.common.util.DateTime;
 import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.DossierService;
 import net.suncaper.demo.service.EmployService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -87,15 +90,19 @@ public class QueryStaffController {
     }
 
     @RequestMapping("applyAgree")
-    public boolean applyAgree(HttpServletRequest request){//同意员工申请入职，根据公司id和员工id去resign表中将isconsent置为1，
-        // 并将worker表中的belong置为当前公司的id,还要为员工创建employ信息，dossier信息是在离职的时候
+    public boolean applyAgree(HttpServletRequest request) throws ParseException {//同意员工申请入职，根据公司id和员工id去apply表中将isconsent置为1，
+        // 并将worker表中的belong置为当前公司的id,还要为员工创建employ信息，dossier信息是在离职的时候创建
         String workerId=request.getParameter("workerId");
         String companyId=request.getParameter("companyId");
 
         Boolean flag=companyService.applyAgree(workerId,companyId);//将worker的belong由0改为当前需要加入的公司
 
         //接下来为员工添加employ信息
+        System.out.println("插入employ");
 
+        Date startDate= DateTime.getDateTime();
+        System.out.println("startDate"+startDate);
+        int count=employService.insertEmploy(companyId,workerId,startDate);
 
 
         return flag;
@@ -112,18 +119,22 @@ public class QueryStaffController {
     }
 
     @RequestMapping("resignAgree")
-    public boolean resignAgree(HttpServletRequest request){//同意员工申请离职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为0
+    public boolean resignAgree(HttpServletRequest request) throws ParseException {//同意员工申请离职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为0
         Integer workerId=Integer.valueOf(request.getParameter("workerId"));
         Integer companyId=Integer.valueOf(request.getParameter("companyId"));
         System.out.println("appliAgree");
         String evaluate=request.getParameter("evaluate");
         Boolean flag=companyService.resignAgree(workerId,companyId);
 
+        //以下是为完善employ的离职时间和为用户创建dossier
+        Date endDate= DateTime.getDateTime();
 
-        List<Employ> employs=employService.getEmploy(request.getParameter("workerId"),request.getParameter("companyId"));//以下是将dossier表中的evaluate字段
+
+        List<Employ> employs=employService.getEmploy(request.getParameter("workerId"),request.getParameter("companyId"));
         String employId=String.valueOf(employs.get(0).getId());
-        System.out.println("appliAgree:"+employId);
-        int count=dossierService.DossierEvaluate(employId,evaluate);
+        int count2=employService.employEndDate(employId,endDate);
+
+        int count=dossierService.dossierCreate(employId,evaluate);
         return flag;
     }
 
