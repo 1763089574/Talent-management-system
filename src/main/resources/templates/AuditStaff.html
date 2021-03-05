@@ -354,7 +354,14 @@
                                             <td class="center">{{item.birth}}</td>
                                             <td class="center">{{item.education}}</td>
                                             <td class="center">{{item.major}}</td>
-                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;&nbsp;<button class="btn btn-primary" @click="resignAgree(item.id)">通过</button>&nbsp;&nbsp; <button class="btn btn-danger" @click="resignRefuse(item.id)">拒绝</button></td>
+                                            <td class="center">
+                                                <!--<button class="btn btn-info">详情</button>&nbsp;&nbsp;
+                                                <button class="btn btn-primary" @click="resignAgree(item.id)">通过</button>&nbsp;&nbsp;
+                                                <button class="btn btn-danger" @click="resignRefuse(item.id)">拒绝</button>-->
+                                                <button class="btn btn-info">详情</button>&nbsp;&nbsp;
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="getResignId(item.id)">通过</button>&nbsp;&nbsp;
+                                                <button class="btn btn-danger" @click="resignRefuse(item.id)">拒绝</button>
+                                             </td>
                                         </tr>
 
                                         </tbody>
@@ -370,6 +377,36 @@
 
                 <!-- /. ROW  -->
 
+                <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- 模态的对话框 -->
+                    <div class="modal-dialog model-sm" >
+                        <!-- 内容部分 -->
+                        <div class="modal-content">
+                            <!-- 头部 -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">离职确认</h4>
+                            </div>
+                            <!-- 身体 -->
+                            <div class="modal-body">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea1" class="materialize-textarea" v-model="textarea" ></textarea>
+                                            <label for="textarea1" >请输入对员工的评价(必填)</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- 尾部 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" @click="resignAgree" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                     <!--  end  Context Classes  -->
@@ -423,7 +460,9 @@
                 companyId:"",//公司id，从cookie中读取
                 applyList:"",//待处理的员工入职表
                 resignList:"",//待处理的员工离职表
-                
+                resignWorkerId:"",//点击获取到的某个员工的id
+                textarea:"",
+
             },
             methods:{
                 getCompanyId:function () {//从cookie中读取公司Id
@@ -441,6 +480,13 @@
                         }
                     )
                 },
+                getResignId:function(resignWorkerId){
+                    console.log("先获取要离职员工的id")
+                    var that=this;
+                    that.resignWorkerId=resignWorkerId;
+                    console.log(that.resignWorkerId)
+                },
+
                 getApplyList:function (companyId) {//根据公司id获取待入职列表
                     var that=this
 
@@ -537,7 +583,7 @@
                         console.log("取消通过申请")
                     }
                 },
-                resignAgree:function (workerId) {
+                /*resignAgree:function (workerId) {
                     var that=this
                     console.log("同意员工离职:"+workerId)
                     var x=confirm("是否确定拒绝员工离职");
@@ -565,6 +611,58 @@
                     {
                         console.log("取消通过申请")
                     }
+                },*/
+                resignAgree:function () {
+                    var that=this
+                    console.log(that.textarea);
+                    console.log(that.textarea.length)
+                    console.log(that.resignWorkerId);
+
+                    if(that.textarea.length<10){
+                        alert("评价不得少于20个字，请修改后重试")
+                    }
+                    else if(that.textarea.length<100)
+                    {
+
+                        axios.get("/staff/resignAgree",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:that.resignWorkerId,
+                                evaluate:that.textarea
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("hr同意员工离职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getResignList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("出现未知错误")
+                            }
+                        )
+                    }
+                    else
+                        alert("不要超过100个字，请修改后重试")
+                        /*axios.get("/staff/resignAgree",{
+                            params:{
+                                companyId:that.companyId,
+                                workerId:that.resignWorkerId,
+                            }
+                        }).then(
+                            function (response) {
+                                console.log("hr同意员工离职")
+                                console.log(response)
+                                alert("处理成功")
+                                that.getResignList(that.companyId)
+                            },
+                            function (err) {
+                                console.log(err)
+                                alert("出现未知错误")
+                            }
+                        )*/
+
                 },
                 resignRefuse:function (workerId) {
                     var that=this

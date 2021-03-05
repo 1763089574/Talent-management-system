@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.suncaper.demo.mapper.MistakeMapper">
+
+
+    <select id="getMistake" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT mistake.Id,mistake.createDate,mistake.employ_id,mistake.mistake_content
+        from   mistake,employ
+        WHERE employ.Id=mistake.employ_id and employ.Company_id=#{companyId} and employ.Worker_id=#{workerId}
+
+    </select>
+
+
+
+
+</mapper>

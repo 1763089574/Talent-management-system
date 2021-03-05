@@ -195,7 +195,7 @@ public class CompanyServiceImpl implements CompanyService {
         Worker worker=new Worker();//以下是对worker表中的belong字段进行改动
         worker.setBelong("0");
         worker.setId(workerId);
-
+        int count2=workerMapper.updateByPrimaryKeySelective(worker);
         if(count==0)
         {
             return false;

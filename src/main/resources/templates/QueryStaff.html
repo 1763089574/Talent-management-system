@@ -408,7 +408,8 @@
 
                <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer>
     </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog ">
             <div class="modal-content" >
                 <div class="modal-header">
@@ -419,127 +420,76 @@
                     </h4>
                 </div>
                 <div class="modal-body" >
-
-                    <div class="myinfo">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>姓名|{{worker.name}}</td>
-                                <td>手机|{{worker.phonenumber}}</td>
-                            </tr>
-                            <tr>
-                                <td>性别|{{worker.sex}}</td>
-                                <td>身份证号|{{worker.idcard}}</td>
-                            </tr>
-                            <tr>
-                                <td>出生|{{worker.birth}}</td>
-                                <td>专业|{{worker.major}}</td>
-                            </tr>
-                            <tr>
-                                <td>学历|{{worker.education}}</td>
-                                <td>毕业学校 | 四川大学</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div >
-                        <label>任职经历：</label>
-                        <ul v-for="(item,index) in dossier">
-                            <li>公司名称:{{item.companyName}}</li>
-                            <li>公司对员工评价:{{item.evaluate}}</li>
-                        </ul>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 col-sm-6">
-                            <div class="card">
-                                <div class="card-action">
-                                    现属公司
-                                </div>
-                                <div class="card-content">
-                                    <ul class="collapsible" data-collapsible="accordion">
-                                        <li>
-                                            <div class="collapsible-header active"><i class="material-icons">filter_drama</i>公司名称</div>
-                                            <div class="collapsible-body"><p></p></div>
-                                        </li>
-                                        <li>
-                                            <div class="collapsible-header"><i class="material-icons">place</i>入职时间</div>
-                                            <div class="collapsible-body"><p></p></div>
-                                        </li>
-                                        <li>
-                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>重大成就</div>
-                                            <div class="collapsible-body">
-
-                                                <div class="card-content">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>序号</th>
-                                                                <th>时间</th>
-                                                                <th>内容</th>
-
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr v-for="(item,index) in nowCompanyAchievement">
-                                                                <td>{{index+1}}</td>
-                                                                <td>{{item.date|ellipsis}}</td>
-                                                                <td>{{item.achieveContent}}</td>
-
-                                                            </tr>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <!-- End  Kitchen Sink -->
-
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>重大差错</div>
-                                            <div class="collapsible-body">
-                                                <div class="card-content">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>序号</th>
-                                                                <th>时间</th>
-                                                                <th>内容</th>
-
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr v-for="(item,index) in nowCompanyMistake">
-                                                                <td>{{index+1}}</td>
-                                                                <td>{{item.date|ellipsis}}</td>
-                                                                <td>{{item.mistakeContent}}</td>
-
-                                                            </tr>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>平均绩效</div>
-                                            <div class="collapsible-body"><p>{{nowCompanyAverageGrade}}</p></div>
-                                        </li>
+                    <div class="col-md-12 col-sm-6">
+                        <div class="card1">
+                            <div class="card-action">
+                                导航
+                            </div>
+                            <div class="card-content">
+                                <div class="col">
+                                    <ul class="tabs">
+                                        <li class="tab col s4"><a class="active" href="#test1">信息</a></li>
+                                        <li class="tab col s3"><a  href="#test2">任职经历</a></li>
+                                        <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
+                                        <li class="tab col s3"><a href="#test4">Test 4</a></li>
                                     </ul>
+                                </div>
+                                <div class="clearBoth"><br/></div>
+                                <div id="test1" class="col s12">
+                                    <div class="myinfo">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <td>姓名|{{worker.name}}</td>
+                                                <td>手机|{{worker.phonenumber}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>性别|{{worker.sex}}</td>
+                                                <td>身份证号|{{worker.idcard}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>出生|{{worker.birth}}</td>
+                                                <td>专业|{{worker.major}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>学历|{{worker.education}}</td>
+                                                <td>毕业学校 | 四川大学</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="test2" class="col s12">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" >
+                                            <thead>
+                                            <tr>
+                                                <th class="center">员工曾任职的公司</th>
+
+                                                <th class="center">员工的工作经历</th>
+                                                <th>CSS grade</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="warning" v-for="(item,index) in dossier">
+                                                <td class="center">{{item.companyName}}</td>
+
+                                                <td class="center"><button class="btn btn-info" data-toggle="modal" data-target="#myModal2">查看详情</button></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
 
                                 </div>
+                                <div id="test3" class="col s12"><p>Bpsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
+                                <div id="test4" class="col s12"><p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
+                                <div class="clearBoth"><br/></div>
                             </div>
                         </div>
                     </div>
-
-
 
                 </div>
                 <div class="modal-footer">
@@ -550,7 +500,234 @@
                     </button>
                 </div>
             </div>
+            </div>
 
+        </div>-->
+
+        <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!-- 模态的对话框 -->
+            <div class="modal-dialog " >
+                <!-- 内容部分 -->
+                <div class="modal-content">
+                    <!-- 头部 -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" v-text="'员工详细信息:'+worker.name"></h4>
+                    </div>
+                    <!-- 身体 -->
+                    <div class="modal-body" style="height: 500px">
+                        <div class="col-md-12 col-sm-6">
+                            <div class="card1">
+                                <div class="card-action">
+                                    导航
+                                </div>
+                                <div class="card-content">
+                                    <div class="col">
+                                        <ul class="tabs">
+                                            <li class="tab col s4"><a class="active" href="#test1">员工信息</a></li>
+                                            <li class="tab col s3"><a  href="#test2">任职经历</a></li>
+                                            <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
+                                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearBoth"><br/></div>
+                                    <div id="test1" class="col s12">
+                                        <div class="myinfo">
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>姓名|{{worker.name}}</td>
+                                                    <td>手机|{{worker.phonenumber}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>性别|{{worker.sex}}</td>
+                                                    <td>身份证号|{{worker.idcard}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>出生|{{worker.birth}}</td>
+                                                    <td>专业|{{worker.major}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>学历|{{worker.education}}</td>
+                                                    <td>毕业学校 | 四川大学</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="test2" class="col s12">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" >
+                                                <thead>
+                                                <tr>
+                                                    <th class="center">员工曾任职的公司</th>
+
+                                                    <th class="center">员工的工作经历</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="warning" v-for="(item,index) in everCompany">
+                                                    <td class="center">{{item.companyName}}</td>
+
+                                                    <td class="center"><button class="btn btn-info" data-toggle="modal" data-target="#serviceModal" @click="serviceExpericnce(item.companyId,item.companyName)">查看详情</button></td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                    <div id="test3" class="col s12"><p>Bpsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
+                                    <div id="test4" class="col s12"><p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
+                                    <div class="clearBoth"><br/></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 尾部 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="serviceModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!-- 模态的对话框 -->
+            <div class="modal-dialog model-sm" >
+                <!-- 内容部分 -->
+                <div class="modal-content">
+                    <!-- 头部 -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">关闭</button>
+                        <h4 class="modal-title" id="myModalLabel" v-text="'员工任职信息:'+worker.name">
+                        </h4>
+                    </div>
+                    <!-- 身体 -->
+                    <div class="modal-body" style="height: 550px">
+
+                        <div class="col-md-12 col-sm-6">
+                            <div class="card">
+                                <div class="card-action">
+                                    任职信息
+                                </div>
+                                <div class="card-content">
+                                    <ul class="collapsible" data-collapsible="accordion">
+
+                                        <li>
+                                            <div class="collapsible-header "><i class="material-icons">filter_drama</i>公司名称</div>
+                                            <div class="collapsible-body"><p>{{serviceCompanyName}}</p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>任职时间</div>
+                                            <div class="collapsible-body"><p>入职时间-->离职时间:{{employ.startDate|ellipsis}}-->{{employ.endDate|ellipsis}}</p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>获得的成就</div>
+                                            <div class="collapsible-body">
+
+                                                 <div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>序号</th>
+                                                                    <th>时间</th>
+                                                                    <th>内容</th>
+
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr v-for="(item,index) in achievement">
+                                                                    <td>{{index+1}}</td>
+                                                                    <td>{{item.createdate|ellipsis}}</td>
+                                                                    <td>{{item.achieveContent}}</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                 </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">place</i>绩效表</div>
+                                            <div class="collapsible-body">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>月份</th>
+                                                                <th>绩效等级</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in grade">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.createdate|ellipsis}}</td>
+                                                                <td>{{item.content}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>违纪情况</div>
+                                            <div class="collapsible-body">
+
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>违纪时间</th>
+                                                                <th>违纪原因</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in mistake">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.createdate|ellipsis}}</td>
+                                                                <td>{{item.mistakeContent}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 尾部 -->
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    </div>-->
+                </div>
             </div>
         </div>
 
@@ -581,7 +758,7 @@
     <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
     <script src="/assets/js/custom-scripts.js"></script>
-    <script type="text/javascript" src="/assets/js/main2.js"></script><!--模板的js-->
+    <!--<script type="text/javascript" src="/assets/js/main2.js"></script>-->
     <script src="/assets/js/vue.js"></script>
     <script src="/assets/js/axios.min.js"></script>
     <script>
@@ -623,27 +800,46 @@
                 sex:"",
                 birth:"",
                 belong:"",*/
-                dossier:[],//一个员工有多个dossier
+                everCompany:[],//员工曾经任职过的所有公司
+                //以下皆为第二个模态框所用的数据
+                serviceCompanyName:"",
+                grade:[],//绩效表
+                employ:{//从employ中获取入职时间和离职时间
+                    startDate:"",
+                    endDate:"",
+                },
+                achievement:[],//成就表
+                mistake:[],//违纪表
+
 
             },
+            filters: {//对UTC时间进行过滤
+                ellipsis:function(value) {
+                    if (!value) return ''
+                    if (value.length > 10) {
+                        return value.slice(0, 10)
+                    }
+                    return value
+                }
+            },
             methods: {
+                dateFormat:function(time) {//时间格式化函数
+                    var date=new Date(time);
+                    var year=date.getFullYear();
+                    /* 在日期格式中，月份是从0开始的，因此要加0
+                     * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+                     * */
+                    var month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
+                    var day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
+                    var hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
+                    var minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
+                    var seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
+                    // 拼接
+                    return year+"-"+month+"-"+day;
+                },
+
                 GetWorkerDetailById:function(id,belong){//得到员工的所有信息
                     var that=this
-                    /*axios.get("/Querystaff/getEmployById",{
-                        params:{
-                            workerId:id,
-                            belong:belong,
-                        }
-                    }).then(
-                        function (response) {
-                            console.log("查看Employ")
-                            console.log(response.data)
-                        },
-                        function (err) {
-                            console.log(err)
-
-                        }
-                    )*/
                     axios.get("/staff/getWorkerDetailById",{
                         params:{
                             workerId:id,
@@ -653,9 +849,9 @@
                         function (response) {
                             console.log("查看WorkerDetail")
                             console.log(response.data)
-                            that.dossier=response.data;
-                            console.log("查看that.dossier");
-                            console.log(that.dossier)
+                            that.everCompany=response.data;
+                            console.log("查看that.everCompany");
+                            console.log(that.everCompany)
                         },
                         function (err) {
                             console.log(err)
@@ -664,6 +860,104 @@
                     )
 
                 },
+                getGrade:function(companyId,workerId){//根据公司id和员工id查询员工在对应公司的绩效表
+                    var that=this
+                    axios.get("/staff/getGrade",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看Grade")
+                            console.log(response.data)
+                            that.grade=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                getEmploy:function(companyId,workerId){
+                    var that=this
+                    axios.get("/staff/getEmploy",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看employ")
+                            console.log(response.data)
+                            console.log(response.data[0].startDate)
+                            /*that.employ.startDate=that.dateFormat(response.data[0].startDate)
+                            that.employ.endDate=that.dateFormat(response.data[0].endDate)*/
+                            that.employ.startDate=response.data[0].startDate;
+                            that.employ.endDate=response.data[0].endDate
+                            console.log(that.employ.startDate)
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                getAchievement:function(companyId,workerId){//获取成就表
+                    var that=this
+                    axios.get("/staff/getAchievement",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看achievement")
+                            console.log(response.data)
+                            that.achievement=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+
+                getMistake:function(companyId,workerId){//获取违纪表
+                    var that=this
+                    axios.get("/staff/getMistake",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看mistake")
+                            console.log(response.data)
+                            that.mistake=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                serviceExpericnce:function(companyId,companyName){//根据员工id和公司id，找出员工在这个公司的任职情况,包括:取得的成就,犯下的错误，绩效表，公司对员工的评价，任职的时间
+                    var that=this;
+                    console.log("打开第二个模态框的公司名字:"+companyName)
+                    console.log(that.worker.id)
+                    console.log(that.worker.name)
+                    that.serviceCompanyName=companyName;
+                    that.getGrade(companyId,that.worker.id)//绩效表
+                    that.getEmploy(companyId,that.worker.id)//入职和离职时间
+                    that.getAchievement(companyId,that.worker.id)//成就表
+                    that.getMistake(companyId,that.worker.id)//违纪表
+                },
+
 
                 /*Initial:function()
                 {

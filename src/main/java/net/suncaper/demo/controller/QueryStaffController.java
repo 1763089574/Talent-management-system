@@ -1,14 +1,13 @@
 package net.suncaper.demo.controller;
 
 import com.sun.corba.se.spi.orbutil.threadpool.Work;
-import net.suncaper.demo.common.domain.Dossier;
-import net.suncaper.demo.common.domain.Employ;
-import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.common.domain.*;
 import net.suncaper.demo.common.domain.extend.WorkerDetail;
 import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.DossierService;
 import net.suncaper.demo.service.EmployService;
 import net.suncaper.demo.service.WorkerService;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -88,11 +87,16 @@ public class QueryStaffController {
     }
 
     @RequestMapping("applyAgree")
-    public boolean applyAgree(HttpServletRequest request){//同意员工申请入职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为当前公司的id
+    public boolean applyAgree(HttpServletRequest request){//同意员工申请入职，根据公司id和员工id去resign表中将isconsent置为1，
+        // 并将worker表中的belong置为当前公司的id,还要为员工创建employ信息，dossier信息是在离职的时候
         String workerId=request.getParameter("workerId");
         String companyId=request.getParameter("companyId");
-        Boolean flag=companyService.applyAgree(workerId,companyId);
-        //将worker的belong由0改为当前需要加入的公司
+
+        Boolean flag=companyService.applyAgree(workerId,companyId);//将worker的belong由0改为当前需要加入的公司
+
+        //接下来为员工添加employ信息
+
+
 
         return flag;
     }
@@ -111,7 +115,15 @@ public class QueryStaffController {
     public boolean resignAgree(HttpServletRequest request){//同意员工申请离职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为0
         Integer workerId=Integer.valueOf(request.getParameter("workerId"));
         Integer companyId=Integer.valueOf(request.getParameter("companyId"));
+        System.out.println("appliAgree");
+        String evaluate=request.getParameter("evaluate");
         Boolean flag=companyService.resignAgree(workerId,companyId);
+
+
+        List<Employ> employs=employService.getEmploy(request.getParameter("workerId"),request.getParameter("companyId"));//以下是将dossier表中的evaluate字段
+        String employId=String.valueOf(employs.get(0).getId());
+        System.out.println("appliAgree:"+employId);
+        int count=dossierService.DossierEvaluate(employId,evaluate);
         return flag;
     }
 
@@ -121,6 +133,35 @@ public class QueryStaffController {
         Integer companyId=Integer.valueOf(request.getParameter("companyId"));
         Boolean flag=companyService.resignRefuse(workerId,companyId);
         return flag;
+    }
+
+    @RequestMapping("getGrade")
+    public List<Grade> getGrade(HttpServletRequest request){
+        /*Integer companyId=Integer.valueOf(request.getParameter("companyId"));
+        Integer workerId=Integer.valueOf(request.getParameter("workerId"));*/
+        String companyId=request.getParameter("companyId");
+        String workerId=request.getParameter("workerId");
+        List<Grade> grades=employService.getGrade(companyId,workerId);
+        return grades;
+    }
+    @RequestMapping("getEmploy")
+    public List<Employ> getEmploy(String workerId,String companyId){
+
+        List<Employ> employs=employService.getEmploy(companyId,workerId);
+        return  employs;
+    }
+
+    @RequestMapping("getAchievement")
+    public List<Achievement> getAchievement(String workerId,String companyId)
+    {
+        List<Achievement> achievements=employService.getAchievement(companyId,workerId);
+        return  achievements;
+    }
+
+    @RequestMapping("getMistake")
+    public List<Mistake> getMistake(String workerId,String companyId){
+        List<Mistake> mistakes=employService.getMistake(companyId,workerId);
+        return mistakes;
     }
 
 }

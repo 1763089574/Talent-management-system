@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.suncaper.demo.mapper.GradeMapper">
+
+    <select id="getGrade" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+     SELECT grade.Id,grade.createDate,grade.employ_id ,grade.content FROM company,dossier,employ,worker,grade
+    WHERE  worker.Id=employ.Worker_id
+    and employ.Company_id=company.Id
+    and employ.Id=dossier.Employ_id
+    and worker.Id=#{workerId}
+    and company.Id=#{companyId}
+    and grade.employ_id=employ.Id
+    </select>
+
+
+</mapper>

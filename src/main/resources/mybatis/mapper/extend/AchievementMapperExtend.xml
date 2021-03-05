@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.suncaper.demo.mapper.AchievementMapper">
+
+
+    <select id="getAchievement" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT achievement.Id,achievement.createDate,achievement.employ_id,achievement.achieve_content
+        from   achievement,employ
+        WHERE employ.Id=achievement.employ_id and employ.Company_id=#{companyId} and employ.Worker_id=#{workerId}
+
+    </select>
+
+
+
+
+</mapper>
