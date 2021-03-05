@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface EmployMapperExtend {
     List<Employ> getPassCompanyList(int workerid);
-
-
+    Employ getEmployIncludeCompanyNameByEmployId(int emloyId);
 }

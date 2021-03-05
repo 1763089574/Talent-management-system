@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,6 +33,12 @@ public class WorkerServiceImp implements WorkerService{
 
     @Autowired
     AchievementMapper achievementMapper;
+
+    @Autowired
+    EvaluateMapper evaluateMapper;
+
+    @Autowired
+    DossierMapper dossierMapper;
     public boolean phonenumber_exist(String numbers){
         WorkerExample example = new WorkerExample();
         example.createCriteria().andPhonenumberEqualTo(numbers);
@@ -68,6 +75,19 @@ public class WorkerServiceImp implements WorkerService{
 
     }
 
+    public Employ getEmployIncludeCompanyNameByEmployId(int emloyId){
+        return employMapper.getEmployIncludeCompanyNameByEmployId(emloyId);
+    }
+
+    public Dossier getDossierObjectByEmployId(int emloyId){
+        DossierExample dossierExample = new DossierExample();
+        dossierExample.createCriteria().andEmployIdEqualTo(emloyId);
+        List<Dossier> dossiers = dossierMapper.selectByExample(dossierExample);
+        return dossiers.get(0);
+
+
+    }
+
     public boolean login(Worker worker){
         WorkerExample example = new WorkerExample();
         example.createCriteria().andPhonenumberEqualTo(worker.getPhonenumber()).andPasswordEqualTo(worker.getPassword());
@@ -93,6 +113,25 @@ public class WorkerServiceImp implements WorkerService{
         return worker;
     }
 
+    public Evaluate getEvaluateObjectByEmployId(int employId){
+        EvaluateExample evaluateExample = new EvaluateExample();
+        evaluateExample.createCriteria().andEmployIdEqualTo(employId);
+        List<Evaluate> evaluates = evaluateMapper.selectByExample(evaluateExample);
+        return evaluates.get(0);
+
+
+    }
+
+    public Resign getResignByResignId(int resignId){
+        return resignMapper.selectByPrimaryKey(resignId);
+    }
+    public void addResignEvaluate(int employId){
+        Evaluate evaluate = new Evaluate();
+        evaluate.setEmployId(employId);
+        evaluate.setIsevaluate(0);
+        evaluateMapper.insert(evaluate);
+    }
+
     public  List<Grade> getNowCompanyGradeByEmployID(int employid){
         GradeExample gradeExample = new GradeExample();
         gradeExample.createCriteria().andEmployIdEqualTo(employid);
@@ -116,6 +155,15 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+    public int getEmployIdByCompanyIdAndWorkerId(int companyId,int workerId){
+        EmployExample employExample = new EmployExample();
+        employExample.createCriteria().andCompanyIdEqualTo(companyId).andWorkerIdEqualTo(workerId);
+        List<Employ> employs = employMapper.selectByExample(employExample);
+
+        return employs.get(0).getId();
+
+
+    }
     public List<Resign> getResignList(int workerId){
 
         List<Resign> resigns = resignMapper.getResignListByWorkerid(workerId);
@@ -126,10 +174,39 @@ public class WorkerServiceImp implements WorkerService{
         }
 
     }
+    public void addEmpolyEndDate(int employId){
+        Employ employ = employMapper.selectByPrimaryKey(employId);
+        Date date = new Date();
+        employ.setEndDate(date);
+        employMapper.updateByPrimaryKey(employ);
+    }
     public void confirmResignApply(int resignId){
         Resign resign = resignMapper.selectByPrimaryKey(resignId);
         resign.setIsconsent("1");
         resignMapper.updateByPrimaryKey(resign);
+
+    }
+
+    public void addEvaluate(String text,int evaluateId){
+        Evaluate evaluate = evaluateMapper.selectByPrimaryKey(evaluateId);
+        evaluate.setEvaluatecontent(text);
+        evaluate.setIsevaluate(1);
+        evaluateMapper.updateByPrimaryKey(evaluate);
+    }
+    public List<Evaluate> getAllWaitToEvaluateList(int workerId){
+        List<Evaluate> allWaitToEvaluateList = evaluateMapper.getAllWaitToEvaluateList(workerId);
+        if (allWaitToEvaluateList.size()>0){
+            return allWaitToEvaluateList;
+        }else{
+            return null;
+        }
+
+    }
+
+    public int getWorkerIdByEmployId(int employId){
+        Employ employ = employMapper.selectByPrimaryKey(employId);
+        int workerId = employ.getWorkerId();
+        return workerId;
 
     }
     public List<Mistake> getNowCompanyMistakeByEmployID(int employid){

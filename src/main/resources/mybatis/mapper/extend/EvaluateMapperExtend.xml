@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.suncaper.demo.mapper.EvaluateMapper">
+    <resultMap id="EvaluateResultMap" type="net.suncaper.demo.common.domain.Evaluate">
+        <id column="Id" jdbcType="INTEGER" property="id"/>
+        <result column="employ_id" jdbcType="INTEGER" property="employId"/>
+        <result column="isEvaluate" jdbcType="INTEGER" property="isevaluate"/>
+        <result column="evaluateContent" jdbcType="VARCHAR" property="evaluatecontent"/>
+        <result column="name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="end_date" jdbcType="DATE" property="endDate"/>
+    </resultMap>
+
+    <select id="getAllWaitToEvaluateList" resultMap="EvaluateResultMap" parameterType="INTEGER">
+        select employ.end_date,company.name , evaluate.Id,  evaluate.employ_id,evaluate.isEvaluate,evaluate.evaluateContent
+        from company,employ,evaluate where evaluate.employ_id = employ.Id AND company.Id = employ.Company_id
+        AND employ.Worker_id =#{workerId} order by case when evaluate.isEvaluate=0 then 0 else 1 end
+    </select>
+</mapper>

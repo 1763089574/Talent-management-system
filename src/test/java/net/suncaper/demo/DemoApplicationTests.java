@@ -2,6 +2,7 @@ package net.suncaper.demo;
 
 import net.suncaper.demo.common.domain.Worker;
 import net.suncaper.demo.common.domain.WorkerExample;
+import net.suncaper.demo.mapper.EmployMapper;
 import net.suncaper.demo.mapper.WorkerMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
