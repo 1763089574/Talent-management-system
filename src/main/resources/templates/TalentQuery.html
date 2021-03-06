@@ -19,388 +19,566 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
-    <!-- <style>
-        .modal-backdrop {
-            opacity: 0 !important;
-            filter: alpha(opacity=0) !important;
+    <style>
+        .myinfo table tr td{font-size:1.8rem;padding:15px 15px 15px 30px;text-align:left}.myinfo table tr td img{border-radius:50%}.myinfo table tr td span{width:30px;height:30px;display:block}.myinfo table tr td a{color:#666}.myinfo table tr:last-child td p{padding:10px 0 0 0}
+    </style>
+    <style>
+        .b ul { list-style-type: none; height: 500px;
         }
-        #dataTables-example_length{
-            display: none;
+        .b ul li { border-bottom: 1px solid #000000; border-left: 1px solid #000000; height: 25px; width: 260px; float: left;
         }
-    </style> -->
+        .b ul li div{
+            width:230px;
+            overflow:hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow:ellipsis;
+        }
+        .s { border-top: 1px solid #000000;}
+        .r { border-right: 1px solid #000000;}
+
+    </style>
 </head>
 
 <body onload>
-<div id="app">
-    //modal
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        {{selectName}}
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Advanced Tables -->
-                            <div class="card">
+    <div id="app">
+        //modal
+        <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!-- 模态的对话框 -->
+            <div class="modal-dialog " >
+                <!-- 内容部分 -->
+                <div class="modal-content">
+                    <!-- 头部 -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" v-text="'员工详细信息:'+worker.name"></h4>
+                    </div>
+                    <!-- 身体 -->
+                    <div class="modal-body" style="height: 500px">
+                        <div class="col-md-12 col-sm-6">
+                            <div class="card1">
                                 <div class="card-action">
-                                    档案表
+                                    导航
                                 </div>
                                 <div class="card-content">
-                                    <div class="table-responsive">
-                                        <!-- <div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length"><label><select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="1">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records per page</label></div></div> -->
-                                        <table class="table table-striped table-bordered table-hover"
-                                               id="dataTables-example">
-
-                                            <thead>
-                                            <tr>
-                                                <th class="center">任职公司</th>
-                                                <th class="center">缺勤次数</th>
-                                                <th class="center">评价</th>
-                                                <!--<th>CSS grade</th>-->
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="odd gradeX" v-for="detailData,index in detailDatas" :key="detailData.id">
-                                                <td class="center">{{detailData.companyName}}</td>
-                                                <td class="center">{{detailData.lateCount}}</td>
-                                                <td class="center">{{detailData.evaluate}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="col">
+                                        <ul class="tabs">
+                                            <li class="tab col s4"><a class="active" href="#test1">员工信息</a></li>
+                                            <li class="tab col s3"><a  href="#test2">任职经历</a></li>
+                                            <li class="tab col s3 disabled"><a href="#test3">更多功能，敬请期待</a></li>
+                                            <!--<li class="tab col s3"><a href="#test4">Test 4</a></li>-->
+                                        </ul>
                                     </div>
+                                    <div class="clearBoth"><br/></div>
+                                    <div id="test1" class="col s12">
+                                        <div class="myinfo">
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td>姓名|{{worker.name}}</td>
+                                                    <td>手机|{{worker.phonenumber}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>性别|{{worker.sex}}</td>
+                                                    <td>身份证号|{{worker.idcard}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>出生|{{worker.birth}}</td>
+                                                    <td>专业|{{worker.major}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>学历|{{worker.education}}</td>
+                                                    <td>毕业学校 | 四川大学</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="test2" class="col s12">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" >
+                                                <thead>
+                                                <tr>
+                                                    <th class="center">员工曾任职的公司</th>
+
+                                                    <th class="center">员工的工作经历</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="warning" v-for="(item,index) in everCompany">
+                                                    <td class="center">{{item.companyName}}</td>
+
+                                                    <td class="center"><button class="btn btn-info" data-toggle="modal" data-target="#serviceModal" @click="serviceExpericnce(item.companyId,item.companyName)">查看详情</button></td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                    <div id="test3" class="col s12"><p>Bpsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>
+                                    <!--<div id="test4" class="col s12">
+                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor inc
+                                            ididunt ut labore et dolore magna aliqua. Ut enim ad mini
+                                            m veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                        </p></div>-->
+                                    <div class="clearBoth"><br/></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 尾部 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="serviceModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!-- 模态的对话框 -->
+            <div class="modal-dialog model-sm" >
+                <!-- 内容部分 -->
+                <div class="modal-content">
+                    <!-- 头部 -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">关闭</button>
+                        <h4 class="modal-title" id="myModalLabel" v-text="'员工任职信息:'+worker.name">
+                        </h4>
+                    </div>
+                    <!-- 身体 -->
+                    <div class="modal-body" style="height: 550px">
+
+                        <div class="col-md-12 col-sm-6">
+                            <div class="card">
+                                <div class="card-action">
+                                    任职信息
+                                </div>
+                                <div class="card-content">
+                                    <ul class="collapsible" data-collapsible="accordion">
+
+                                        <li>
+                                            <div class="collapsible-header "><i class="material-icons">filter_drama</i>公司名称</div>
+                                            <div class="collapsible-body"><p>{{serviceCompanyName}}</p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>任职时间</div>
+                                            <div class="collapsible-body"><p>入职时间-->离职时间:{{employ.startDate|ellipsis}}-->{{employ.endDate|ellipsis}}</p></div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>获得的成就</div>
+                                            <div class="collapsible-body">
+
+                                                 <div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>序号</th>
+                                                                    <th>时间</th>
+                                                                    <th>内容</th>
+
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr v-for="(item,index) in achievement">
+                                                                    <td>{{index+1}}</td>
+                                                                    <td>{{item.createdate|ellipsis}}</td>
+                                                                    <td>{{item.achieveContent}}</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                 </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">place</i>绩效表</div>
+                                            <div class="collapsible-body">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>月份</th>
+                                                                <th>绩效等级</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in grade">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.createdate|ellipsis}}</td>
+                                                                <td>{{item.content}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="collapsible-header"><i class="material-icons">whatshot</i>违纪情况</div>
+                                            <div class="collapsible-body">
+
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>序号</th>
+                                                                <th>违纪时间</th>
+                                                                <th>违纪原因</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="(item,index) in mistake">
+                                                                <td>{{index+1}}</td>
+                                                                <td>{{item.createdate|ellipsis}}</td>
+                                                                <td>{{item.mistakeContent}}</td>
+
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
 
                                 </div>
                             </div>
-                            <!--End Advanced Tables -->
                         </div>
+
                     </div>
+                    <!-- 尾部 -->
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    </div>-->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        提交更改
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-    //modal
-
-    <div id="wrapper">
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
-                        class="large material-icons">track_changes</i> <strong>target</strong></a>
-
-                <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
+        </div>
+        //modal
 
-            <ul class="nav navbar-top-links navbar-right">
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i
-                        class="fa fa-envelope fa-fw"></i> <i
-                        class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i
-                        class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+        <div id="wrapper">
+            <nav class="navbar navbar-default top-navbar" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
+                            class="large material-icons">track_changes</i> <strong>target</strong></a>
+
+                    <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i
+                                class="fa fa-envelope fa-fw"></i> <i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i
+                                class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+                                class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+                                class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+            </nav>
+            <!-- Dropdown Structure -->
+            <ul id="dropdown1" class="dropdown-content">
+                <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
                 </li>
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
-                        class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-                        class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
-                        class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
             </ul>
-        </nav>
-        <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
-            </li>
-            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-            </li>
-            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-            </li>
-        </ul>
-        <ul id="dropdown2" class="dropdown-content w250">
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                        <span class="pull-right text-muted small">12 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-tasks fa-fw"></i> New Task
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                        <span class="pull-right text-muted small">4 min</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a class="text-center" href="#">
-                    <strong>See All Alerts</strong>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-        <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
-            <li>
-                <a href="#">
-                    <div>
-                        <p>
-                            <strong>Task 1</strong>
-                            <span class="pull-right text-muted">60% Complete</span>
-                        </p>
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="sr-only">60% Complete (success)</span>
+            <ul id="dropdown2" class="dropdown-content w250">
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <span class="pull-right text-muted small">4 min</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                            <span class="pull-right text-muted small">12 min</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                            <span class="pull-right text-muted small">4 min</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> New Task
+                            <span class="pull-right text-muted small">4 min</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                            <span class="pull-right text-muted small">4 min</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 1</strong>
+                                <span class="pull-right text-muted">60% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                    <span class="sr-only">60% Complete (success)</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <p>
-                            <strong>Task 2</strong>
-                            <span class="pull-right text-muted">28% Complete</span>
-                        </p>
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 28%">
-                                <span class="sr-only">28% Complete</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 2</strong>
+                                <span class="pull-right text-muted">28% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                                    <span class="sr-only">28% Complete</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <p>
-                            <strong>Task 3</strong>
-                            <span class="pull-right text-muted">60% Complete</span>
-                        </p>
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="sr-only">60% Complete (warning)</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 3</strong>
+                                <span class="pull-right text-muted">60% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                    <span class="sr-only">60% Complete (warning)</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <p>
-                            <strong>Task 4</strong>
-                            <span class="pull-right text-muted">85% Complete</span>
-                        </p>
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-                                <span class="sr-only">85% Complete (danger)</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 4</strong>
+                                <span class="pull-right text-muted">85% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                                    <span class="sr-only">85% Complete (danger)</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-        </ul>
-        <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
-            <li>
-                <div>
-                    <strong>John Doe</strong>
-                    <span class="pull-right text-muted">
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+            </ul>
+            <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
+                <li>
+                    <div>
+                        <strong>John Doe</strong>
+                        <span class="pull-right text-muted">
                             <em>Today</em>
                         </span>
-                </div>
-                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <div>
-                    <strong>John Smith</strong>
-                    <span class="pull-right text-muted">
-                            <em>Yesterday</em>
-                        </span>
-                </div>
-                <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
+                    </div>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
                     <div>
                         <strong>John Smith</strong>
                         <span class="pull-right text-muted">
+                            <em>Yesterday</em>
+                        </span>
+                    </div>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <strong>John Smith</strong>
+                            <span class="pull-right text-muted">
                                 <em>Yesterday</em>
                             </span>
-                    </div>
-                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a class="text-center" href="#">
-                    <strong>Read All Messages</strong>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-        <!--/. NAV TOP  -->
-        <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
+                        </div>
+                        <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>Read All Messages</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!--/. NAV TOP  -->
+            <!--/. NAV TOP  -->
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
 
-                    <li>
-                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
-                            欢迎</a>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse in">
-                            <li>
-                                <a href="TalentQuery.html" class="active-menu">人才查询</a>
-                            </li>
-                            <li>
-                                <a href="TalentCompare.html">人才比较</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level ">
-                            <li>
-                                <a href="QueryStaff.html">查询员工</a>
-                            </li>
-                            <li>
-                                <a href="AuditStaff.html">审核员工</a>
-                            </li>
-                            <li>
-                                <a href="AddEvaluation.html">添加评价</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>公司信息<span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="CompanyInformationOperation.html">公司信息操作</a>
-                            </li>
-                            <li>
-                                <a href="CompanyCertification.html">公司认证</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                        <li>
+                            <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
+                                欢迎</a>
+                        </li>
+                        <li>
+                            <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse in">
+                                <li>
+                                    <a href="TalentQuery.html" class="active-menu">人才查询</a>
+                                </li>
+                                <li>
+                                    <a href="TalentCompare.html">人才比较</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level ">
+                                <li>
+                                    <a href="QueryStaff.html">查询员工</a>
+                                </li>
+                                <li>
+                                    <a href="AuditStaff.html">审核员工</a>
+                                </li>
+                                <li>
+                                    <a href="AddEvaluation.html">添加评价</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>公司信息<span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="CompanyInformationOperation.html">公司信息操作</a>
+                                </li>
+                                <li>
+                                    <a href="CompanyCertification.html">公司认证</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
 
-            </div>
+                </div>
 
-        </nav>
+            </nav>
 
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" style="height: 300px;">
-            <div class="header">
-                <h1 class="page-header">
-                    人才查询
-                </h1>
-                <!-- <ol class="breadcrumb">
+            <!-- /. NAV SIDE  -->
+            <div id="page-wrapper" style="height: 300px;">
+                <div class="header">
+                    <h1 class="page-header">
+                        人才查询
+                    </h1>
+                    <!-- <ol class="breadcrumb">
                   <li><a href="#">Home</a></li>
                   <li><a href="#">Tables</a></li>
                   <li class="active">Data</li>
                 </ol>  -->
 
-            </div>
+                </div>
 
-            <div id="page-inner">
+                <div id="page-inner">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Advanced Tables -->
-                        <div class="card">
-                            <div class="card-action">
-                                Advanced Tables
-                            </div>
-                            <div class="card-content">
-                                <div class="row">
-                                    <div class="col-md-12 col-md-offset-0">
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <label for="searchName">姓名：</label>
-                                                <input type="text" class="form-control" id="searchName"
-                                                       style="width: 130px" v-model="name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="searchMajor">专业：</label>
-                                                <input type="text" class="form-control" id="searchMajor"
-                                                       style="width: 130px" v-model="major">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="searchAgedown">年龄区间：</label>
-                                                <input type="text" placeholder="最低年龄" class="form-control"
-                                                       id="searchAgedown" style="width: 70px" v-model="minAge">
-                                                ——
-                                                <input type="text" placeholder="最高年龄" class="form-control"
-                                                       id="searchAgeup" style="width: 70px" v-model="maxAge">
-                                            </div>
-                                            <!-- <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Advanced Tables -->
+                            <div class="card">
+                                <div class="card-action">
+                                    Advanced Tables
+                                </div>
+                                <div class="card-content">
+                                    <div class="row">
+                                        <div class="col-md-12 col-md-offset-0">
+                                            <form class="form-inline">
+                                                <div class="form-group">
+                                                    <label for="searchName">姓名：</label>
+                                                    <input type="text" class="form-control" id="searchName"
+                                                        style="width: 130px" v-model="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="searchMajor">专业：</label>
+                                                    <input type="text" class="form-control" id="searchMajor"
+                                                        style="width: 130px" v-model="major">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="searchAgedown">年龄区间：</label>
+                                                    <input type="text" placeholder="最低年龄" class="form-control"
+                                                        id="searchAgedown" style="width: 70px" v-model="minAge">
+                                                    ——
+                                                    <input type="text" placeholder="最高年龄" class="form-control"
+                                                        id="searchAgeup" style="width: 70px" v-model="maxAge">
+                                                </div>
+                                                <!-- <div class="form-group">
                                     <div class="dropdown">
                                         <label>学历：</label>
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -417,263 +595,378 @@
                                         </ul>
                                     </div>
                                     </div> -->
-                                            <div class="form-group">
-                                                <label>学历：</label>
-                                                <select style="display:flex; width: 100px;" v-model="education">
-                                                    <option>硕士</option>
-                                                    <option>本科</option>
-                                                    <option>高中</option>
-                                                    <!-- <li role="separator" class="divider"></li> -->
-                                                    <option>不限</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>性别：</label>
-                                                <select style="display:flex; width: 100px;" v-model="sex">
-                                                    <option>男</option>
-                                                    <option>女</option>
-                                                    <!-- <li role="separator" class="divider"></li> -->
-                                                    <option>不限</option>
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-info"
+                                                <div class="form-group">
+                                                    <label>学历：</label>
+                                                    <select style="display:flex; width: 100px;" v-model="education">
+                                                        <option>硕士</option>
+                                                        <option>本科</option>
+                                                        <option>高中</option>
+                                                        <!-- <li role="separator" class="divider"></li> -->
+                                                        <option>不限</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>性别：</label>
+                                                    <select style="display:flex; width: 100px;" v-model="sex">
+                                                        <option>男</option>
+                                                        <option>女</option>
+                                                        <!-- <li role="separator" class="divider"></li> -->
+                                                        <option>不限</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-info"
                                                     @click.prevent="searchLike">筛选</button>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover"
-                                           id="dataTables-example1">
-                                        <!-- <table class="table table-striped table-bordered table-hover"> -->
-                                        <thead>
-                                        <tr>
-                                            <th class="center">姓名</th>
-                                            <th class="center">性别</th>
-                                            <th class="center">年龄</th>
-                                            <th class="center">联系方式</th>
-                                            <th class="center">学历</th>
-                                            <th class="center">专业</th>
-                                            <th class="center">操作</th>
-                                            <!--<th>CSS grade</th>-->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="odd gradeX" v-for="worker,index in workers" :key="worker.id">
-                                            <td class="center">{{worker.name}}</td>
-                                            <td class="center">{{worker.sex}}</td>
-                                            <td class="center">{{worker.birth}}</td>
-                                            <td class="center">{{worker.phonenumber}}</td>
-                                            <td class="center">{{worker.education}}</td>
-                                            <td class="center">{{worker.major}}</td>
-                                            <td class="center"><button class="btn btn-primary" @click="detail(worker.id,worker.name)"
-                                                                       data-toggle="modal" data-target="#myModal"
-                                            >详情</button></td>
-                                        </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover"
+                                            id="dataTables-example1">
+                                            <!-- <table class="table table-striped table-bordered table-hover"> -->
+                                            <thead>
+                                                <tr>
+                                                    <th class="center">姓名</th>
+                                                    <th class="center">性别</th>
+                                                    <th class="center">年龄</th>
+                                                    <th class="center">联系方式</th>
+                                                    <th class="center">学历</th>
+                                                    <th class="center">专业</th>
+                                                    <th class="center">操作</th>
+                                                    <!--<th>CSS grade</th>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="odd gradeX" v-for="worker,index in workers" :key="worker.id">
+                                                    <td class="center">{{worker.name}}</td>
+                                                    <td class="center">{{worker.sex}}</td>
+                                                    <td class="center">{{worker.birth}}</td>
+                                                    <td class="center">{{worker.phonenumber}}</td>
+                                                    <td class="center">{{worker.education}}</td>
+                                                    <td class="center">{{worker.major}}</td>
+                                                    <td class="center"><button @click="detailInfo(worker.id)"
+                                                            class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#myModal">查看</button>
+                                                    </td>
+                                                </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
+                                </div>
                             </div>
+                            <!--End Advanced Tables -->
                         </div>
-                        <!--End Advanced Tables -->
                     </div>
+                    <!-- /. ROW  -->
+
+                    <!-- /. ROW  -->
+
+                    <!-- /. ROW  -->
+
+                    <!-- /. ROW  -->
+
+                    <!-- <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer> -->
                 </div>
-                <!-- /. ROW  -->
-
-                <!-- /. ROW  -->
-
-                <!-- /. ROW  -->
-
-                <!-- /. ROW  -->
-
-                <!-- <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer> -->
+                <!-- /. PAGE INNER  -->
             </div>
-            <!-- /. PAGE INNER  -->
+            <!-- /. PAGE WRAPPER  -->
+            <!-- /. WRAPPER  -->
+            <!-- JS Scripts-->
         </div>
-        <!-- /. PAGE WRAPPER  -->
-        <!-- /. WRAPPER  -->
-        <!-- JS Scripts-->
     </div>
-</div>
 
 
 
 
-<!-- jQuery Js -->
-<script src="/assets/js/jquery-1.10.2.js"></script>
+    <!-- jQuery Js -->
+    <script src="/assets/js/jquery-1.10.2.js"></script>
 
-<!-- Bootstrap Js -->
-<script src="/assets/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="/assets/js/bootstrap.min.js"></script>
 
-<script src="/assets/materialize/js/materialize.min.js"></script>
+    <script src="/assets/materialize/js/materialize.min.js"></script>
 
-<!-- Metis Menu Js -->
-<script src="/assets/js/jquery.metisMenu.js"></script>
-<!-- Morris Chart Js -->
-<script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
-<script src="/assets/js/morris/morris.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="/assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/assets/js/morris/morris.js"></script>
 
 
-<script src="/assets/js/easypiechart.js"></script>
-<script src="/assets/js/easypiechart-data.js"></script>
+    <script src="/assets/js/easypiechart.js"></script>
+    <script src="/assets/js/easypiechart-data.js"></script>
 
-<script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
-<!-- DATA TABLE SCRIPTS -->
-<script src="/assets/js/dataTables/jquery.dataTables.js"></script>
-<script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
 
-<!-- Custom Js -->
-<script src="/assets/js/custom-scripts.js"></script>
-<script src="/assets/js/vue.js"></script>
-<script src="/assets/js/axios.min.js"></script>
-<script>
-    const app = new Vue({
-        el: "#app",
-        data: {
-            workers: [],
-            detailDatas:[],
-            education: "不限",
-            sex: "不限",
-            name: "",
-            major: "",
-            minAge: 0,
-            maxAge: 100,
-            initializationcount: 0,
-            initializationcountDetail: 0,
-            selectName:"",
+    <!-- Custom Js -->
+    <script src="/assets/js/custom-scripts.js"></script>
+    <script src="/assets/js/vue.js"></script>
+    <script src="/assets/js/axios.min.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                workers: [],
+                worker:{
+                    id:"",
+                    name:"",
+                    idcard:"",
+                    phonenumber:"",
+                    sex:"",
+                    birth:"",
+                    belong:"",
+                    education:"",
+                    major:""//希望覆盖的内容
+                    //dossier:[],//一个员工有多个dossier
+                },
+                detailDatas: [],
+                education: "不限",
+                sex: "不限",
+                name: "",
+                major: "",
+                minAge: 0,
+                maxAge: 100,
+                initializationcount: 0,
+                initializationcountDetail: 0,
+                selectName: "",
+                everCompany:[],//员工曾经任职过的所有公司
+                //以下皆为第二个模态框所用的数据
+                serviceCompanyName:"",
+                grade:[],//绩效表
+                employ:{//从employ中获取入职时间和离职时间
+                    startDate:"",
+                    endDate:"",
+                },
+                achievement:[],//成就表
+                mistake:[],//违纪表
 
-        },
-        methods: {
-            findAll() {
-                let that = this;
-                //发送查询所有用户信息的操作
-                axios.get("http://127.0.0.1:8280/worker/findAll").then(function (response) {
-                    console.log(response.data);
-                    that.workers = response.data;
-                }).catch(function (err) {
-                    console.log(err);
-                })
             },
-            searchLike() {
-                // console.log(this.education);
-                let that = this;
-                axios.get("http://127.0.0.1:8280/worker/findLike", {
-                    params: {
-                        name: that.name,
-                        major: that.phone,
-                        sex: that.sex,
-                        education: that.education,
-                        minAge: that.minAge,
-                        maxAge: that.maxAge
-                    }
-                }).then(function (response) {
-                    console.log(response.data);
-                    that.workers = response.data;
-                })
+            methods: {
+                GetWorkerDetailById:function(id,belong){//得到员工的所有信息
+                    var that=this
+                    axios.get("/staff/getWorkerDetailById",{
+                        params:{
+                            workerId:id,
+                            belong:belong,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看WorkerDetail")
+                            console.log(response.data)
+                            that.everCompany=response.data;
+                            console.log("查看that.everCompany");
+                            console.log(that.everCompany)
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+
+                },
+                findAll() {
+                    let that = this;
+                    //发送查询所有用户信息的操作
+                    axios.get("http://127.0.0.1:8280/worker/findAll").then(function (response) {
+                        console.log(response.data);
+                        that.workers = response.data;
+                    }).catch(function (err) {
+                        console.log(err);
+                    })
+                },
+                searchLike() {
+                    // console.log(this.education);
+                    let that = this;
+                    axios.get("http://127.0.0.1:8280/worker/findLike", {
+                        params: {
+                            name: that.name,
+                            major: that.phone,
+                            sex: that.sex,
+                            education: that.education,
+                            minAge: that.minAge,
+                            maxAge: that.maxAge
+                        }
+                    }).then(function (response) {
+                        console.log(response.data);
+                        that.workers = response.data;
+                    })
+                },
+                detailInfo:function (event) {//event就是点击的那个员工id
+                    var that=this
+                    console.log("查看员工id："+event);
+                    axios.get("/staff/GetWorkerById",{
+                        params:{
+                            worker_id:event,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看一个worker:"+response)
+                            console.log(response.data)
+                            that.worker=response.data
+                            that.GetWorkerDetailById(response.data.id,response.data.belong);
+
+
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+
+
+                },
+                getGrade:function(companyId,workerId){//根据公司id和员工id查询员工在对应公司的绩效表
+                    var that=this
+                    axios.get("/staff/getGrade",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看Grade")
+                            console.log(response.data)
+                            that.grade=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                getEmploy:function(companyId,workerId){
+                    var that=this
+                    axios.get("/staff/getEmploy",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看employ")
+                            console.log(response.data)
+                            console.log(response.data[0].startDate)
+                            /*that.employ.startDate=that.dateFormat(response.data[0].startDate)
+                            that.employ.endDate=that.dateFormat(response.data[0].endDate)*/
+                            that.employ.startDate=response.data[0].startDate;
+                            that.employ.endDate=response.data[0].endDate
+                            console.log(that.employ.startDate)
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                getAchievement:function(companyId,workerId){//获取成就表
+                    var that=this
+                    axios.get("/staff/getAchievement",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看achievement")
+                            console.log(response.data)
+                            that.achievement=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                getMistake:function(companyId,workerId){//获取违纪表
+                    var that=this
+                    axios.get("/staff/getMistake",{
+                        params:{
+                            workerId:workerId,
+                            companyId:companyId
+                        }
+                    }).then(
+                        function (response) {
+                            console.log("查看mistake")
+                            console.log(response.data)
+                            that.mistake=response.data
+
+                        },
+                        function (err) {
+                            console.log(err)
+
+                        }
+                    )
+                },
+                serviceExpericnce:function(companyId,companyName){//根据员工id和公司id，找出员工在这个公司的任职情况,包括:取得的成就,犯下的错误，绩效表，公司对员工的评价，任职的时间
+                    var that=this;
+                    console.log("打开第二个模态框的公司名字:"+companyName)
+                    console.log(that.worker.id)
+                    console.log(that.worker.name)
+                    that.serviceCompanyName=companyName;
+                    that.getGrade(companyId,that.worker.id)//绩效表
+                    that.getEmploy(companyId,that.worker.id)//入职和离职时间
+                    that.getAchievement(companyId,that.worker.id)//成就表
+                    that.getMistake(companyId,that.worker.id)//违纪表
+                },
+                // })
             },
-            detail(id,name){
-                let that = this;
-                this.selectName = name;
-                axios.get("http://127.0.0.1:8280/worker/details", {
-                    params: {
-                        id: id,
+            //生命周期相关的函数
+            created() {
+                this.findAll();
+
+            },
+            watch: {
+                workers: function () {
+                    if (this.initializationcount == 0) {
+                        this.initializationcount = this.initializationcount + 1;
+                        this.$nextTick(function () {
+                            /*现在数据已经渲染完毕*/
+                            $('#dataTables-example1').DataTable({
+                                "paging": true,// 开启分页
+                                "pageLength": 10,//每页显示数量
+                                "lengthChange": true,//是否允许用户改变表格每页显示的记录数
+                                "lengthMenu": [10, 25, 50, 75, 100],
+                                "searching": true,//搜索
+                                "ordering": true,//排序
+                                "info": true,//左下角 从 1 到 5 /共 23 条数据
+                                "autoWidth": true,
+                                // "scrollX": "100%",//表格的宽度
+                                // "scrollY": "200px",//表格的高度
+                                "scrollXInner": "100%",//表格的内容宽度
+                                // "bScrollCollapse":true,//当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
+                                "aaSorting": [
+                                    [3, 'asc']
+                                ],
+                                "language": {
+                                    "sInfoEmpty": "没有数据",
+                                    "sZeroRecords": "没有查找到满足条件的数据",
+                                    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+                                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                                    "oPaginate": {
+                                        "sFirst": "首页",
+                                        "sPrevious": "前一页",
+                                        "sNext": "后一页",
+                                        "sLast": "尾页"
+                                    }
+                                },
+                            });
+
+                        })
                     }
-                }).then(function (response) {
-                    console.log(response.data);
-                    that.detailDatas = response.data;
-                })
+                },
             }
-            // })
-        },
-        //生命周期相关的函数
-        created() {
-            this.findAll();
 
-        },
-        watch: {
-            workers: function () {
-                if (this.initializationcount == 0) {
-                    this.initializationcount = this.initializationcount + 1;
-                    this.$nextTick(function () {
-                        /*现在数据已经渲染完毕*/
-                        $('#dataTables-example1').DataTable({
-                            "paging": true,// 开启分页
-                            "pageLength": 10,//每页显示数量
-                            "lengthChange": true,//是否允许用户改变表格每页显示的记录数
-                            "lengthMenu": [10, 25, 50, 75, 100],
-                            "searching": true,//搜索
-                            "ordering": true,//排序
-                            "info": true,//左下角 从 1 到 5 /共 23 条数据
-                            "autoWidth": true,
-                            // "scrollX": "100%",//表格的宽度
-                            // "scrollY": "200px",//表格的高度
-                            "scrollXInner": "100%",//表格的内容宽度
-                            // "bScrollCollapse":true,//当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
-                            "aaSorting": [
-                                [3, 'asc']
-                            ],
-                            "language": {
-                                "sInfoEmpty": "没有数据",
-                                "sZeroRecords": "没有查找到满足条件的数据",
-                                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-                                "sLengthMenu": "每页显示 _MENU_ 条记录",
-                                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-                                "oPaginate": {
-                                    "sFirst": "首页",
-                                    "sPrevious": "前一页",
-                                    "sNext": "后一页",
-                                    "sLast": "尾页"
-                                }
-                            },
-                        });
-
-                    })
-                }
-            },
-            detailDatas: function () {
-                if (this.initializationcountDetail == 0) {
-                    this.initializationcountDetail = this.initializationcountDetail + 1;
-                    this.$nextTick(function () {
-                        /*现在数据已经渲染完毕*/
-                        $('#dataTables-example').DataTable({
-                            "paging": true,// 开启分页
-                            "pageLength": 1,//每页显示数量
-                            "lengthChange": true,//是否允许用户改变表格每页显示的记录数
-                            "lengthMenu": [1, 2, 5, 7, 10],
-                            "searching": true,//搜索
-                            "ordering": true,//排序
-                            "info": true,//左下角 从 1 到 5 /共 23 条数据
-                            "autoWidth": true,
-                            // "scrollX": "100%",//表格的宽度
-                            // "scrollY": "200px",//表格的高度
-                            "scrollXInner": "100%",//表格的内容宽度
-                            // "bScrollCollapse":true,//当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
-                            // "aaSorting": [
-                            //     [3, 'asc']
-                            // ],
-                            "language": {
-                                "sInfoEmpty": "没有数据",
-                                "sZeroRecords": "没有查找到满足条件的数据",
-                                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-                                "sLengthMenu": "每页显示 _MENU_ 条记录",
-                                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-                                "oPaginate": {
-                                    "sFirst": "首页",
-                                    "sPrevious": "前一页",
-                                    "sNext": "后一页",
-                                    "sLast": "尾页"
-                                }
-                            },
-                        });
-
-                    })
-                }
-            },
-        }
-
-    })
-</script>
+        })
+    </script>
 
 
 </body>
