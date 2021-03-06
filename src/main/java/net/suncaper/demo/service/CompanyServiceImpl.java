@@ -276,4 +276,14 @@ public class CompanyServiceImpl implements CompanyService {
         workerExample.createCriteria().andBelongEqualTo(CompanyId).andIsevaluateEqualTo(0);
         return workerMapper.selectByExample(workerExample);
     }
+
+    @Override
+    public List<Worker> getCheck(String CompanyId) {
+        return companyMapper.getCheck(Integer.valueOf(CompanyId));
+    }
+
+    @Override
+    public List<Worker> getResign(String CompanyId) {
+        return companyMapper.getResign(Integer.valueOf(CompanyId));
+    }
 }

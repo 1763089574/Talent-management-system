@@ -24,5 +24,13 @@
     <insert id="modification">
         UPDATE company SET `Name`=#{name},PhoneNumber=#{phonenumber} WHERE Id=#{id}
     </insert>
+    <select id="getCheck" resultType="net.suncaper.demo.common.domain.Worker">
+        SELECT `Name`,Sex,Birth,PhoneNumber,Education,Major FROM worker,apply WHERE apply.companyid=#{CompanyId}
+        AND apply.isConsent=0 AND worker.Id=workerid
+    </select>
+    <select id="getResign" resultType="net.suncaper.demo.common.domain.Worker">
+        SELECT `Name`,Sex,Birth,PhoneNumber,Education,Major FROM worker,resign WHERE resign.company_id=#{CompanyId}
+        AND resign.isConsent=0 AND worker.Id=worker_id
+    </select>
 
 </mapper>

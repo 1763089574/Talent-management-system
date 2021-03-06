@@ -20,4 +20,13 @@ public class WelcomeController {
     public List<Worker> getCommission(String CompanyId){
         return companyService.getCommission(CompanyId);
     }
+
+    @GetMapping("/getCheck")
+    public List<Worker> getCheck(String CompanyId){
+        return companyService.getCheck(CompanyId);
+    }
+    @GetMapping("/getResign")
+    public List<Worker> getResign(String CompanyId){
+        return companyService.getResign(CompanyId);
+    }
 }

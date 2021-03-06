@@ -1,5 +1,6 @@
 package net.suncaper.demo.service;
 
+import net.suncaper.demo.common.domain.Apply;
 import net.suncaper.demo.common.domain.Company;
 import net.suncaper.demo.common.domain.License;
 import net.suncaper.demo.common.domain.Worker;
@@ -45,4 +46,6 @@ public interface CompanyService {
     int save(License license);
     License ifCertification(String CompanyId);
     List<Worker> getCommission(String CompanyId);
+    List<Worker> getCheck(String CompanyId);
+    List<Worker> getResign(String CompanyId);
 }
