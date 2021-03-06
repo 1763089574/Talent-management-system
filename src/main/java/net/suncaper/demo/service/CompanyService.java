@@ -36,4 +36,6 @@ public interface CompanyService {
     public boolean resignAgree(int workerId,int companyId);//根据workerId，来同意员工的离职申请
 
     public boolean resignRefuse(int workerId,int companyId);//根据workerId和companyId，来拒绝员工的离职申请
+
+    public boolean updateIsEvaluate(String workerId);//根据workerId将worker的isevaluate字段置为1
 }

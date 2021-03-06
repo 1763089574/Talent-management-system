@@ -219,4 +219,16 @@ public class CompanyServiceImpl implements CompanyService {
         else
             return true;
     }
+
+    @Override
+    public boolean updateIsEvaluate(String workerId) {
+        Worker record=new Worker();
+        record.setId(Integer.valueOf(workerId));
+        record.setIsevaluate(1);
+        int count=workerMapper.updateByPrimaryKeySelective(record);
+        if(count==1)
+            return true;
+        else
+        return false;
+    }
 }

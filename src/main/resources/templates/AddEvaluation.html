@@ -312,7 +312,7 @@
 						</div>
 						<div class="card-action">
 
-                            <button class="btn-danger" @click="changeMistakeFlag">点我登记员工的获奖情况</button>
+                            <button class="btn-danger" @click="changeMistakeFlag">点我登记员工的违纪情况</button>
 						</div>
 					  </div>
                 </div>
@@ -358,7 +358,7 @@
 
                                             <td class="center" >
                                                 <button v-if="item.isevaluate==1"  @click="detailInfo(item.id)" class="btn btn-info disabled" data-toggle="modal" data-target="#myModal" >已登记</button>
-                                                <button  v-else  @click="getWorkerId(item.id)" class="btn btn-info" data-toggle="modal" data-target="#myModal" >开始登记</button>
+                                                <button  v-else  @click="getWorkerIdName(item.id,item.name)" class="btn btn-info" data-toggle="modal" data-target="#myModal" >开始登记</button>
 
                                             </td>
                                         </tr>
@@ -412,7 +412,7 @@
                                             <td class="center">{{item.education}}</td>
                                             <td class="center">{{item.major}}</td>
                                             <td class="center">{{item.phonenumber}}</td>
-                                            <td class="center"><button  @click="detailInfo(item.id)" class="btn btn-circle" data-toggle="modal" data-target="#myModal" >开始登记</button></td>
+                                            <td class="center"><button  @click="getWorkerIdName(item.id,item.name)"  class="btn btn-circle" data-toggle="modal" data-target="#myModal2" >开始登记</button></td>
                                         </tr>
 
                                         </tr>
@@ -464,7 +464,7 @@
                                             <td class="center">{{item.education}}</td>
                                             <td class="center">{{item.major}}</td>
                                             <td class="center">{{item.phonenumber}}</td>
-                                            <td class="center"><button @click="detailInfo(item.id)" class="btn btn-danger" data-toggle="modal" data-target="#myModal" >开始登记</button></td>
+                                            <td class="center"><button @click="getWorkerIdName(item.id,item.name)" class="btn btn-danger" data-toggle="modal" data-target="#myModal3" >开始登记</button></td>
                                         </tr>
 
                                         </tr>
@@ -494,7 +494,7 @@
                                 <h4 class="modal-title">绩效评定</h4>
                             </div>
                             <!-- 身体 -->
-                            <div class="modal-body">请选择该员工本月的绩效等级
+                            <div class="modal-body">请选择{{workerName}}本月的绩效等级
 
                                 <p>
                                     <input type="radio" id="male1" name="sex" value="1" v-model="content">
@@ -535,6 +535,101 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                 <button type="button" class="btn btn-primary"  data-dismiss="modal" @click="addGrade">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal2"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- 模态的对话框 -->
+                    <div class="modal-dialog model-sm" >
+                        <!-- 内容部分 -->
+                        <div class="modal-content">
+                            <!-- 头部 -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">获奖情况登记</h4>
+                            </div>
+                            <!-- 身体 -->
+                            <div class="modal-body">请为该员工登记获奖情况
+
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            <input id="icon_prefix" type="text" class="validate" disabled="true">
+                                            <label for="icon_prefix">{{workerName}}</label>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea1" class="materialize-textarea" v-model="achievementContent"></textarea>
+                                            <label for="textarea1">获奖情况说明或做出的贡献</label>
+                                        </div>
+                                    </div>
+                                </form>
+                                </form>
+
+
+
+
+
+                            </div>
+                            <!-- 尾部 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" @click="addAchievement">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal3"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- 模态的对话框 -->
+                    <div class="modal-dialog model-sm" >
+                        <!-- 内容部分 -->
+                        <div class="modal-content">
+                            <!-- 头部 -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">违纪情况登记</h4>
+                            </div>
+                            <!-- 身体 -->
+                            <div class="modal-body">请为该员工登记违纪情况
+
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            <input id="icon_prefix2" type="text" class="validate" disabled="true">
+                                            <label for="icon_prefix2">{{workerName}}</label>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea2" class="materialize-textarea" v-model="mistakeContent"></textarea>
+                                            <label for="textarea2">填写违纪情况说明</label>
+                                        </div>
+                                    </div>
+                                </form>
+                                </form>
+
+
+                            </div>
+                            <!-- 尾部 -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" @click="addMistake">确认</button>
                             </div>
                         </div>
                     </div>
@@ -590,10 +685,13 @@
                workers:[],//
                companyId:"",//公司id
                workerId:"",//按钮选中的员工的id
+               workerName:"",//按钮选中的员工name
                flagGrade:false,
                flagAchievement:false,
                flagMistake:false,
-               content: '',
+               content: '',//绩效等级
+               achievementContent:"",//获奖内容
+               mistakeContent:"",//违纪情况
 
            },
 
@@ -616,21 +714,27 @@
                    that.flagAchievement=false
                    that.flagMistake=true
                },
-               getWorkerId:function(workerId){
+               getWorkerIdName:function(workerId,workerName){
                    this.workerId=workerId;
+                   this.workerName=workerName
                    console.log("选中的员工id为:"+this.workerId)
+                   console.log("选中的员工name为:"+this.workerName)
                },
-               addGrade:function(){
+               addGrade:function(){//每个月，每个员工都要添加一次绩效评价，添加完成之后，Grade表会增加一条记录(workerId和companyId决定employId)，worker表会将该员工的isevaluate置为1
                    var that=this
                    axios.get("/staff/addGrade",{
                        params:{
                            workerId:that.workerId,
-                           companyId:that.companyId
+                           companyId:that.companyId,
+                           content:that.content,
+
                        }
                    }).then(
                        function (response) {
+
                            console.log("添加考核成功")
-                           alert("添加考核成功")
+                           console.log(response.data )
+                           alert("添加考核情况成功")
                            that.getWorkers();
                        },
                        function (err) {
@@ -638,6 +742,73 @@
 
                        }
                    )
+               },
+               addAchievement:function(){//为员工添加获奖情况，添加完成之后，achievement表会增加一条记录(workerId和companyId决定employId)
+                   var that=this
+                   console.log(that.achievementContent)
+                   if(that.achievementContent.length<5)
+                   {
+                       alert("不能少于五个字，请重新输入")
+                   }
+                   else if(that.achievementContent.length<30)
+                   {
+                       axios.get("/staff/addAchievement",{
+                           params:{
+                               workerId:that.workerId,
+                               companyId:that.companyId,
+                               achievementContent:that.achievementContent,
+
+                           }
+                       }).then(
+                           function (response) {
+
+                               console.log("添加获奖情况成功")
+                               console.log(response.data )
+                               alert("添加获奖情况成功")
+                               //that.getWorkers();
+                           },
+                           function (err) {
+                               console.log(err)
+
+                           }
+                       )
+                   }
+                   else
+                       alert("不能多于30个字，请重新输入")
+
+               },
+               addMistake:function(){//为员工添加违纪情况，添加完成之后，mistake表会增加一条记录(workerId和companyId决定employId)
+                   var that=this
+                   console.log(that.mistakeContent)
+                   if(that.mistakeContent.length<5)
+                   {
+                       alert("不能少于五个字，请重新输入")
+                   }
+                   else if(that.mistakeContent.length<30)
+                   {
+                       axios.get("/staff/addMistake",{
+                           params:{
+                               workerId:that.workerId,
+                               companyId:that.companyId,
+                               mistakeContent:that.mistakeContent,
+
+                           }
+                       }).then(
+                           function (response) {
+
+                               console.log("添加违纪情况成功")
+                               console.log(response.data )
+                               alert("添加违纪情况成功")
+                               //that.getWorkers();
+                           },
+                           function (err) {
+                               console.log(err)
+
+                           }
+                       )
+                   }
+                   else
+                       alert("不能多于30个字，请重新输入")
                },
                getWorkers:function () {//从cookie中读取公司id,并且获取该公司的员工
                    var that=this

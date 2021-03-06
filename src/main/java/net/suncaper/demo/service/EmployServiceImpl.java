@@ -88,4 +88,34 @@ public class EmployServiceImpl implements EmployService {
         int count=employMapper.updateByPrimaryKeySelective(record);
         return count;
     }
+
+    @Override
+    public int insertGrade(String employId, String content, Date createDate) {
+        Grade record=new Grade();
+        record.setEmployId(Integer.valueOf(employId));
+        record.setContent(Integer.valueOf(content));
+        record.setCreatedate(createDate);
+        int count=gradeMapper.insertSelective(record);
+        return count;
+    }
+
+    @Override
+    public int insertAchievement(String employId, String achievementContent, Date createDate) {
+        Achievement achievement=new Achievement();
+        achievement.setEmployId(Integer.valueOf(employId));
+        achievement.setAchieveContent(achievementContent);
+        achievement.setCreatedate(createDate);
+        int count=achievementMapper.insertSelective(achievement);
+        return count;
+    }
+
+    @Override
+    public int insertMistake(String employId, String mistakeContent, Date createDate) {
+        Mistake mistake=new Mistake();
+        mistake.setEmployId(Integer.valueOf(employId));
+        mistake.setMistakeContent(mistakeContent);
+        mistake.setCreatedate(createDate);
+        int count=mistakeMapper.insertSelective(mistake);
+        return count;
+    }
 }
