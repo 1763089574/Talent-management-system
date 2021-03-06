@@ -187,6 +187,30 @@ public class WorkerServiceImp implements WorkerService{
 
     }
 
+    public Resign getResignByWorkerIdAndCompanyId(int companyId,int workerId){
+        ResignExample resignExample = new ResignExample();
+        resignExample.createCriteria().andWorkerIdEqualTo(workerId).andCompanyIdEqualTo(companyId);
+        List<Resign> resigns = resignMapper.selectByExample(resignExample);
+        if (resigns.size()==0){
+            return null;
+        }else {
+            return resigns.get(0);
+        }
+
+
+    }
+
+    public void addResignApply(int companyId,int workerId,String content){
+        Resign resign = new Resign();
+        resign.setIsconsent("0");
+        resign.setCompanyId(companyId);
+        resign.setWorkerId(workerId);
+        resign.setContent(content);
+
+        resignMapper.insert(resign);
+
+    }
+
     public void addEvaluate(String text,int evaluateId){
         Evaluate evaluate = evaluateMapper.selectByPrimaryKey(evaluateId);
         evaluate.setEvaluatecontent(text);

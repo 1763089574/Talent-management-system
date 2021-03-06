@@ -285,20 +285,21 @@
                                     <tr>
                                         <th>序号</th>
                                         <th>公司名称</th>
-                                        <th>离职原因</th>
-                                        <th class="center">确认离职</th>
+                                        <th>入职时间</th>
+                                        <th class="center">申请离职</th>
 
                                         <!--<th>CSS grade</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(item,index) in resignList" class="gradeA">
-                                        <td>{{index+1}}</td>
-                                        <td>{{item.companyName}}</td>
-                                        <td>{{item.content}}</td>
-                                        <td v-if="item.isconsent==0" class="center"><a class="btn-primary btn" @click="getCompanyID(item.id,item.companyName)" href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">done</i>确认离职</a></td>
-                                        <td v-else class="center"><a class="btn disabled" href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">not_interested</i>已经确认</a></td>
-
+                                    <tr class="gradeA" v-if="resignList!=''">
+                                        <td>1</td>
+                                        <td>{{resignList.companyName}}</td>
+                                        <td>{{resignList.startDate}}</td>
+                                        <td class="center">
+                                            <a v-if="resignList.ifsnedResignApply==1" class="btn disabled"  href="#"><i class="material-icons left">done</i>已申请</a>
+                                            <a v-else class="btn-danger btn"  href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">report_problem</i>申请离职</a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -313,10 +314,12 @@
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">离职确认</h4>
+                                                <h4 class="modal-title">离职原因</h4>
                                             </div>
                                             <!-- 身体 -->
-                                            <div class="modal-body">是否确认  {{clickCompanyName}}  的离职通知？</div>
+                                            <div class="modal-body">
+                                                <textarea v-model="resignContent" placeholder="请填写对离职的原因..."  class="form-control input-lg" aria-label="With textarea" style="min-height: 300px"></textarea>
+                                            </div>
                                             <!-- 尾部 -->
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

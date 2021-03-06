@@ -129,6 +129,22 @@ public class WorkerController {
         return passCompanyEmployList;
     }
 
+    @GetMapping("/addResignApply")
+
+    @ResponseBody
+    public void addResignApply(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerId");
+        int workerid = Integer.valueOf(Str_id);
+
+        String Str_id2 = request.getParameter("companyId");
+        int companyId = Integer.valueOf(Str_id2);
+
+        String content = request.getParameter("content");
+
+        workerService.addResignApply(companyId,workerid,content);
+
+    }
+
     @GetMapping("/getResignList")
 
     @ResponseBody
@@ -232,6 +248,9 @@ public class WorkerController {
         String Str_id = request.getParameter("workerid");
         int workerid = Integer.valueOf(Str_id);
         Employ employ = workerService.getNowEmploy(workerid);
+        if(employ==null){
+            return null;
+        }
         Company company = companyService.selectByPrimaryKey(employ.getCompanyId());
         List<Achievement> nowCompanyAchievementByEmployID = workerService.getNowCompanyAchievementByEmployID(employ.getId());
         List<Mistake> nowCompanyMistakeByEmployID = workerService.getNowCompanyMistakeByEmployID(employ.getId());
@@ -251,10 +270,18 @@ public class WorkerController {
             Info.put("averageGrade",sum/counter);
         }
 
+        Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
+        if(resignObject==null){
+            Info.put("ifsnedResignApply",0);
+        }else{
+            Info.put("ifsnedResignApply",1);
+        }
+
 
         String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
 
         Info.put("companyName",company.getName());
+        Info.put("companyId",company.getId());
         Info.put("startDate", Integer.parseInt(strNow1[0])+"-"+
                               Integer.parseInt(strNow1[1])+"-"+
                               Integer.parseInt(strNow1[2]));

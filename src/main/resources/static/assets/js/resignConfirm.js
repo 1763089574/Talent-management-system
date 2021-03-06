@@ -3,7 +3,9 @@ var resignConfirm = new Vue({
     data:{
         resignList:[],
         clickCompanyName:"",
-        clickID:""
+        clickID:"",
+        resignContent:"",
+        workerId:""
     },
     created:function (){
         this.getResignList();
@@ -17,14 +19,14 @@ var resignConfirm = new Vue({
                     axios.get('/GlobalVariable/GetWorkerId')
                         .then(function (response) {
                             var workerid = response.data;
-
-                            axios.get('/getResignList', {
+                            that.workerId=workerid;
+                            axios.get('/getNowCompanyInformation', {
                                 params: {
-                                    workerId: workerid
+                                    workerid: workerid
                                 }
                             })
                                 .then(function (response) {
-                                    console.log(response.data);
+                                    console.log(response);
                                     that.resignList = response.data;
                                 })
                                 .catch(function (error) {
@@ -37,34 +39,30 @@ var resignConfirm = new Vue({
                         });
 
         },
-        getCompanyID(id,name){
-            this.clickID = id;
-            this.clickCompanyName = name;
-        },
+        // getCompanyID(id,name){
+        //     this.clickID = id;
+        //     this.clickCompanyName = name;
+        // },
         sendApply(){
             var that =this;
-            axios.get("/GlobalVariable/GetWorkerId") .then()
-                .then(function (response) {
 
-                    var workerid = response.data;
-                    axios.get('/confirmResignApply', {
+                    axios.get('/addResignApply', {
                         params: {
-                            resignId:that.clickID
+                            workerId:that.workerId,
+                            companyId:that.resignList.companyId,
+                            content:that.resignContent
                         }
                     })
                         .then(function (response) {
-
-                                location.reload();
+                               alert("成功发送！");
+                               location.reload();
 
                         })
                         .catch(function (error) {
-                            console.log(error);
+                            alert("申请失败！");
                         });
 
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+
         }
 
     },
