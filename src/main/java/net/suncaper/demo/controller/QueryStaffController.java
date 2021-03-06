@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -173,6 +174,49 @@ public class QueryStaffController {
     public List<Mistake> getMistake(String workerId,String companyId){
         List<Mistake> mistakes=employService.getMistake(companyId,workerId);
         return mistakes;
+    }
+
+    @RequestMapping("addGrade")
+    public boolean addGrade(String workerId,String companyId,String content) throws ParseException {
+        //每个月，每个员工都要添加一次绩效评价，添加完成之后，Grade表会增加一条记录(workerId和companyId决定employId)，worker表会将该员工的isevaluate置为1
+        List<Employ> employs = employService.getEmploy(companyId, workerId);
+        String employId = String.valueOf(employs.get(0).getId());
+        Date createDate= DateTime.getDateTime();
+        int count = employService.insertGrade(employId, content, createDate);
+        Boolean flag=companyService.updateIsEvaluate(workerId);
+        if (count == 1&& flag==true)
+            return true;
+        else
+            return false;
+
+    }
+
+    @RequestMapping("addAchievement")
+    public boolean addAchievement(String workerId,String companyId,String achievementContent) throws ParseException {
+        System.out.println("post测试");
+        System.out.println("workerId:"+workerId);
+        System.out.println("achievementContent:"+achievementContent);
+        List<Employ> employs = employService.getEmploy(companyId, workerId);
+        String employId = String.valueOf(employs.get(0).getId());
+        Date createDate= DateTime.getDateTime();
+        int count=employService.insertAchievement(employId,achievementContent,createDate);
+        if(count==1)
+        return true;
+        else
+            return false;
+    }
+
+    @RequestMapping("addMistake")
+    public boolean addMistake(String workerId,String companyId,String mistakeContent) throws ParseException {
+
+        List<Employ> employs = employService.getEmploy(companyId, workerId);
+        String employId = String.valueOf(employs.get(0).getId());
+        Date createDate= DateTime.getDateTime();
+        int count=employService.insertMistake(employId,mistakeContent,createDate);
+        if(count==1)
+            return true;
+        else
+            return false;
     }
 
 }

@@ -26,4 +26,10 @@ public interface EmployService {
     public int insertEmploy(String companyId, String workerId, Date date);
 
     public int employEndDate(String employID,Date endDate);//用户离职时更新用户的离职时间，原来为NUll
+
+    public int insertGrade(String employId,String content,Date createDate);//插入grade
+
+    int insertAchievement(String employId,String achievementContent,Date createDate);//插入achievement
+
+    int insertMistake(String employId,String mistakeContent,Date createDate);
 }
