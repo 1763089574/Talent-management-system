@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class IdentificationCard {
 
+    //传入图片的base64，返回字符串，建议将字符串转换为json，比较好操作
     public void check(String imgBase64) {
         String host = "http://dm-51.data.aliyun.com";
         String path = "/rest/160601/ocr/ocr_idcard.json";
