@@ -228,7 +228,7 @@
                             <a href="/WorkerPages/resignConfirm">离职确认</a>
                         </li>
                         <li>
-                            <a href="#">评价列表</a>
+                            <a href="/WorkerPages/waitToEvaluate">评价列表</a>
                         </li>
                     </ul>
                 </li>
@@ -304,7 +304,7 @@
                                                         <tbody>
                                                         <tr v-for="(item,index) in nowCompanyAchievement">
                                                             <td>{{index+1}}</td>
-                                                            <td>{{item.date|ellipsis}}</td>
+                                                            <td>{{item.createdate|ellipsis}}</td>
                                                             <td>{{item.achieveContent}}</td>
 
                                                         </tr>
@@ -335,7 +335,7 @@
                                                 <tbody>
                                                 <tr v-for="(item,index) in nowCompanyMistake">
                                                     <td>{{index+1}}</td>
-                                                    <td>{{item.date|ellipsis}}</td>
+                                                    <td>{{item.createdate|ellipsis}}</td>
                                                     <td>{{item.mistakeContent}}</td>
 
                                                 </tr>

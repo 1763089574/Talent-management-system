@@ -20,6 +20,8 @@
         select company.name,end_date,start_date
         from company, employ where company.Id = employ.Company_id AND employ.end_date is not null AND employ.Worker_id = #{workerid}
     </select>
-
-
+    <select id="getEmployIncludeCompanyNameByEmployId" resultMap="EmployExtendResultMap" parameterType="INTEGER">
+        select company.name,end_date,start_date
+        from company, employ where company.Id = employ.Company_id AND employ.Id = #{employId}
+    </select>
 </mapper>

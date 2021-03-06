@@ -4,9 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>员工页面</title>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
     <link href="/assets/css/bootstrap.css" rel="stylesheet" />
@@ -19,8 +17,29 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
+    <style type="text/css">
+        .tabs .tab a:hover, .tabs .tab a.active {
+            background-color: #337ab7;
+            color: #ffffff;
+        }
+        .tabs .tab a {
+            color: #337ab7;
 
+        }
+        .tabs .indicator {
+            background-color: #7599B8;
 
+        }
+    </style>
+
+    <style>
+
+        input:disabled, input[disabled] {
+
+            opacity: 1;
+            -webkit-text-fill-color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -220,19 +239,19 @@
                     <a class="waves-effect waves-dark" href="WorkerHome.html"><i class="fa fa-home"></i>首页</a>
                 </li>
                 <li>
-                    <a href="ui-elements.html" class="waves-effect waves-dark active-menu"><i class="fa fa-building-o"></i>公司查询</a>
+                    <a href="/WorkerPages/CompanySearch" class="waves-effect waves-dark"><i class="fa fa-building-o"></i>公司查询</a>
                 </li>
                 <li>
                     <a href="/WorkerPages/ownCompany" class="waves-effect waves-dark"><i class="fa fa-external-link-square"></i>所属公司</a>
                 </li>
-                <li>
-                    <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-list-alt"></i>我的消息<span class="fa arrow"></span></a>
+                <li class="active">
+                    <a href="tab-panel.html" class="waves-effect waves-dark active-menu "><i class="fa fa-list-alt"></i>我的消息<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/WorkerPages/resignConfirm">离职确认</a>
+                            <a href="/WorkerPages/resignConfirm" >离职确认</a>
                         </li>
                         <li>
-                            <a href="/WorkerPages/waitToEvaluate">评价列表</a>
+                            <a href="/WorkerPages/waitToEvaluate" class="active-menu ">评价列表</a>
                         </li>
                     </ul>
                 </li>
@@ -265,11 +284,12 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                公司查询
+                评价列表
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li class="active">公司查询</li>
+                <li><a href="/WorkerPages/WorkerHome">首页</a></li>
+                <li><a href="#">我的消息</a></li>
+                <li class="active">评价列表</li>
             </ol>
 
         </div>
@@ -286,43 +306,186 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>公司RID</th>
+                                        <th>序号</th>
                                         <th>公司名称</th>
-                                        <th class="center">申请加入</th>
+                                        <th>离职日期</th>
+                                        <th class="center">在职记录</th>
+                                        <th class="center">评价公司</th>
 
                                         <!--<th>CSS grade</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(item,index) in companyList" class="gradeA">
+                                    <tr v-for="(item,index) in evaluateList" class="gradeA">
                                         <td>{{index+1}}</td>
-                                        <td>{{item.id}}</td>
-                                        <td>{{item.name}}</td>
-                                        <td class="center"><a v-bind:class="{'btn-primary':if_primary,btn:ifbtn,disabled:ifdisplay}" @click="getCompanyID(item.id,item.name)" href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">add</i>申请加入</a></td>
+                                        <td>{{item.companyName}}</td>
+                                        <td>{{item.endDate|ellipsis}}</td>
+                                        <td class="center">
+                                            <a class="btn-primary btn" href="#" @click="checkInformation(item.employId)" data-toggle="modal" data-target="#myModal2"><i class="material-icons left">visibility</i>查看</a>
+                                        </td>
+                                        <td class="center">
+                                            <a v-if="item.isevaluate==0" @click="getEmployID(item.id)" class="btn-primary btn" href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">comment</i>评价</a>
+                                            <a v-else class="btn disabled" href="#" ><i class="material-icons left">not_interested</i>已评价</a>
+                                        </td>
 
                                     </tr>
                                     </tbody>
                                 </table>
 
-                                <!-- 模态框 -->
+                                <!-- 模态框 1-->
                                 <div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <!-- 模态的对话框 -->
-                                    <div class="modal-dialog model-sm" >
+                                    <div class="modal-dialog modal-lg" >
                                         <!-- 内容部分 -->
                                         <div class="modal-content">
                                             <!-- 头部 -->
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">申请加入{{clickCompanyName}}</h4>
+                                                <h4 class="modal-title">离职评价</h4>
                                             </div>
                                             <!-- 身体 -->
-                                            <div class="modal-body">确定是否发出申请？</div>
+                                            <div class="modal-body">
+
+                                                    <textarea v-model="evaluateContent" placeholder="请填写对离职公司的评价..."  class="form-control input-lg" aria-label="With textarea" style="min-height: 300px"></textarea>
+
+                                            </div>
                                             <!-- 尾部 -->
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                <button type="button" class="btn btn-primary" @click="sendApply()" data-dismiss="modal">确认</button>
+                                                <button type="button" class="btn btn-primary" @click="addResignEvaluate()" data-dismiss="modal">确认</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 模态框 2-->
+                                <div class="modal fade" id="myModal2"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <!-- 模态的对话框 -->
+                                    <div class="modal-dialog modal-lg" >
+                                        <!-- 内容部分 -->
+                                        <div class="modal-content">
+                                            <!-- 头部 -->
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title">在职记录</h4>
+                                            </div>
+                                            <!-- 身体 -->
+                                            <div class="modal-body">
+                                                <div class="card-content">
+                                                    <div class="col">
+                                                        <ul class="tabs">
+                                                            <li class="tab col s3"><a  style="text-decoration:none" href="#test1">基本情况</a></li>
+                                                            <li class="tab col s3"><a style="text-decoration:none" href="#test2">重大成就</a></li>
+                                                            <li class="tab col s3"><a style="text-decoration:none" href="#test3">重大过失</a></li>
+                                                            <li class="tab col s3"><a style="text-decoration:none" href="#test4">全部评价</a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="clearBoth"><br/></div>
+                                                    <div id="test1" class="col s12">
+
+                                                        <div class="card-content">
+                                                            <form class="col s12">
+                                                                <div class="row">
+                                                                    <div class="input-field col s6">
+                                                                        <input placeholder="暂无" v-bind:value="companyName"   id="name" type="text" class="validate" disabled="ture">
+                                                                        <label class="active">公司名称</label>
+                                                                    </div>
+                                                                    <div class="input-field col s6">
+                                                                        <input placeholder="暂无" v-bind:value="startDate|ellipsis"   id="starDate" type="text" class="validate" disabled="ture">
+                                                                        <label for="starDate" class="active">入职时间</label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="input-field col s6">
+                                                                        <input placeholder="暂无" v-bind:value="endDate|ellipsis"   id="endDate" type="text" class="validate" disabled="ture">
+                                                                        <label for="endDate" class="active">离职时间</label>
+                                                                    </div>
+                                                                    <div class="input-field col s6">
+                                                                        <input placeholder="暂无" v-bind:value="aveGrade"   id="aveGrade" type="text" class="validate" disabled="ture">
+                                                                        <label for="aveGrade" class="active">平均绩效</label>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </form>
+
+                                                            <div class="clearBoth"></div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div id="test2" class="col s12">
+                                                        <div class="card-content">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>日期</th>
+                                                                        <th>内容</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr v-for="(item,index) in achievements">
+                                                                        <td>{{index+1}}</td>
+                                                                        <td>{{item.createdate|ellipsis}}</td>
+                                                                        <td>{{item.achieveContent}}</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="test3" class="col s12">
+                                                        <div class="card-content">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>日期</th>
+                                                                        <th>内容</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr v-for="(item,index) in mistakes">
+                                                                        <td>{{index+1}}</td>
+                                                                        <td>{{item.createdate|ellipsis}}</td>
+                                                                        <td>{{item.mistakeContent}}</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="test4" class="col s12">
+
+                                                            <div class="card-action">
+                                                                公司评价：
+
+                                                            </div>
+                                                            <div class="card-content">{{dossierEvalaute}}</div>
+
+                                                        <div class="card-action">
+                                                            我的评价：
+                                                        </div>
+                                                        <div class="card-content">{{myEvalaute==""?"暂无":myEvalaute}}</div>
+                                                    </div>
+                                                    <div class="clearBoth"><br/></div>
+                                                </div>
+
+
+
+                                        </div>
+                                            <!-- 尾部 -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                <button type="button" class="btn btn-primary" @click="addResignEvaluate()" data-dismiss="modal">确认</button>
                                             </div>
                                         </div>
                                     </div>
@@ -338,45 +501,33 @@
         <!-- /. PAGE INNER  -->
     </div>
     <!-- /. PAGE WRAPPER  -->
-
-
 </div>
-
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->
 <!-- jQuery Js -->
 <script src="/assets/js/vue.js"></script>
 <script src="/assets/js/axios.min.js"></script>
-
 <script src="/assets/js/jquery-1.10.2.js"></script>
-<!-- Metis Menu Js -->
-<script src="/assets/js/jquery.metisMenu.js"></script>
+
 <!-- Bootstrap Js -->
 <script src="/assets/js/bootstrap.min.js"></script>
 
 <script src="/assets/materialize/js/materialize.min.js"></script>
 
-
-<!-- Morris Chart Js -->
-<script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
-<script src="/assets/js/morris/morris.js"></script>
-
-
-<script src="/assets/js/easypiechart.js"></script>
-<script src="/assets/js/easypiechart-data.js"></script>
-
-<script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
-<!-- DATA TABLE SCRIPTS -->
+<!-- Metis Menu Js -->
+<script src="/assets/js/jquery.metisMenu.js"></script>
 <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
 <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
 
-
-
+<!-- Custom Js -->
 <script src="/assets/js/custom-scripts.js"></script>
-<!--<script src="/assets/js/companySearch.js"></script>-->
-<script src="/assets/js/workHome.js"></script>
-<script src="/assets/js/companySearch.js"></script>
 
+<script src="/assets/js/workHome.js"></script>
+<script src="/assets/js/waitToEvaluate.js"></script>
+<script>
+     $('#myModal').on('hide.bs.modal', function () {
+        waitToEvaluate.$data.evaluateContent="";});
+</script>
 
 </body>
 

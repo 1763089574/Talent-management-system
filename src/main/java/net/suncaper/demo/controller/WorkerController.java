@@ -146,6 +146,83 @@ public class WorkerController {
         String str_resignId = request.getParameter("resignId") ;
         int resignId = Integer.valueOf(str_resignId);
         workerService.confirmResignApply(resignId);
+
+        Resign resignByResignId = workerService.getResignByResignId(resignId);
+        int wokerId = resignByResignId.getWorkerId();
+        int conpanyId = resignByResignId.getCompanyId();
+        int employId = workerService.getEmployIdByCompanyIdAndWorkerId(conpanyId, wokerId);
+        workerService.addResignEvaluate(employId);
+        workerService.addEmpolyEndDate(employId);
+    }
+
+    @GetMapping("/getAllWaitToEvaluateList")
+
+    @ResponseBody
+    public List<Evaluate> getAllWaitToEvaluateList(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String str_workerId = request.getParameter("workerId") ;
+        int workerId = Integer.valueOf(str_workerId);
+        List<Evaluate> allWaitToEvaluateList = workerService.getAllWaitToEvaluateList(workerId);
+        return allWaitToEvaluateList;
+
+    }
+
+    @GetMapping("/addEvaluateContent")
+
+    @ResponseBody
+    public void addEvaluateContent(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String evaluateContent = request.getParameter("content");
+        String str_evaluatId  = request.getParameter("evaluateId");
+        int evaluatId = Integer.valueOf(str_evaluatId);
+        workerService.addEvaluate(evaluateContent,evaluatId);
+
+    }
+
+    @GetMapping("/getOnjobRecordByEmployId")
+
+    @ResponseBody
+    public HashMap getOnjobRecordByEmployId(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        HashMap hashMap = new HashMap();
+        String str_employId = request.getParameter("employId");
+        int employId = Integer.valueOf(str_employId);
+
+
+        //得到重大过错
+        List<Mistake> CompanyMistakeByEmployID = workerService.getNowCompanyMistakeByEmployID(employId);
+        hashMap.put("MistakesList",CompanyMistakeByEmployID);
+
+        //得到重大过错
+        List<Achievement> CompanyAchievementByEmployID = workerService.getNowCompanyAchievementByEmployID(employId);
+        hashMap.put("AchievementList",CompanyAchievementByEmployID);
+
+        //得到平均绩效
+        List<Grade> CompanyGradeByEmployID = workerService.getNowCompanyGradeByEmployID(employId);
+        if(CompanyGradeByEmployID==null){
+            hashMap.put("aveGrade","");
+        }
+        else{
+            double sum=0;
+            int counter=0;
+            for(Grade item:CompanyGradeByEmployID){
+                sum+=item.getContent();
+                counter++;
+            }
+            hashMap.put("aveGrade",sum/counter);
+        }
+
+
+        //得到公司名称、入职日期、离职日期
+        Employ employObject = workerService.getEmployIncludeCompanyNameByEmployId(employId);
+        hashMap.put("employObjiect",employObject);
+
+        //得到档案记录
+        Dossier dossierObject = workerService.getDossierObjectByEmployId(employId);
+        hashMap.put("dossierObject",dossierObject);
+
+        //得到我的评价
+        Evaluate evaluateObject = workerService.getEvaluateObjectByEmployId(employId);
+        hashMap.put("evaluateObject",evaluateObject);
+        //返回结果
+        return hashMap;
     }
 
     @GetMapping("/getNowCompanyInformation")
@@ -158,26 +235,32 @@ public class WorkerController {
         Company company = companyService.selectByPrimaryKey(employ.getCompanyId());
         List<Achievement> nowCompanyAchievementByEmployID = workerService.getNowCompanyAchievementByEmployID(employ.getId());
         List<Mistake> nowCompanyMistakeByEmployID = workerService.getNowCompanyMistakeByEmployID(employ.getId());
-
+        HashMap Info=new HashMap();
         //算绩效平均
-        List<Grade> nowCompanyGradeByEmployID = workerService.getNowCompanyGradeByEmployID(employ.getId());
-        double sum=0;
-        int counter=0;
-        for(Grade item:nowCompanyGradeByEmployID){
-            sum+=item.getContent();
-            counter++;
+        List<Grade> CompanyGradeByEmployID = workerService.getNowCompanyGradeByEmployID(employ.getId());
+        if(CompanyGradeByEmployID==null){
+            Info.put("averageGrade","");
+        }
+        else{
+            double sum=0;
+            int counter=0;
+            for(Grade item:CompanyGradeByEmployID){
+                sum+=item.getContent();
+                counter++;
+            }
+            Info.put("averageGrade",sum/counter);
         }
 
 
         String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
-        HashMap Info=new HashMap();
+
         Info.put("companyName",company.getName());
         Info.put("startDate", Integer.parseInt(strNow1[0])+"-"+
                               Integer.parseInt(strNow1[1])+"-"+
                               Integer.parseInt(strNow1[2]));
         Info.put("nowCompanyAchievements",nowCompanyAchievementByEmployID);
         Info.put("nowCompanyMistakes",nowCompanyMistakeByEmployID);
-        Info.put("averageGrade",sum/counter);
+
 
         return Info;
 

@@ -12,7 +12,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/managment?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
                         userId="root"
-                        password="1234">
+                        password="admin">
             <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
@@ -37,8 +37,11 @@
             <property name="constructorBased" value="true"/>
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>
-
-        <table schema="dossier" tableName="dossier" domainObjectName="Dossier">
+        <table schema="managment" tableName="mistake" domainObjectName="Mistake">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="managment" tableName="grade" domainObjectName="Grade">
             <property name="constructorBased" value="true"/>
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>
