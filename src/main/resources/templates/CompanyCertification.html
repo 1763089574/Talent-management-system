@@ -5,22 +5,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Track Material Design Bootstrap Admin Template</title>
-	
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="../static/assets/materialize/css/materialize.min.css" media="screen,projection" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css" media="screen,projection" />
     <!-- Bootstrap Styles-->
-    <link href="../static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link href="../static/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- Morris Chart Styles-->
-    <link href="../static/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link href="../static/assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="../static/assets/js/Lightweight-Chart/cssCharts.css"> 
+    <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
 </head>
+
 <body>
+<div id="app">
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -30,211 +32,227 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="template.html"><i class="large material-icons">track_changes</i> <strong>target</strong></a>
-				
-		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
+                        class="large material-icons">track_changes</i> <strong>target</strong></a>
+
+                <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
 
-            <ul class="nav navbar-top-links navbar-right"> 
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>				
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i
+                        class="fa fa-envelope fa-fw"></i> <i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i
+                        class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+                        class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+                        class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
+                        class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
-		<!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-<li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
-</li>
-<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-</li> 
-<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-</li>
-</ul>
-<ul id="dropdown2" class="dropdown-content w250">
-  <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-</ul>
-<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
-<li>
-		<a href="#">
-			<div>
-				<p>
-					<strong>Task 1</strong>
-					<span class="pull-right text-muted">60% Complete</span>
-				</p>
-				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						<span class="sr-only">60% Complete (success)</span>
-					</div>
-				</div>
-			</div>
-		</a>
-	</li>
-	<li class="divider"></li>
-	<li>
-		<a href="#">
-			<div>
-				<p>
-					<strong>Task 2</strong>
-					<span class="pull-right text-muted">28% Complete</span>
-				</p>
-				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
-						<span class="sr-only">28% Complete</span>
-					</div>
-				</div>
-			</div>
-		</a>
-	</li>
-	<li class="divider"></li>
-	<li>
-		<a href="#">
-			<div>
-				<p>
-					<strong>Task 3</strong>
-					<span class="pull-right text-muted">60% Complete</span>
-				</p>
-				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						<span class="sr-only">60% Complete (warning)</span>
-					</div>
-				</div>
-			</div>
-		</a>
-	</li>
-	<li class="divider"></li>
-	<li>
-		<a href="#">
-			<div>
-				<p>
-					<strong>Task 4</strong>
-					<span class="pull-right text-muted">85% Complete</span>
-				</p>
-				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-						<span class="sr-only">85% Complete (danger)</span>
-					</div>
-				</div>
-			</div>
-		</a>
-	</li>
-	<li class="divider"></li>
-	<li>
-</ul>   
-<ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
-  <li>
-                                <div>
-                                    <strong>John Doe</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Today</em>
-                                    </span>
-                                </div>
-                                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-</ul>   
-	   <!--/. NAV TOP  -->
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+            </li>
+            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+            </li>
+            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+        <ul id="dropdown2" class="dropdown-content w250">
+            <li>
+                <a href="#">
+                    <div>
+                        <i class="fa fa-comment fa-fw"></i> New Comment
+                        <span class="pull-right text-muted small">4 min</span>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                        <span class="pull-right text-muted small">12 min</span>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <i class="fa fa-envelope fa-fw"></i> Message Sent
+                        <span class="pull-right text-muted small">4 min</span>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <i class="fa fa-tasks fa-fw"></i> New Task
+                        <span class="pull-right text-muted small">4 min</span>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                        <span class="pull-right text-muted small">4 min</span>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a class="text-center" href="#">
+                    <strong>See All Alerts</strong>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+            <li>
+                <a href="#">
+                    <div>
+                        <p>
+                            <strong>Task 1</strong>
+                            <span class="pull-right text-muted">60% Complete</span>
+                        </p>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <span class="sr-only">60% Complete (success)</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <p>
+                            <strong>Task 2</strong>
+                            <span class="pull-right text-muted">28% Complete</span>
+                        </p>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                                <span class="sr-only">28% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <p>
+                            <strong>Task 3</strong>
+                            <span class="pull-right text-muted">60% Complete</span>
+                        </p>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <span class="sr-only">60% Complete (warning)</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <p>
+                            <strong>Task 4</strong>
+                            <span class="pull-right text-muted">85% Complete</span>
+                        </p>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                                <span class="sr-only">85% Complete (danger)</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+        </ul>
+        <ul id="dropdown4" class="dropdown-content dropdown-tasks w250 taskList">
+            <li>
+                <div>
+                    <strong>John Doe</strong>
+                    <span class="pull-right text-muted">
+                            <em>Today</em>
+                        </span>
+                </div>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <div>
+                    <strong>John Smith</strong>
+                    <span class="pull-right text-muted">
+                            <em>Yesterday</em>
+                        </span>
+                </div>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</p>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <div>
+                        <strong>John Smith</strong>
+                        <span class="pull-right text-muted">
+                                <em>Yesterday</em>
+                            </span>
+                    </div>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the...</p>
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a class="text-center" href="#">
+                    <strong>Read All Messages</strong>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+        <!--/. NAV TOP  -->
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-    
+
                     <li>
-                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i> 欢迎</a>
+                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
+                            欢迎</a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level ">
                             <li>
                                 <a href="TalentQuery.html">人才查询</a>
                             </li>
                             <li>
-                                <a href="TalentCompare.html" >人才比较</a>
+                                <a href="TalentCompare.html">人才比较</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level ">
                             <li>
                                 <a href="QueryStaff.html">查询员工</a>
@@ -248,10 +266,11 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>公司信息<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>公司信息<span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="CompanyInformationOperation.html" >公司信息操作</a>
+                                <a href="CompanyInformationOperation.html">公司信息操作</a>
                             </li>
                             <li>
                                 <a href="CompanyCertification.html" class="active-menu">公司认证</a>
@@ -259,82 +278,282 @@
                         </ul>
                     </li>
                 </ul>
-    
+
             </div>
-    
+
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-		  <div class="header"> 
-                        <h1 class="page-header">
-                            Tables Page
-                        </h1>
-						<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Tables</a></li>
-					  <li class="active">Data</li>
-					</ol> 
-									
-		</div>
-		
-            <div id="page-inner"> 
-               
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="card">
-                        <div class="card-action">
-                             Advanced Tables
-                        </div>
-                        <div class="card-content">
+        <div id="page-wrapper">
+            <div class="header">
+                <h1 class="page-header">
+                    Tables Page
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Tables</a></li>
+                    <li class="active">Data</li>
+                </ol>
 
-                            
+            </div>
+
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-6" v-if="!ifCertification">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action">
+                                Advanced Tables
+                            </div>
+                            <div class="card-content">
+
+                                <img :src="imageUrl" alt=""
+                                     style="width: 550px;height: 800px;border: 1px dashed #ccc">
+                                <div>
+
+                                    <input type="file" name="pic" ref="imgInput" @change="saveSrc()">
+                                </div>
+                                <button class="btn btn-info" style="margin-left: 3%;"
+                                        @click.prevent="getUrl">上传</button>
+
+
+                            </div>
                         </div>
+                        <!--End Advanced Tables -->
                     </div>
-                    <!--End Advanced Tables -->
+                    <div class="col-md-6" v-if="ifCertification">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action">
+                                Advanced Tables
+                            </div>
+                            <div class="card-content">
+
+                                您已经成功认证
+                                <button class="btn btn-info" style="margin-left: 3%;"
+                                        @click.prevent="recertification">重新认证</button>
+
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action">
+                                Advanced Tables
+                            </div>
+                            <div class="card-content">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label for="username">公司名称：</label>
+                                        <input type="text" class="form-control" id="username"
+                                               v-model="license.name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age">统一信用代码：</label>
+                                        <input type="text" class="form-control" id="age" v-model="license.credit">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="salary">信用代码规则验证：</label>
+                                        <input type="text" class="form-control" id="salary"
+                                               v-model="license.ifcreditvalid" disabled="disabled">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">法人：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.owner">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">成立日期：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.establishdate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">营业期限：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.expirationdate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">公司地址：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">公司类型：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.companytype">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">注册资本：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.capital">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneCode">经营范围：</label>
+                                        <input type="text" class="form-control" id="phoneCode"
+                                               v-model="license.businessscope">
+                                    </div>
+
+                                    <button type="button" class="btn btn-default" @click="save">提交</button>
+                                    <button type="submit" class="btn btn-danger">重置</button>
+                                </form>
+
+
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
                 </div>
-            </div>
 
-               <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p></footer>
+                <footer>
+                    <p>All right reserved. Template by: <a
+                            href="https://webthemez.com/admin-template/">WebThemez.com</a></p>
+                </footer>
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
     </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-     <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
- 
+</div>
+<!-- /. PAGE WRAPPER  -->
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
 
-    <!-- jQuery Js -->
-    <script src="../static/assets/js/jquery-1.10.2.js"></script>
-	
-	<!-- Bootstrap Js -->
-    <script src="../static/assets/js/bootstrap.min.js"></script>
-	
-	<script src="../static/assets/materialize/js/materialize.min.js"></script>
-	
-    <!-- Metis Menu Js -->
-    <script src="../static/assets/js/jquery.metisMenu.js"></script>
-    <!-- Morris Chart Js -->
-    <script src="../static/assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="../static/assets/js/morris/morris.js"></script>
-	
-	
-	<script src="../static/assets/js/easypiechart.js"></script>
-	<script src="../static/assets/js/easypiechart-data.js"></script>
-	
-	 <script src="../static/assets/js/Lightweight-Chart/jquery.chart.js"></script>
-	 <!-- DATA TABLE SCRIPTS -->
-    <script src="../static/assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="../static/assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
-    <!-- Custom Js -->
-    <script src="../static/assets/js/custom-scripts.js"></script> 
- 
 
+<!-- jQuery Js -->
+<script src="/assets/js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="/assets/js/jquery.metisMenu.js"></script>
+<!-- Morris Chart Js -->
+<script src="/assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="/assets/js/morris/morris.js"></script>
+
+
+<script src="/assets/js/easypiechart.js"></script>
+<script src="/assets/js/easypiechart-data.js"></script>
+
+<script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+<!-- Custom Js -->
+<script src="../static/assets/js/custom-scripts.js"></script>
+<script src="/assets/js/vue.js"></script>
+<script src="/assets/js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            imageUrl: "",
+            license: [],
+            CompanyId: "",
+            ifCertification:false
+        },
+        methods: {
+            saveSrc(e) {
+                let file = this.$refs.imgInput.files[0]
+                if (file === undefined) {
+                    this.imageUrl = " "
+                    console.log("没有选择图片")
+                }
+                const _this = this
+                let reader = new FileReader();
+                reader.readAsDataURL(file); // 读出 base64
+                reader.onloadend = function () {
+                    _this.imageUrl = reader.result;
+                    console.log(_this.imageUrl)
+                };
+                // this.uploadImgBtn()
+            },
+            getUrl() {
+                let that = this;
+
+                console.log("1")
+                axios.post("/certification/getUrl", {
+                    imgUrl: that.imageUrl,
+                    CompanyId: that.CompanyId,
+                }).then(function (response) {
+                    console.log("2")
+                    that.license = response.data;
+                    console.log(response.data);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+
+            },
+            save() {
+                let that = this;
+                axios.get("/certification/save", {
+                    params: {
+                        companyid: that.license.companyid,
+                        name:that.license.name,
+                        credit:that.license.credit,
+                        ifcreditvalid:that.license.ifcreditvalid,
+                        capital:that.license.capital,
+                        owner:that.license.owner,
+                        companytype:that.license.companytype,
+                        establishdate:that.license.establishdate,
+                        expirationdate:that.license.expirationdate,
+                        address:that.license.address,
+                        businessscope:that.license.businessscope
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                })
+            },
+            getId() {
+                let that = this;
+                axios.get("/GlobalVariable/GetCompanyId").then(
+                    function (response) {
+                        that.CompanyId = response.data;
+                        axios.get("/certification/ifcertification",{
+                            params:{
+                                CompanyId:response.data
+                            }
+                        }).then(function(response){
+                            that.ifCertification = response.data
+                            console.log("123"+that.ifCertification)
+                        })
+                        axios.get("/certification/getLicense",{
+                            params:{
+                                CompanyId:response.data
+                            }
+                        }).then(function(response){
+                            that.license=response.data
+                            // console.log(that.license)
+                        })
+                    },
+                    function (err) {
+                        console.log(err)
+
+                    }
+                )
+            },
+            recertification(){
+                console.log(this.ifCertification)
+                this.ifCertification = false
+            }
+        },
+        //生命周期相关的函数
+        created() {
+            // this.getUrl();
+            this.getId();
+        },
+
+    })
+</script>
 </body>
 
 </html>

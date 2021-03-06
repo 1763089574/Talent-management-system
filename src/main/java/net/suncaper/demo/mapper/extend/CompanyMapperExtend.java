@@ -10,5 +10,6 @@ public interface CompanyMapperExtend {
     List<WorkerDetail> getWorkerDetailById(@Param("workerId") String workerId, @Param("belong") String belong);//通过员工id进行联表查询，
 
     List<Worker> getApplyList(String companyId);//根据公司Id，返回当前公司的待入职列表
+    void modification(int id,String name,String phonenumber);
 
 }

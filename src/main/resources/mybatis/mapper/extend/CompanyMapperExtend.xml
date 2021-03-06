@@ -21,6 +21,8 @@
         WHERE  worker.id=employ.Worker_id and employ.Company_id=company.Id and worker.Id=#{workerId} and company.Id!=#{belong}
 
 </select>
-
+    <insert id="modification">
+        UPDATE company SET `Name`=#{name},PhoneNumber=#{phonenumber} WHERE Id=#{id}
+    </insert>
 
 </mapper>

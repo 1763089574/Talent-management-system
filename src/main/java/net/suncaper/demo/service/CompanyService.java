@@ -1,6 +1,7 @@
 package net.suncaper.demo.service;
 
 import net.suncaper.demo.common.domain.Company;
+import net.suncaper.demo.common.domain.License;
 import net.suncaper.demo.common.domain.Worker;
 
 import java.util.List;
@@ -38,4 +39,10 @@ public interface CompanyService {
     public boolean resignRefuse(int workerId,int companyId);//根据workerId和companyId，来拒绝员工的离职申请
 
     public boolean updateIsEvaluate(String workerId);//根据workerId将worker的isevaluate字段置为1
+
+    public Company findCompanyInfo(String id);
+    public void updateCompanyInfo(String id,String name,String phonenumber);
+    int save(License license);
+    License ifCertification(String CompanyId);
+    List<Worker> getCommission(String CompanyId);
 }

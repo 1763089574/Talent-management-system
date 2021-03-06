@@ -63,4 +63,13 @@ public class RouterController {
     public String EnterToAddEvaluation(){
         return "AddEvaluation";
     }
+
+    @RequestMapping("/EnterToCompanyInformation")
+    public String EnterToCompanyInformation(){
+        return "CompanyInformationOperation";
+    }
+    @RequestMapping("/EnterToCompanyCertification")
+    public String EnterToCompanyCertification(){
+        return "CompanyCertification";
+    }
 }

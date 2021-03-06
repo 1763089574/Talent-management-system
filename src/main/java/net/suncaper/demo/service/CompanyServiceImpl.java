@@ -1,10 +1,7 @@
 package net.suncaper.demo.service;
 
 import net.suncaper.demo.common.domain.*;
-import net.suncaper.demo.mapper.ApplyMapper;
-import net.suncaper.demo.mapper.CompanyMapper;
-import net.suncaper.demo.mapper.ResignMapper;
-import net.suncaper.demo.mapper.WorkerMapper;
+import net.suncaper.demo.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,6 +19,8 @@ public class CompanyServiceImpl implements CompanyService {
     private ApplyMapper applyMapper;
     @Autowired
     private ResignMapper resignMapper;
+    @Autowired
+    private LicenseMapper licenseMapper;
 
     @Override
     public void Register(Company company) {
@@ -230,5 +229,51 @@ public class CompanyServiceImpl implements CompanyService {
             return true;
         else
         return false;
+    }
+    @Override
+    public Company findCompanyInfo(String id) {
+        int intid = Integer.parseInt(id);
+//        System.out.println("cookie中的id为");
+//        System.out.println(intid);
+        CompanyExample companyExample = new CompanyExample();
+        companyExample.createCriteria().andIdEqualTo(intid);
+        Company company = companyMapper.selectByExample(companyExample).get(0);
+        return company;
+    }
+
+    @Override
+    public void updateCompanyInfo(String id, String name, String phonenumber) {
+        int initid = Integer.valueOf(id);
+        Company record=new Company();
+        record.setId(initid);
+        record.setName(name);
+        record.setPhonenumber(phonenumber);
+
+        int tmp=companyMapper.updateByPrimaryKeySelective(record);
+
+    }
+
+    @Override
+    public int save(License license) {
+        License license1 = licenseMapper.selectByPrimaryKey(license.getCompanyid());
+        if (license1==null){
+            return licenseMapper.insertSelective(license);
+        }else {
+            return licenseMapper.updateByPrimaryKeySelective(license);
+        }
+
+    }
+
+    @Override
+    public License ifCertification(String CompanyId) {
+        int CompanyId1 = Integer.valueOf(CompanyId);
+        return licenseMapper.selectByPrimaryKey(CompanyId1);
+    }
+
+    @Override
+    public List<Worker> getCommission(String CompanyId) {
+        WorkerExample workerExample = new WorkerExample();
+        workerExample.createCriteria().andBelongEqualTo(CompanyId).andIsevaluateEqualTo(0);
+        return workerMapper.selectByExample(workerExample);
     }
 }
