@@ -225,7 +225,7 @@
                     <a href="tab-panel.html" class="waves-effect waves-dark active-menu "><i class="fa fa-list-alt"></i>我的消息<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/WorkerPages/resignConfirm" class="active-menu ">离职确认</a>
+                            <a href="/WorkerPages/resignConfirm" class="active-menu ">离职申请</a>
                         </li>
                         <li>
                             <a href="/WorkerPages/waitToEvaluate">评价列表</a>
@@ -287,7 +287,6 @@
                                         <th>公司名称</th>
                                         <th>入职时间</th>
                                         <th class="center">申请离职</th>
-
                                         <!--<th>CSS grade</th>-->
                                     </tr>
                                     </thead>
@@ -297,7 +296,7 @@
                                         <td>{{resignList.companyName}}</td>
                                         <td>{{resignList.startDate}}</td>
                                         <td class="center">
-                                            <a v-if="resignList.ifsnedResignApply==1" class="btn disabled"  href="#"><i class="material-icons left">done</i>已申请</a>
+                                            <a v-if="resignList.isConsent==0" class="btn disabled"  href="#"><i class="material-icons left">done</i>已申请</a>
                                             <a v-else class="btn-danger btn"  href="#" data-toggle="modal" data-target="#myModal"><i class="material-icons left">report_problem</i>申请离职</a>
                                         </td>
                                     </tr>

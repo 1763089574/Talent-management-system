@@ -10,7 +10,7 @@ import java.util.Map;
 public class IdentificationCard {
 
     //传入图片的base64，返回字符串，建议将字符串转换为json，比较好操作
-    public void check(String imgBase64) {
+    public JSONObject check(String imgBase64) {
         String host = "http://dm-51.data.aliyun.com";
         String path = "/rest/160601/ocr/ocr_idcard.json";
         String appcode = "f9d7ccf5fc9d400092b7e76e713360c0";
@@ -57,15 +57,16 @@ public class IdentificationCard {
                 System.out.println("Http code: " + stat);
                 System.out.println("http header error msg: "+ response.getFirstHeader("X-Ca-Error-Message"));
                 System.out.println("Http body error msg:" + EntityUtils.toString(response.getEntity()));
-                return;
+                return null;
             }
 
             String res = EntityUtils.toString(response.getEntity());
             JSONObject res_obj = JSON.parseObject(res);
 
-            System.out.println(res_obj.toJSONString());
+            return res_obj;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

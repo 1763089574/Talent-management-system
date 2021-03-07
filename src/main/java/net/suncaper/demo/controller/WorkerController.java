@@ -1,26 +1,33 @@
 package net.suncaper.demo.controller;
 
 //import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import net.suncaper.demo.common.domain.*;
 import net.suncaper.demo.common.util.HashCode;
+import net.suncaper.demo.common.util.IdentificationCard;
+import net.suncaper.demo.common.util.TwoElements;
 import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.WorkerService;
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.suncaper.demo.common.util.AliyunSms.sendSms;
 
@@ -182,6 +189,21 @@ public class WorkerController {
 
     }
 
+    @GetMapping("/ifconfirm")
+
+    @ResponseBody
+    public int ifconfirm(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String str_workerId = request.getParameter("workerId");
+        int workerId = Integer.valueOf(str_workerId);
+
+        if(workerService.ifConfirm(workerId)==true){
+            return 1;
+        }else {
+            return 0;
+        }
+
+    }
+
     @GetMapping("/addEvaluateContent")
 
     @ResponseBody
@@ -271,11 +293,8 @@ public class WorkerController {
         }
 
         Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
-        if(resignObject==null){
-            Info.put("ifsnedResignApply",0);
-        }else{
-            Info.put("ifsnedResignApply",1);
-        }
+            Info.put("isConsent",resignObject.getIsconsent());
+
 
 
         String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");

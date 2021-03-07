@@ -2,7 +2,8 @@
 var information1 = new Vue({
     el:'#Right_up_name',
     data:{
-        name:""
+        name:"",
+        workerId:""
     },
     mounted:function (){
         this.getName();//获取当前登录者的姓名
@@ -14,7 +15,7 @@ var information1 = new Vue({
                 .then(function (response) {
 
                     var workerid = response.data;
-
+                    that.workerId = response.data;
                     axios.get('/getWorkerNameByID', {
                         params: {
                             workerid:workerid

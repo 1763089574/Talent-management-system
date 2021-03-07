@@ -9,7 +9,7 @@ import java.util.Map;
 public class TwoElements {
 
     //传入图片的base64，返回字符串，建议将字符串转换为json，比较好操作
-    public void check(String name, String number) {
+    public HttpResponse check(String name, String number) {
 
         String host = "https://flybigdata.market.alicloudapi.com";
         String path = "/verify/bidverify2";
@@ -35,11 +35,13 @@ public class TwoElements {
              */
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
 //            System.out.println("1234");
-            System.out.println("1234"+response.toString());
-            //获取response的body
-            System.out.println(EntityUtils.toString(response.getEntity()));
+//            System.out.println("1234"+response.toString());
+//            //获取response的body
+//            System.out.println(EntityUtils.toString(response.getEntity()));
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

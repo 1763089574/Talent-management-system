@@ -32,5 +32,6 @@ public interface WorkerService {
     Dossier getDossierObjectByEmployId(int employId);//通过EmployId得到对应的dossier档案对象实例--DQ
     Evaluate getEvaluateObjectByEmployId(int employId);//通过employId,得到Evaluate表的实例对象--DQ
     void addResignApply(int companyId,int workerId,String content);
-
+    boolean addCertifyWorkerInformation(Worker worker);//将识别的身份证信息加入数据库
+    boolean ifConfirm(int workerId);//判断是否身份认证
 }
