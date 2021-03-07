@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
-                        class="large material-icons">track_changes</i> <strong>target</strong></a>
+                        class="large material-icons">track_changes</i> <strong>伯乐人才</strong></a>
 
                 <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
@@ -235,8 +235,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i>
-                            欢迎</a>
+                        <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i> 欢迎</a>
                     </li>
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span
@@ -253,7 +252,7 @@
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>员工管理<span
                                 class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level ">
+                        <ul class="nav nav-second-level">
                             <li>
                                 <a href="/EnterToQueryStaff">查询员工</a>
                             </li>
@@ -270,7 +269,7 @@
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="/EnterToCompanyInformation">公司信息操作</a>
+                                <a href="/EnterToCompanyInformation" >公司信息操作</a>
                             </li>
                             <li>
                                 <a href="/EnterToCompanyCertification" class="active-menu">公司认证</a>
@@ -282,6 +281,8 @@
             </div>
 
         </nav>
+
+
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div class="header">
@@ -449,7 +450,7 @@
     });
 </script>
 <!-- Custom Js -->
-<script src="../static/assets/js/custom-scripts.js"></script>
+<script src="/assets/js/custom-scripts.js"></script>
 <script src="/assets/js/vue.js"></script>
 <script src="/assets/js/axios.min.js"></script>
 <script>
@@ -522,6 +523,7 @@
                         businessscope:that.license.businessscope
                     }
                 }).then(function (response) {
+                    alert("认证成功")
                     console.log(response.data);
                 })
             },
