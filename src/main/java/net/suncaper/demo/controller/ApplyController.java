@@ -40,7 +40,7 @@ public class ApplyController {
         Worker worker = workerService.getWorkerByID(workerid);
         System.out.println(worker.getIdentifyflag());
         System.out.println("workerID为"+workerid);
-        if(worker.getBelong()!=null||worker.getIdentifyflag()!=1||workerService.ifApplying(workerid)){
+        if(worker.getBelong()!="0"||worker.getIdentifyflag()!=1||workerService.ifApplying(workerid)){
             return false;
         }else{
             return true;
