@@ -102,6 +102,7 @@ public class CompanyServiceImpl implements CompanyService {
         WorkerExample example = new WorkerExample();
         WorkerExample.Criteria criteria = example.createCriteria();
         criteria.andIdIsNotNull();
+        criteria.andBelongEqualTo("0");
         List<Worker> workers = workerMapper.selectByExample(example);
         return workers;
     }

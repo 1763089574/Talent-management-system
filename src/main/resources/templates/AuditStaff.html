@@ -310,7 +310,7 @@
                                             <td class="center">{{item.birth}}</td>
                                             <td class="center">{{item.education}}</td>
                                             <td class="center">{{item.major}}</td>
-                                            <td class="center"><button class="btn btn-info">详情</button>&nbsp;&nbsp;<button class="btn btn-primary" @click="applyAgree(item.id)">通过</button>&nbsp;&nbsp; <button class="btn btn-danger" @click="applyRefuse(item.id)">拒绝</button></td>
+                                            <td class="center"><button class="btn btn-info" @click="EnterToTalentQuery">去搜索该员工</button>&nbsp;&nbsp;<button class="btn btn-primary" @click="applyAgree(item.id)">通过</button>&nbsp;&nbsp; <button class="btn btn-danger" @click="applyRefuse(item.id)">拒绝</button></td>
                                         </tr>
                                        
                                     </tbody>
@@ -491,6 +491,9 @@
 
             },
             methods:{
+                EnterToTalentQuery:function(){
+                  window.location.href="/EnterToTalentQuery"
+                },
                 getCompanyName:function () {
                     var that=this
                     axios.get("/GlobalVariable/GetCompanyName").then(
