@@ -31,6 +31,7 @@ var companyList = new Vue({
                                 }
                             })
                                 .then(function (response) {
+                                    console.log(response.data);
                                     if(response.data){
                                         that.if_primary=true;
                                         that.ifdisplay=false;
