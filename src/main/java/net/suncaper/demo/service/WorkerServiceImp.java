@@ -222,7 +222,7 @@ public class WorkerServiceImp implements WorkerService{
 
     public Resign getResignByWorkerIdAndCompanyId(int companyId,int workerId){
         ResignExample resignExample = new ResignExample();
-        resignExample.createCriteria().andWorkerIdEqualTo(workerId).andCompanyIdEqualTo(companyId);
+        resignExample.createCriteria().andWorkerIdEqualTo(workerId).andCompanyIdEqualTo(companyId).andIsconsentEqualTo("0");
         List<Resign> resigns = resignMapper.selectByExample(resignExample);
         if (resigns.size()==0){
             return null;
