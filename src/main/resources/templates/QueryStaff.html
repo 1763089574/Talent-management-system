@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="template.html"><i class="large material-icons">track_changes</i> <strong>target</strong></a>
+                <a class="navbar-brand waves-effect waves-dark" href="/EnterToWelcome"><i class="large material-icons">track_changes</i> <strong>伯乐人才</strong></a>
 				
 		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
             </div>
@@ -60,7 +60,7 @@
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>				
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>{{companyName}}</b> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
 		<!-- Dropdown Structure -->
@@ -247,10 +247,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>人才档案<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level ">
                             <li>
-                                <a href="TalentQuery.html"  >人才查询</a>
+                                <a href="/EnterToTalentQuery"  >人才查询</a>
                             </li>
                             <li>
-                                <a href="TalentCompare.html" >人才比较</a>
+                                <a href="/EnterToTalentCompare" >人才比较</a>
                             </li>
                         </ul>
                     </li>
@@ -272,10 +272,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>公司信息<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="CompanyInformationOperation.html">公司信息操作</a>
+                                <a href="/EnterToCompanyInformation">公司信息操作</a>
                             </li>
                             <li>
-                                <a href="CompanyCertification.html">公司认证</a>
+                                <a href="/EnterToCompanyCertification">公司认证</a>
                             </li>
                         </ul>
                     </li>
@@ -670,6 +670,7 @@
                 },
                 achievement:[],//成就表
                 mistake:[],//违纪表
+                companyName:"",//右上角的公司名称
 
 
             },
@@ -683,6 +684,17 @@
                 }
             },
             methods: {
+                getCompanyName:function () {
+                    var that=this
+                    axios.get("/GlobalVariable/GetCompanyName").then(
+                        function (response) {
+                            that.companyName=response.data;
+                        },
+                        function (err) {
+                            console.log(err)
+                        }
+                    )
+                },
                 dateFormat:function(time) {//时间格式化函数
                     var date=new Date(time);
                     var year=date.getFullYear();
@@ -911,7 +923,7 @@
             created:function () {
 
                 var that=this
-
+                that.getCompanyName()
                 //that.Initial();
                 axios.get("/GlobalVariable/GetCompanyId").then(
                     function (response) {

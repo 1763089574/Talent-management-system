@@ -48,4 +48,12 @@ public interface CompanyService {
     List<Worker> getCommission(String CompanyId);
     List<Worker> getCheck(String CompanyId);
     List<Worker> getResign(String CompanyId);
+
+    int updateAllIsEvaluate();
+
+    List<Company> getAllCompany();
+
+    int workerEvaluateYes(int companyId);//得到worker表中belong字段为companyId的，并且本月已经评价员工的个数
+    int workerEvaluateNo(int companyId);//得到worker表中belong字段为companyId的，并且本月还未评价的员工的个数
+    void updateCredit(int companyId);//更新公司的信誉分，减5
 }

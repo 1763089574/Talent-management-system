@@ -32,4 +32,10 @@ public interface EmployService {
     int insertAchievement(String employId,String achievementContent,Date createDate);//插入achievement
 
     int insertMistake(String employId,String mistakeContent,Date createDate);
+
+    String getResignContent(String companyId,String workerId);
+
+    int updateIsEvaluate(String workerId);
+
+
 }

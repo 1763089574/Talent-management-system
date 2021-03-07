@@ -206,13 +206,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public boolean resignRefuse(int workerId, int companyId) {
-        ResignExample example=new ResignExample();
-        ResignExample.Criteria criteria=example.createCriteria();
+        ResignExample resignExample=new ResignExample();
+        ResignExample.Criteria criteria=resignExample.createCriteria();
         criteria.andCompanyIdEqualTo(companyId);
-        criteria.andIdEqualTo(workerId);
+        criteria.andWorkerIdEqualTo(workerId);
         Resign record=new Resign();
         record.setIsconsent("2");
-        int count=resignMapper.updateByExampleSelective(record,example);
+        int count=resignMapper.updateByExampleSelective(record,resignExample);
         if(count==0)
            return false;
         else
@@ -285,5 +285,59 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Worker> getResign(String CompanyId) {
         return companyMapper.getResign(Integer.valueOf(CompanyId));
+    }
+
+    @Override
+    public int updateAllIsEvaluate() {//定时任务，每月一日凌晨两点将所有worker的isEvaluate调整为0
+        Worker worker=new Worker();
+        worker.setIsevaluate(0);
+        WorkerExample workerExample=new WorkerExample();
+        WorkerExample.Criteria criteria=workerExample.createCriteria();
+        criteria.andIdIsNotNull();
+        int count=workerMapper.updateByExampleSelective(worker,workerExample);
+        return count;
+    }
+
+    @Override
+    public List<Company> getAllCompany() {
+        CompanyExample companyExample=new CompanyExample();
+        CompanyExample.Criteria criteria=companyExample.createCriteria();
+        criteria.andIdIsNotNull();
+        List<Company> companys=companyMapper.selectByExample(companyExample);
+        return companys;
+    }
+
+    @Override
+    public int workerEvaluateYes(int companyId) {
+        WorkerExample workerExample=new WorkerExample();
+        WorkerExample.Criteria criteria=workerExample.createCriteria();
+        criteria.andBelongEqualTo(String.valueOf(companyId));
+        criteria.andIsevaluateEqualTo(1);
+        List<Worker> workers=workerMapper.selectByExample(workerExample);
+        int size=workers.size();
+        return size;
+    }
+
+    @Override
+    public int workerEvaluateNo(int companyId) {
+        WorkerExample example=new WorkerExample();
+        WorkerExample.Criteria criteria=example.createCriteria();
+        criteria.andBelongEqualTo(String.valueOf(companyId));
+        criteria.andIsevaluateEqualTo(0);
+        List<Worker> workers=workerMapper.selectByExample(example);
+        int size=workers.size();
+        return size;
+    }
+
+    @Override
+    public void updateCredit(int companyId) {//对公司信誉分减5
+
+        Company company=companyMapper.selectByPrimaryKey(companyId);
+        Integer Credit=company.getCredit();
+        Credit-=5;
+        Company record=new Company();
+        record.setId(companyId);
+        record.setCredit(Credit);
+        int count=companyMapper.updateByPrimaryKeySelective(record);
     }
 }

@@ -49,7 +49,7 @@
                         class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
                 </li>
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-                        class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
+                        class="fa fa-user fa-fw"></i> <b>{{companyName}}</b> <i
                         class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
@@ -235,7 +235,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
+                        <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i>
                             欢迎</a>
                     </li>
                     <li>
@@ -243,10 +243,10 @@
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level ">
                             <li>
-                                <a href="TalentQuery.html">人才查询</a>
+                                <a href="/EnterToTalentQuery">人才查询</a>
                             </li>
                             <li>
-                                <a href="TalentCompare.html">人才比较</a>
+                                <a href="/EnterToTalentCompare">人才比较</a>
                             </li>
                         </ul>
                     </li>
@@ -255,13 +255,13 @@
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level ">
                             <li>
-                                <a href="QueryStaff.html">查询员工</a>
+                                <a href="/EnterToQueryStaff">查询员工</a>
                             </li>
                             <li>
-                                <a href="AuditStaff.html">审核员工</a>
+                                <a href="/EnterToAuditStaff">审核员工</a>
                             </li>
                             <li>
-                                <a href="AddEvaluation.html">添加评价</a>
+                                <a href="/EnterToAddEvaluation">添加评价</a>
                             </li>
                         </ul>
                     </li>
@@ -270,10 +270,10 @@
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="CompanyInformationOperation.html">公司信息操作</a>
+                                <a href="/EnterToCompanyInformation">公司信息操作</a>
                             </li>
                             <li>
-                                <a href="CompanyCertification.html" class="active-menu">公司认证</a>
+                                <a href="/EnterToCompanyCertification" class="active-menu">公司认证</a>
                             </li>
                         </ul>
                     </li>
@@ -459,9 +459,21 @@
             imageUrl: "",
             license: [],
             CompanyId: "",
-            ifCertification:false
+            ifCertification:false,
+            companyName:""
         },
         methods: {
+            getCompanyName:function () {
+                var that=this
+                axios.get("/GlobalVariable/GetCompanyName").then(
+                    function (response) {
+                        that.companyName=response.data;
+                    },
+                    function (err) {
+                        console.log(err)
+                    }
+                )
+            },
             saveSrc(e) {
                 let file = this.$refs.imgInput.files[0]
                 if (file === undefined) {
@@ -550,6 +562,7 @@
         created() {
             // this.getUrl();
             this.getId();
+            this.getCompanyName();
         },
 
     })

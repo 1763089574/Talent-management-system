@@ -282,8 +282,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
-                            class="large material-icons">track_changes</i> <strong>target</strong></a>
+                    <a class="navbar-brand waves-effect waves-dark" href="/EnterToWelcome"><i
+                            class="large material-icons">track_changes</i> <strong>伯乐人才</strong></a>
 
                     <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
                 </div>
@@ -299,7 +299,7 @@
                                 class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
                     </li>
                     <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-                                class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
+                                class="fa fa-user fa-fw"></i> <b >{{companyName}}</b> <i
                                 class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </nav>
@@ -485,7 +485,7 @@
                     <ul class="nav" id="main-menu">
 
                         <li>
-                            <a class="waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
+                            <a class="waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i>
                                 欢迎</a>
                         </li>
                         <li>
@@ -493,10 +493,10 @@
                                     class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse in">
                                 <li>
-                                    <a href="TalentQuery.html" class="active-menu">人才查询</a>
+                                    <a href="/EnterToTalentQuery" class="active-menu">人才查询</a>
                                 </li>
                                 <li>
-                                    <a href="TalentCompare.html">人才比较</a>
+                                    <a href="/EnterToTalentCompare">人才比较</a>
                                 </li>
                             </ul>
                         </li>
@@ -505,13 +505,13 @@
                                     class="fa arrow"></span></a>
                             <ul class="nav nav-second-level ">
                                 <li>
-                                    <a href="QueryStaff.html">查询员工</a>
+                                    <a href="/EnterToQueryStaff">查询员工</a>
                                 </li>
                                 <li>
-                                    <a href="AuditStaff.html">审核员工</a>
+                                    <a href="/EnterToAuditStaff">审核员工</a>
                                 </li>
                                 <li>
-                                    <a href="AddEvaluation.html">添加评价</a>
+                                    <a href="/EnterToAddEvaluation">添加评价</a>
                                 </li>
                             </ul>
                         </li>
@@ -520,10 +520,10 @@
                                     class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="CompanyInformationOperation.html">公司信息操作</a>
+                                    <a href="/EnterToCompanyInformation">公司信息操作</a>
                                 </li>
                                 <li>
-                                    <a href="CompanyCertification.html">公司认证</a>
+                                    <a href="/EnterToCompanyCertification">公司认证</a>
                                 </li>
                             </ul>
                         </li>
@@ -743,9 +743,30 @@
                 },
                 achievement:[],//成就表
                 mistake:[],//违纪表
+                companyName:""
 
             },
+            filters: {//对UTC时间进行过滤
+                ellipsis:function(value) {
+                    if (!value) return ''
+                    if (value.length > 10) {
+                        return value.slice(0, 10)
+                    }
+                    return value
+                }
+            },
             methods: {
+                getCompanyName:function () {
+                    var that=this
+                    axios.get("/GlobalVariable/GetCompanyName").then(
+                        function (response) {
+                            that.companyName=response.data;
+                        },
+                        function (err) {
+                            console.log(err)
+                        }
+                    )
+                },
                 GetWorkerDetailById:function(id,belong){//得到员工的所有信息
                     var that=this
                     axios.get("/staff/getWorkerDetailById",{
@@ -919,8 +940,9 @@
                 // })
             },
             //生命周期相关的函数
-            created() {
+            created:function() {
                 this.findAll();
+                this.getCompanyName();
 
             },
             watch: {
@@ -966,6 +988,7 @@
             }
 
         })
+
     </script>
 
 

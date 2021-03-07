@@ -20,6 +20,10 @@ public class EmployServiceImpl implements EmployService {
     AchievementMapper achievementMapper;
     @Autowired
     MistakeMapper mistakeMapper;
+    @Autowired
+    ResignMapper resignMapper;
+    @Autowired
+    WorkerMapper workerMapper;
     @Override
     public List<Employ> getEmployByWorker(String workerId,String belong) {//找出员工曾经任职过的employ，注意，不包含当前任职的公司
         EmployExample employExample=new EmployExample();
@@ -116,6 +120,27 @@ public class EmployServiceImpl implements EmployService {
         mistake.setMistakeContent(mistakeContent);
         mistake.setCreatedate(createDate);
         int count=mistakeMapper.insertSelective(mistake);
+        return count;
+    }
+
+    @Override
+    public String getResignContent(String companyId, String workerId) {
+        ResignExample resignExample=new ResignExample();
+        ResignExample.Criteria criteria=resignExample.createCriteria();
+        criteria.andCompanyIdEqualTo(Integer.valueOf(companyId));
+        criteria.andWorkerIdEqualTo(Integer.valueOf(workerId));
+        criteria.andIsconsentEqualTo("0");
+        List<Resign> resigns=resignMapper.selectByExample(resignExample);
+        String resignContent=resigns.get(0).getContent();
+        return resignContent;
+    }
+
+    @Override
+    public int updateIsEvaluate(String workerId) {//员工离职时将他的isEvaluate字段置为0
+        Worker worker=new Worker();
+        worker.setIsevaluate(0);
+        worker.setId(Integer.valueOf(workerId));
+        int count=workerMapper.updateByPrimaryKeySelective(worker);
         return count;
     }
 }

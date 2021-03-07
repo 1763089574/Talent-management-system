@@ -123,19 +123,28 @@ public class QueryStaffController {
     public boolean resignAgree(HttpServletRequest request) throws ParseException {//同意员工申请离职，根据公司id和员工id去resign表中将isconsent置为1，并将worker表中的belong置为0
         Integer workerId=Integer.valueOf(request.getParameter("workerId"));
         Integer companyId=Integer.valueOf(request.getParameter("companyId"));
-        System.out.println("appliAgree");
+
         String evaluate=request.getParameter("evaluate");
+        System.out.println("appliAgree");
+        System.out.println(workerId);
+        System.out.println(companyId);
+        System.out.println(evaluate);
         Boolean flag=companyService.resignAgree(workerId,companyId);
 
         //以下是为完善employ的离职时间和为用户创建dossier
         Date endDate= DateTime.getDateTime();
 
 
-        List<Employ> employs=employService.getEmploy(request.getParameter("workerId"),request.getParameter("companyId"));
+        List<Employ> employs=employService.getEmploy(request.getParameter("companyId"),request.getParameter("workerId"));
+        System.out.println("aemploys");
+        System.out.println(employs);
         String employId=String.valueOf(employs.get(0).getId());
-        int count2=employService.employEndDate(employId,endDate);
+        int count2=employService.employEndDate(employId,endDate);//员工离职时完善其employ的离职字段
 
-        int count=dossierService.dossierCreate(employId,evaluate);
+        int count=dossierService.dossierCreate(employId,evaluate);//员工离职时为其创建dossier并添加评价
+
+        int count3=employService.updateIsEvaluate(request.getParameter("workerId"));//员工离职时更改他的isevaluate字段
+
         return flag;
     }
 
@@ -217,6 +226,13 @@ public class QueryStaffController {
             return true;
         else
             return false;
+    }
+
+    @RequestMapping("getResignContent")
+    public String getResignContent(String workerId,String companyId){
+       String resignContent=employService.getResignContent(companyId,workerId);
+
+        return resignContent;
     }
 
 }

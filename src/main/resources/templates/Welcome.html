@@ -47,7 +47,7 @@
             <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
                     class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-                    class="fa fa-user fa-fw"></i> <b>John Doe</b> <i
+                    class="fa fa-user fa-fw"></i> <b id="rightInfo">{{companyName}}</b> <i
                     class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
     </nav>
@@ -58,7 +58,7 @@
     </li>
     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
     </li>
-    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    <li><a href="/EnterToCompany"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
     </li>
 </ul>
 <ul id="dropdown2" class="dropdown-content w250">
@@ -233,7 +233,7 @@
         <ul class="nav" id="main-menu">
 
             <li>
-                <a class="active-menu waves-effect waves-dark" href="Welcome.html"><i class="fa fa-dashboard"></i>
+                <a class="active-menu waves-effect waves-dark" href="/EnterToWelcome"><i class="fa fa-dashboard"></i>
                     欢迎</a>
             </li>
             <li>
@@ -420,16 +420,19 @@
         data: {
             message: "",
             CompanyId: "",
+
             workers: [],
             applys:[],
             resigns:[]
         },
         methods: {
 
+
         },
         created: function () {
             var that = this
             console.log("这里是Welcome.html")
+            that.getCompanyName();
             axios.get("/GlobalVariable/GetCompanyId").then(
                 function (response) {
                     that.CompanyId = response.data;
@@ -475,6 +478,28 @@
                 }
             )
 
+        }
+    })
+    var rightInfo=new Vue({
+        el:"#rightInfo",
+        data:{
+            companyName:""
+        },
+        methods:{
+            getCompanyName:function () {
+                var that=this
+                axios.get("/GlobalVariable/GetCompanyName").then(
+                    function (response) {
+                        that.companyName=response.data;
+                    },
+                    function (err) {
+                        console.log(err)
+                    }
+                )
+            }
+        },
+        created:function () {
+            this.getCompanyName();
         }
     })
 </script>
