@@ -20,7 +20,7 @@ var resignConfirm = new Vue({
                         .then(function (response) {
                             var workerid = response.data;
                             that.workerId=workerid;
-                            axios.get('/getNowCompanyInformation', {
+                            axios.get('/getNowCompanyInformationPlus', {
                                 params: {
                                     workerid: workerid
                                 }
