@@ -187,6 +187,39 @@ public class WorkerServiceImp implements WorkerService{
 
     }
 
+    public boolean ifConfirm(int workerId){
+        Worker worker = workerMapper.selectByPrimaryKey(workerId);
+        if(worker.getIdentifyflag()==1){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public boolean addCertifyWorkerInformation(Worker worker){
+        String Cid = worker.getIdcard();
+        //判断是否已经使用改身份证进行注册
+        WorkerExample example = new WorkerExample();
+        example.createCriteria().andIdcardEqualTo(Cid);
+        List<Worker> workers = workerMapper.selectByExample(example);
+
+
+        if(workers.size()==0){
+            int workerId =worker.getId();
+            Worker worker1 = workerMapper.selectByPrimaryKey(workerId);
+            worker.setPassword(worker1.getPassword());
+            worker.setPhonenumber(worker1.getPhonenumber());
+            worker.setIdentifyflag(1);
+
+            workerMapper.updateByPrimaryKeySelective(worker);
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+
     public Resign getResignByWorkerIdAndCompanyId(int companyId,int workerId){
         ResignExample resignExample = new ResignExample();
         resignExample.createCriteria().andWorkerIdEqualTo(workerId).andCompanyIdEqualTo(companyId);

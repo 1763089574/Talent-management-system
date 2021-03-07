@@ -17,6 +17,25 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
+    <style>
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .file {
+            position: relative;
+            display: inline-block;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 25px;
+        }
+    </style>
 </head>
 
 <body>
@@ -225,7 +244,7 @@
                     <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-list-alt"></i>我的消息<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/WorkerPages/resignConfirm">离职确认</a>
+                            <a href="/WorkerPages/resignConfirm">离职申请</a>
                         </li>
                         <li>
                             <a href="/WorkerPages/waitToEvaluate">评价列表</a>
@@ -259,19 +278,47 @@
     <!-- /. NAV SIDE  -->
 
     <div id="page-wrapper">
-        <div class="header">
-            <h1 class="page-header">
-                欢迎
-            </h1>
-            <!--            <ol class="breadcrumb">-->
-            <!--                <li><a href="#">Home</a></li>-->
-            <!--                <li><a href="#">Dashboard</a></li>-->
-            <!--                <li class="active">Data</li>-->
-            <!--            </ol>-->
-
+        <div class="alert alert-success" v-if="finishConfirm==1">
+            <strong>您已完成认证！</strong>
         </div>
+        <div v-else>
+            <div class="header">
+            <h1 class="page-header">
+                身份认证
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">个人信息</a></li>
+                <li class="active">身份认证</li>
+            </ol>
+        </div>
+            <div id="page-inner">
+            <div class="dashboard-cards">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-action">
+                                身份证上传
+                            </div>
+                            <div class="card-content">
+                                <img :src="imageUrl" alt="">
+                                <div style="margin-top: 20px">
+                                    <a class="btn-primary btn file">上传文件
+                                        <input type="file" name="pic" ref="imgInput" @change="saveSrc()">
+                                    </a>
 
+                                    <a class="btn-primary btn file" style="margin-left: 20px" @click="confirm()">进行认证</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /. PAGE INNER  -->
+        </div>
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
