@@ -143,6 +143,9 @@ public class QueryStaffController {
 
         int count=dossierService.dossierCreate(employId,evaluate);//员工离职时为其创建dossier并添加评价
 
+        //员工离职时为其往Evaluate表中添加信息
+        employService.insertEvaluate(Integer.valueOf(employId));
+
         int count3=employService.updateIsEvaluate(request.getParameter("workerId"));//员工离职时更改他的isevaluate字段
 
         return flag;

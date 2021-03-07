@@ -24,6 +24,8 @@ public class EmployServiceImpl implements EmployService {
     ResignMapper resignMapper;
     @Autowired
     WorkerMapper workerMapper;
+    @Autowired
+    EvaluateMapper evaluateMapper;
     @Override
     public List<Employ> getEmployByWorker(String workerId,String belong) {//找出员工曾经任职过的employ，注意，不包含当前任职的公司
         EmployExample employExample=new EmployExample();
@@ -142,5 +144,12 @@ public class EmployServiceImpl implements EmployService {
         worker.setId(Integer.valueOf(workerId));
         int count=workerMapper.updateByPrimaryKeySelective(worker);
         return count;
+    }
+
+    @Override
+    public void insertEvaluate(int employId) {
+        Evaluate record=new Evaluate();
+        record.setEmployId(employId);
+        int count=evaluateMapper.insertSelective(record);
     }
 }

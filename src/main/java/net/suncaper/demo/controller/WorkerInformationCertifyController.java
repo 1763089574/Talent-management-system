@@ -45,6 +45,7 @@ public class WorkerInformationCertifyController {
             HttpResponse res = twoElements.check(name, num);
             String s = EntityUtils.toString(res.getEntity());
             JSONObject jsonObject = JSONObject.parseObject(s);
+            System.out.println(jsonObject.toJSONString());
             if(jsonObject.get("data")!=null){
                 Worker worker = new Worker();
                 //添加姓名
@@ -65,13 +66,13 @@ public class WorkerInformationCertifyController {
                 worker.setId(workerId);
 
                 if(workerService.addCertifyWorkerInformation(worker)==false){
-                    return 2;
+                    return 3;
                 }else{
                     return 1;
                 }
 
             }else{
-                return 3;
+                return 2;
             }
 
 

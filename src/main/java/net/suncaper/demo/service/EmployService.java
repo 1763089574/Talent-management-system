@@ -37,5 +37,5 @@ public interface EmployService {
 
     int updateIsEvaluate(String workerId);
 
-
+    void insertEvaluate(int employId);
 }
