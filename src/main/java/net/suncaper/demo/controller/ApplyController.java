@@ -38,9 +38,11 @@ public class ApplyController {
     public boolean ifClickApplyButton(HttpServletRequest request) throws ClientException, NoSuchAlgorithmException {
         int workerid = Integer.valueOf(request.getParameter("workerid"));
         Worker worker = workerService.getWorkerByID(workerid);
-        System.out.println(worker.getIdentifyflag());
-        System.out.println("workerID为"+workerid);
-        if(worker.getBelong()!="0"||worker.getIdentifyflag()!=1||workerService.ifApplying(workerid)){
+
+        System.out.println("belong:"+worker.getBelong());
+        System.out.println("iden:"+worker.getIdentifyflag());
+        System.out.println(workerService.ifApplying(workerid));
+        if(!worker.getBelong().equals("0")||worker.getIdentifyflag()!=1||workerService.ifApplying(workerid)){
             return false;
         }else{
             return true;
