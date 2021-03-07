@@ -292,10 +292,8 @@ public class WorkerController {
             Info.put("averageGrade",sum/counter);
         }
 
-        Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
-            Info.put("isConsent",resignObject.getIsconsent());
-
-
+//        Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
+//            Info.put("isConsent",resignObject.getIsconsent());
 
         String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
 
@@ -304,6 +302,53 @@ public class WorkerController {
         Info.put("startDate", Integer.parseInt(strNow1[0])+"-"+
                               Integer.parseInt(strNow1[1])+"-"+
                               Integer.parseInt(strNow1[2]));
+        Info.put("nowCompanyAchievements",nowCompanyAchievementByEmployID);
+        Info.put("nowCompanyMistakes",nowCompanyMistakeByEmployID);
+
+
+        return Info;
+
+    }
+
+    @GetMapping("/getNowCompanyInformationPlus")
+
+    @ResponseBody
+    public HashMap getNowCompanyInformationPlus(HttpServletRequest request, HttpServletResponse response) throws ClientException, NoSuchAlgorithmException {
+        String Str_id = request.getParameter("workerid");
+        int workerid = Integer.valueOf(Str_id);
+        Employ employ = workerService.getNowEmploy(workerid);
+        if(employ==null){
+            return null;
+        }
+        Company company = companyService.selectByPrimaryKey(employ.getCompanyId());
+        List<Achievement> nowCompanyAchievementByEmployID = workerService.getNowCompanyAchievementByEmployID(employ.getId());
+        List<Mistake> nowCompanyMistakeByEmployID = workerService.getNowCompanyMistakeByEmployID(employ.getId());
+        HashMap Info=new HashMap();
+        //算绩效平均
+        List<Grade> CompanyGradeByEmployID = workerService.getNowCompanyGradeByEmployID(employ.getId());
+        if(CompanyGradeByEmployID==null){
+            Info.put("averageGrade","");
+        }
+        else{
+            double sum=0;
+            int counter=0;
+            for(Grade item:CompanyGradeByEmployID){
+                sum+=item.getContent();
+                counter++;
+            }
+            Info.put("averageGrade",sum/counter);
+        }
+
+        Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
+        Info.put("isConsent",resignObject.getIsconsent());
+
+        String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
+
+        Info.put("companyName",company.getName());
+        Info.put("companyId",company.getId());
+        Info.put("startDate", Integer.parseInt(strNow1[0])+"-"+
+                Integer.parseInt(strNow1[1])+"-"+
+                Integer.parseInt(strNow1[2]));
         Info.put("nowCompanyAchievements",nowCompanyAchievementByEmployID);
         Info.put("nowCompanyMistakes",nowCompanyMistakeByEmployID);
 
