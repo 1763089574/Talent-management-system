@@ -339,11 +339,9 @@ public class WorkerController {
             Info.put("averageGrade",sum/counter);
         }
 
-
         Resign resignObject = workerService.getResignByWorkerIdAndCompanyId(company.getId(), workerid);
-        if(resignObject!=null) {
-            Info.put("isConsent", resignObject.getIsconsent());
-        }
+        if(resignObject!=null){Info.put("isConsent",resignObject.getIsconsent());}
+
 
         String[] strNow1 = new SimpleDateFormat("yyyy-MM-dd").format(employ.getStartDate()).toString().split("-");
 
