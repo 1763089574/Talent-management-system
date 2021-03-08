@@ -316,8 +316,8 @@
                                         <label for="Birth" class="active">出生日期</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input placeholder="暂无" v-model="belong"  id="Belong" type="text" class="validate" disabled="true">
-                                        <label for="Belong" class="active">现属公司</label>
+                                        <input placeholder="暂无" v-model="belong=='0'?'':belong"  id="Belong" type="text" class="validate" disabled="true">
+                                        <label for="Belong" class="active">现属公司ID</label>
                                     </div>
                                 </div>
 

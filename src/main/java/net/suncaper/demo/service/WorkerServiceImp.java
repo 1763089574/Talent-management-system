@@ -51,7 +51,7 @@ public class WorkerServiceImp implements WorkerService{
     }
 
     public void register_(Worker worker){
-        workerMapper.insert(worker);
+        workerMapper.insertSelective(worker);
     }
 
     public void sendWorkerApply(int companyid,int workerid){

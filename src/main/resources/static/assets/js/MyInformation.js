@@ -34,7 +34,7 @@ var my_information = new Vue({
                             that.idCard = response.data.idcard;
                             that.sex = response.data.sex;
                             that.birth = response.data.birth;
-                            that.belong = response.data.birth;
+                            that.belong = response.data.belong;
                             that.major = response.data.major;
                             that.education = response.data.education;
                         })
