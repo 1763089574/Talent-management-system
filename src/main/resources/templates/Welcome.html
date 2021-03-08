@@ -432,7 +432,6 @@
         created: function () {
             var that = this
             console.log("这里是Welcome.html")
-            that.getCompanyName();
             axios.get("/GlobalVariable/GetCompanyId").then(
                 function (response) {
                     that.CompanyId = response.data;
