@@ -43,7 +43,7 @@
 
     <div class="dowebok" id="dowebok">
         <div class="form-container sign-up-container">
-            <form id="loginForm" action="#">
+            <div id="loginForm">
                 <h1 style="letter-spacing:10px;margin-bottom: 20px">注册</h1>
 
                 <span>使用您的手机号注册</span>
@@ -62,10 +62,10 @@
                 <input type="password" placeholder="密码" v-model="password">
                 <input type="password" placeholder="再次输入密码" v-model="passwordRepeat">
                 <button class="button1" v-on:click="handon">注册</button>
-            </form>
+            </div>
         </div>
         <div class="form-container sign-in-container">
-            <form id="loginForm_" action="#">
+            <div id="loginForm_">
                 <h1 style="letter-spacing:10px">员工登录</h1>
                 <div class="social-container">
                    <!--  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -77,7 +77,7 @@
                 <input type="password" placeholder="密码" v-model="password">
                 <a href="#">忘记密码？</a>
                 <button class="button1" id="1" v-on:click="login">登录</button>
-            </form>
+            </div>
         </div>
         <div class="overlay-container">
             <div class="overlay">

@@ -17,9 +17,20 @@
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css">
+    <style>
+        img{
+            margin: auto;
+            position: absolute;//相对定位
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+
+    </style>
 </head>
 
-<body>
+<body style="overflow-y: hidden">
 <div id="wrapper">
     <nav class="navbar navbar-default top-navbar" role="navigation">
         <div class="navbar-header">
@@ -244,9 +255,9 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-sign-out"></i>退出登录</a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-sign-out"></i>退出登录</a>-->
+<!--                </li>-->
 
 
 
@@ -258,18 +269,11 @@
     </nav>
     <!-- /. NAV SIDE  -->
 
-    <div id="page-wrapper">
-        <div class="header">
-            <h1 class="page-header">
-                欢迎
-            </h1>
-<!--            <ol class="breadcrumb">-->
-<!--                <li><a href="#">Home</a></li>-->
-<!--                <li><a href="#">Dashboard</a></li>-->
-<!--                <li class="active">Data</li>-->
-<!--            </ol>-->
-
+    <div id="page-wrapper" style=" position: relative;min-height:660px">
+        <div class="alert alert-success">
+            <strong>欢迎！</strong>
         </div>
+            <img src="/assets/images/index1.png" class="center" style="height:200px;">
 
         <!-- /. PAGE INNER  -->
     </div>
