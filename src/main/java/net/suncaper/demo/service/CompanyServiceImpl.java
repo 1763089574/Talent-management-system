@@ -1,12 +1,14 @@
 package net.suncaper.demo.service;
 
 import net.suncaper.demo.common.domain.*;
+import net.suncaper.demo.common.domain.extend.WorkerCompare;
 import net.suncaper.demo.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -341,4 +343,65 @@ public class CompanyServiceImpl implements CompanyService {
         record.setCredit(Credit);
         int count=companyMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public List<WorkerCompare> GetCompareDate(int workerId1, int workerId2) {
+        List<WorkerCompare> workerCompares = new ArrayList<>();
+        WorkerCompare workerCompare1 = new WorkerCompare();
+        String lateCount = companyMapper.GetLateCount1(workerId1);
+        if (lateCount != null){
+            String evaluate = companyMapper.GetEvaluate1(workerId1);
+            List<WorkerCompare> names = new ArrayList<>();
+            names = companyMapper.GetNameAndCountMisAndCountAch1(workerId1);
+            workerCompare1.setCountAch(names.get(0).getCountAch());
+            workerCompare1.setCountMis(names.get(0).getCountMis());
+            workerCompare1.setEvaluate(evaluate);
+            workerCompare1.setCountLate(lateCount);
+            workerCompare1.setName(names.get(0).getName());
+            String score = String.valueOf(100-(0.5*Integer.parseInt(workerCompare1.getCountLate())+0.5*Integer.parseInt(workerCompare1.getCountMis())-0.5*Integer.parseInt(workerCompare1.getCountAch())));
+            workerCompare1.setScore(score);
+        }
+        else {
+            workerCompare1.setScore("暂无");
+            workerCompare1.setCountAch("暂无");
+            workerCompare1.setCountMis("暂无");
+            workerCompare1.setEvaluate("暂无");
+            workerCompare1.setCountLate("暂无");
+            List<WorkerCompare> names = new ArrayList<>();
+            names = companyMapper.GetNameAndCountMisAndCountAch1(workerId1);
+            workerCompare1.setName(names.get(0).getName());
+        }
+        workerCompares.add(workerCompare1);
+
+        WorkerCompare workerCompare2 = new WorkerCompare();
+        String lateCount1 = companyMapper.GetLateCount2(workerId2);
+        if(lateCount1!=null){
+            String evaluate1 = companyMapper.GetEvaluate2(workerId2);
+            List<WorkerCompare> names1 = new ArrayList<>();
+            names1 = companyMapper.GetNameAndCountMisAndCountAch1(workerId2);
+            workerCompare2.setCountAch(names1.get(0).getCountAch());
+            workerCompare2.setCountMis(names1.get(0).getCountMis());
+            workerCompare2.setEvaluate(evaluate1);
+            workerCompare2.setCountLate(lateCount1);
+            workerCompare2.setName(names1.get(0).getName());
+            String score1 = String.valueOf(100-(0.5*Integer.parseInt(workerCompare2.getCountLate())+0.5*Integer.parseInt(workerCompare2.getCountMis())-0.5*Integer.parseInt(workerCompare2.getCountAch()))) ;
+            workerCompare2.setScore(score1);
+        }
+        else {
+            workerCompare2.setScore("暂无");
+            workerCompare2.setCountAch("暂无");
+            workerCompare2.setCountMis("暂无");
+            workerCompare2.setEvaluate("暂无");
+            workerCompare2.setCountLate("暂无");
+            List<WorkerCompare> names1 = new ArrayList<>();
+            names1 = companyMapper.GetNameAndCountMisAndCountAch1(workerId2);
+            workerCompare2.setName(names1.get(0).getName());
+        }
+
+        workerCompares.add(workerCompare2);
+
+        return workerCompares;
+    }
+
+
 }

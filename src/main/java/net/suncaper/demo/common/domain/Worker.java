@@ -1,7 +1,5 @@
 package net.suncaper.demo.common.domain;
 
-import net.suncaper.demo.common.domain.extend.WorkerDetail;
-
 public class Worker{
     /**
      *

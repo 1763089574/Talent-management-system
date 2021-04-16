@@ -2,6 +2,7 @@ package net.suncaper.demo.controller;
 
 import net.suncaper.demo.common.domain.Dossier;
 import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.common.domain.extend.WorkerCompare;
 import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.DossierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,10 @@ public class TalentController {
     public List<Dossier> findDetails(int id){
         return dossierService.findDetail(id);
     }
+
+    @GetMapping("/GetCompareDate")
+    public List<WorkerCompare> GetCompareDate(int workerId1, int workerId2){
+        return companyService.GetCompareDate(workerId1, workerId2);
+    }
+
 }

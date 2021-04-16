@@ -33,4 +33,34 @@
         AND resign.isConsent=0 AND worker.Id=worker_id
     </select>
 
+    <select id="GetEvaluate1" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT dossier.Evaluate from dossier WHERE dossier.Id=(SELECT MAX(dossier.id) FROM dossier,employ,worker
+        WHERE employ.Worker_id=#{workerid1} and worker.id=#{workerid1} and dossier.Employ_id=employ.Id);
+    </select>
+
+    <select id="GetEvaluate2" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT dossier.Evaluate from dossier WHERE dossier.Id=(SELECT MAX(dossier.id) FROM dossier,employ,worker
+        WHERE employ.Worker_id=#{workerid2} and worker.id=#{workerid2} and dossier.Employ_id=employ.Id);
+    </select>
+
+    <select id="GetLateCount1" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT SUM(dossier.Late_count) FROM employ,dossier WHERE dossier.Employ_id = employ.id and employ.Worker_id=#{workerId1}
+    </select>
+
+    <select id="GetLateCount2" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT SUM(dossier.Late_count) FROM employ,dossier WHERE dossier.Employ_id = employ.id and employ.Worker_id=#{workerId2}
+    </select>
+
+    <select id="GetNameAndCountMisAndCountAch1" parameterType="java.lang.Integer" resultType="net.suncaper.demo.common.domain.extend.WorkerCompare">
+        SELECT worker.name,COUNT(mistake.id) countMis,COUNT(achievement.id) countAch FROM mistake,employ,worker,
+        achievement,dossier WHERE employ.Worker_id=#{workerId1} and worker.id=#{workerId1} and dossier.Employ_id=employ.id and
+        mistake.Id=dossier.Mistake_id and achievement.id = dossier.Achievement_id;
+    </select>
+
+    <select id="GetNameAndCountMisAndCountAch2" parameterType="java.lang.Integer" resultType="net.suncaper.demo.common.domain.extend.WorkerCompare">
+        SELECT worker.name,COUNT(mistake.id) countMis,COUNT(achievement.id) countAch FROM mistake,employ,worker,
+        achievement,dossier WHERE employ.Worker_id=#{workerId2} and worker.id=#{workerId2} and dossier.Employ_id=employ.id and
+        mistake.Id=dossier.Mistake_id and achievement.id = dossier.Achievement_id;
+    </select>
+
 </mapper>

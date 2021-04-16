@@ -4,6 +4,7 @@ import net.suncaper.demo.common.domain.Apply;
 import net.suncaper.demo.common.domain.Company;
 import net.suncaper.demo.common.domain.License;
 import net.suncaper.demo.common.domain.Worker;
+import net.suncaper.demo.common.domain.extend.WorkerCompare;
 
 import java.util.List;
 
@@ -56,4 +57,6 @@ public interface CompanyService {
     int workerEvaluateYes(int companyId);//得到worker表中belong字段为companyId的，并且本月已经评价员工的个数
     int workerEvaluateNo(int companyId);//得到worker表中belong字段为companyId的，并且本月还未评价的员工的个数
     void updateCredit(int companyId);//更新公司的信誉分，减5
+
+    List<WorkerCompare> GetCompareDate(int workerId1, int workerId2);
 }
