@@ -741,23 +741,26 @@
                             <!-- Advanced Tables -->
                             <div class="card">
                                 <div class="card-action">
-                                    Advanced Tables
+                                    信息比较：
                                 </div>
                                 <div class="card-content">
-                                    <div style="border: red solid 2px; height: 50px;width: 180px; display: inline-block;border-radius: 5px;position: relative;">
+                                    <div style="display: inline-block;border-radius: 5px;position: relative;">
                                         <div class="btn-group" role="group" aria-label="..."
-                                        v-for="selectWorker,indexSelect in selectWorkers" style="margin: auto 0;">
-                                        <button type="button" class="btn btn-default"
-                                            @click="detailInfo(selectWorker.workerid)" data-toggle="modal"
-                                            data-target="#myModal">{{selectWorker.workerName}}</button>
+                                        v-for="selectWorker,indexSelect in selectWorkers" style="margin: auto 0;margin-right: 30px;">
+
+                                        <div class="btn btn-default">{{selectWorker.workerName}}</div>
+
+<!--                                        <button type="button" class="btn btn-default"-->
+<!--                                            @click="detailInfo(selectWorker.workerid)" data-toggle="modal"-->
+<!--                                            data-target="#myModal">{{selectWorker.workerName}}</button>-->
                                         <button type="button" class="btn btn-default"
                                             @click="deleteSelect(selectWorker.index,indexSelect)">X</button>
-                                    </div>
+                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-default" data-toggle="modal"
+                                    <button type="button" class="waves-effect waves-light btn" data-toggle="modal"
                                         data-target="#selectModal" v-if="selectCount == 2"
-                                        @click="Compare(selectWorkers[0].workerid,selectWorkers[1].workerid)">比较</button>
+                                        @click="Compare(selectWorkers[0].workerid,selectWorkers[1].workerid)">进行比较</button>
                                     <div class="row">
                                         <div class="col-md-12 col-md-offset-0">
                                             <form class="form-inline">
@@ -853,7 +856,7 @@
                                                     <td class="center">
                                                         <button
                                                             @click="selectToCompare(workerItem.id, workerItem.name,index)"
-                                                            class="btn btn-danger" id='selectBtn'
+                                                            class="btn btn-primary" id='selectBtn'
                                                             v-if="isSelect[index]">选择比较</button>
                                                         <button class="btn" id='selectBtn' disabled="disabled"
                                                             v-else>已选择</button>
