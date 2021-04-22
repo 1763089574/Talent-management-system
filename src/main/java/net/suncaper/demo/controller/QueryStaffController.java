@@ -4,6 +4,8 @@ import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import net.suncaper.demo.common.domain.*;
 import net.suncaper.demo.common.domain.extend.WorkerDetail;
 import net.suncaper.demo.common.util.DateTime;
+import net.suncaper.demo.common.util.RedisUtils;
+import net.suncaper.demo.common.util.RedisUtilsObject;
 import net.suncaper.demo.service.CompanyService;
 import net.suncaper.demo.service.DossierService;
 import net.suncaper.demo.service.EmployService;
@@ -30,6 +32,11 @@ public class QueryStaffController {
     public EmployService employService;
     @Autowired
     public DossierService dossierService;
+    @Autowired
+    public RedisUtils redisUtils;
+    @Autowired
+    public RedisUtilsObject redisUtilsObject;
+
     @RequestMapping("GetAllWorkers")
     public List<Worker> GetAllWorkerByCompanyId(HttpServletRequest request){
         String CompanyId=request.getParameter("CompanyId");
@@ -38,13 +45,26 @@ public class QueryStaffController {
         //List<Worker> workers=companyService.findAll();
         System.out.println(workers);
         return workers;
+
     }
     @RequestMapping("GetWorkerById")
     public Worker GetWorkerById(HttpServletRequest request){
-        String tmpid=request.getParameter("worker_id");
+        /*String tmpid=request.getParameter("worker_id");
         Integer id=Integer.valueOf(tmpid);
         Worker worker=workerService.getWorkerByID(id);
 
+        return worker;*/
+
+        //以上是没使用redis，以下用了redis
+
+        String tmpid=request.getParameter("worker_id");
+        Integer id=Integer.valueOf(tmpid);
+        Worker worker=(Worker)redisUtilsObject.get("worker:Id:Id"+tmpid);//先查缓存，如果缓存没有，再查数据库
+        if(worker==null){//如果缓存中没有
+            System.out.println("null");
+            worker=workerService.getWorkerByID(id);//从数据库查
+            redisUtilsObject.expire("worker:Id:Id"+tmpid,worker,100);//查出来后，设置到缓存中，设置一个过期时间100秒
+        }
         return worker;
     }
 

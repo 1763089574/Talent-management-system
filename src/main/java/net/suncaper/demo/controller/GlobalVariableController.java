@@ -65,7 +65,9 @@ public class GlobalVariableController {//全局变量控制器，需要什么就
             /*else {
                 response.sendRedirect("/EnterToCompany");
             }*/
+
         }
+
 
         return workerID;
     }
