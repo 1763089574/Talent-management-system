@@ -72,4 +72,9 @@ public class RouterController {
     public String EnterToCompanyCertification(){
         return "CompanyCertification";
     }
+    @RequestMapping("/EnterToMission")
+    public String EnterToMission(){
+        return "Mission";
+    }
+
 }
